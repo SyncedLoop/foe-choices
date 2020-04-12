@@ -120,7 +120,6 @@ namespace ConsoleApp2
 
             RefreshTexts();
 
-            string Name;
             int PassInstanceID = 0;
             int CurrentWeaponID = 0;
             int PassAnswerID = 0;
@@ -130,13 +129,13 @@ namespace ConsoleApp2
             // SoundPlayer.SoundLocation = Environment.CurrentDirectory + "\\file-name.wav";
             // SoundPlayer.Load();
             Console.SetWindowSize(160, 40);
-            Console.WriteLine("\t               ----------------------------------\n\r" +
-                "\t            -------______________________-----------\n\r" +
-                "\t         ----------\\	 		 \\-------------\n\r" +
-                "\t      --------------\\  Fallout Equestria  \\---------------\n\r" +
-                "\t      ---------------\\	     Choices	   \\--------------\n\r" +
-                "\t         -------------\\_____________________\\----------\n\r" +
-                "\t            -----------		      	     -------\n\r" +
+            Console.WriteLine("\t               ----------------------------------\n" +
+                "\t            -------______________________-----------\n" +
+                "\t         ----------\\	 		 \\-------------\n" +
+                "\t      --------------\\  Fallout Equestria  \\---------------\n" +
+                "\t      ---------------\\	     Choices	   \\--------------\n" +
+                "\t         -------------\\_____________________\\----------\n" +
+                "\t            -----------		      	     -------\n" +
                 "\t               ----------------------------------");
 
             Console.WriteLine("\tDone.");
@@ -146,48 +145,42 @@ namespace ConsoleApp2
             Console.WriteLine("\tPress Enter to start.");
             while (Console.ReadKey(true).Key != ConsoleKey.Enter) { }
             Console.Clear();
-            Console.WriteLine("\tPlease type the name you want your character to be referred as in the game:");
 
-            Console.Write("\t");
-            Name = Console.ReadLine();
-            Console.Clear();
-
-            Console.WriteLine("\tOnce upon a time, in the magical land of Equestria... A war broke out against the Zebra Empire, \n\r" +
-                "\tas a consequence to multiple trade sanctions involving natural resources. While the Equestrian Nation had a monopoly \n\r" +
-                "\ton magical gemstones, the Zebra Empire had a monopoly on coal, which was needed to keep the Equestrian Nation running. \n\r" +
-                "\tBecause of the war, Equestria was forced into an industrial revolution, as an attempt to outdo the Zebra Empire in wartime technology. \n\r" +
-                "\tPart of this was Stable-Tec, a corporation specialized in arcane science. One of their most known creations were the Stables. \n\r" +
-                "\tThey were large fallout shelters, built all around Equestria in case of a megaspell holocaust. Your ancestors were selected \n\r" +
-                "\tto become inhabitants of Stable 54. Unfortunately, not all Stables were built just for protection. \n\r" +
-                "\tAs neither side was able to make the other side surrender, the bombs eventually fell and engulfed the earth in fire and radiation, \n\r" +
-                "\tsweeping it almost clean of life. \n\r" +
-                "\n\r" +
-                "\tStable 54 has now been functioning for nearly 200 years. You have been born and raised in the Stable. This is where your story starts.");
+            Console.WriteLine("\tOnce upon a time, in the magical land of Equestria... A war broke out against the Zebra Empire, \n" +
+                "\tas a consequence to multiple trade sanctions involving natural resources. While the Equestrian Nation had a monopoly \n" +
+                "\ton magical gemstones, the Zebra Empire had a monopoly on coal, which was needed to keep the Equestrian Nation running. \n" +
+                "\tBecause of the war, Equestria was forced into an industrial revolution, as an attempt to outdo the Zebra Empire in wartime technology. \n" +
+                "\tPart of this was Stable-Tec, a corporation specialized in arcane science. One of their most known creations were the Stables. \n" +
+                "\tThey were large fallout shelters, built all around Equestria in case of a megaspell holocaust. Your ancestors were selected \n" +
+                "\tto become inhabitants of Stable 54. \n" +
+                "\tAs neither side was able to make the other side surrender, the bombs eventually fell and engulfed the earth in fire and radiation, \n" +
+                "\tsweeping it almost clean of life. \n" +
+                "\n" +
+                "\tYou are a unicorn mare named Silver Shift. You have been born and raised in Stable 54, which has now been functioning for nearly 200 years.\n" +
+                "\tThis is where your story starts.");
 
             while (Console.ReadKey(true).Key != ConsoleKey.Enter) { }
             Console.WriteLine();
-            Console.WriteLine("\tYou wake up in your bed. You get up, and notice that your chest still hurts from yesterday's fight.\n\r" +
-                "\tYou brush your mane, put on your Stable suit, and head to the cafeteria to get some breakfast.\n\r" +
-                "\tOn your way there you run into Light Harmony, a young unicorn filly with white coat and dark blue mane.\n\r" +
+            Console.WriteLine("\tYou wake up in your bed. You get up, and notice that your chest still hurts from yesterday's fight.\n" +
+                "\tYou brush your mane, put on your Stable suit, and head to the cafeteria to get some breakfast.\n" +
+                "\tOn your way there you run into Light Harmony, a young unicorn filly with white coat and dark blue mane.\n" +
                 "\tAs she notices you, she tenses up, and looks a bit worried.");
             while (Console.ReadKey(true).Key != ConsoleKey.Enter) { }
             Console.WriteLine();
-            Console.WriteLine("\t\"Oh, hey there " + Name + "... Uhh, I was just about to leave...\" says the filly.");
+            Console.WriteLine("\t\"Oh, hey there Silver... Uhh, I was just about to leave...\" says the filly.");
             while (Console.ReadKey(true).Key != ConsoleKey.Enter) { }
 
             while (GameState == 0) {
 
-                PassAnswerID = GetAnswers(PassInstanceID, Name, CurrentWeaponID);
+                PassAnswerID = GetAnswers(PassInstanceID, CurrentWeaponID);
 
-                PassInstanceID = GetInstance(PassAnswerID, Name, CurrentWeaponID);
+                PassInstanceID = GetInstance(PassAnswerID, CurrentWeaponID);
 
             }
 
         }
 
-        public static dynamic GetAnswers(int PassInstanceID, string Name, int WeaponID) {
-
-            string PlayerName = Name;
+        public static dynamic GetAnswers(int PassInstanceID, int WeaponID) {
 
             int PassedInstance = PassInstanceID;
 
@@ -240,8 +233,8 @@ namespace ConsoleApp2
             }
             else
             {
-                Console.WriteLine("Unacceptable answer. Please type a number that is a valid answer.");
-                return GetAnswers(PassInstanceID, PlayerName, CurrentWeaponID);
+                Console.WriteLine("\tUnacceptable answer. Please type a number that is a valid answer.");
+                return GetAnswers(PassInstanceID, CurrentWeaponID);
             }
 
             var QueryAnswerID =
@@ -277,8 +270,8 @@ namespace ConsoleApp2
             // check if the foreach was skipped
             if (AnsWithinLimits == false)
             {
-                Console.WriteLine("Unacceptable answer. Please type a number that is a valid answer.");
-                return GetAnswers(PassInstanceID, PlayerName, CurrentWeaponID);
+                Console.WriteLine("\tUnacceptable answer. Please type a number that is a valid answer.");
+                return GetAnswers(PassInstanceID, CurrentWeaponID);
             }
             else
             {
@@ -338,12 +331,11 @@ namespace ConsoleApp2
 
         }
 
-        public static dynamic GetInstance(int PassAnswerID, string Name, int WeaponID) {
+        public static dynamic GetInstance(int PassAnswerID, int WeaponID) {
 
             int CurrentWeaponID = WeaponID;
             string CurrentWeaponName = WeaponName(CurrentWeaponID, 0);
 
-            string PlayerName = Name;
             int PassInstanceID = 0;
             int WeaponDamage;
             int ArmorClass;
@@ -392,12 +384,12 @@ namespace ConsoleApp2
                             if (WeaponDamage >= instance.DamageCheck) // does enough damage
                             {
                                 Answered = instance.AnswerID + 2;
-                                GetInstance(Answered, PlayerName, CurrentWeaponID);
+                                GetInstance(Answered, CurrentWeaponID);
                             }
                             else if (WeaponDamage < instance.DamageCheck) // does not do enough damage
                             {
                                 Answered = instance.AnswerID + 1;
-                                GetInstance(Answered, PlayerName, CurrentWeaponID);
+                                GetInstance(Answered, CurrentWeaponID);
                             }
                         }
                         if (instance.SpecialFunction.Contains(5)) // MAKE THIS DYNAMICALLY IF POSSIBLE!!!
@@ -421,12 +413,12 @@ namespace ConsoleApp2
                             if (ArmorClass >= instance.ArmorCheck) // armor protects
                             {
                                 Answered = instance.AnswerID + 2;
-                                GetInstance(Answered, PlayerName, CurrentWeaponID);
+                                GetInstance(Answered, CurrentWeaponID);
                             }
                             else if (ArmorClass < instance.ArmorCheck) // armor does not protect
                             {
                                 Answered = instance.AnswerID + 1;
-                                GetInstance(Answered, PlayerName, CurrentWeaponID);
+                                GetInstance(Answered, CurrentWeaponID);
                             }
                         }
 
@@ -1102,12 +1094,12 @@ namespace ConsoleApp2
             {
                 Text = ") None of your business.",
                 UserInput = 2,
-                ID = 43,
+                ID = 46,
                 InstanceID = 24
             });
             AnswersList.Add(new Answer
             {
-                Text = ") No, not other ponies... I just... don't care about the vote. It happens only once a year, and nothing bad has\n\r" +
+                Text = ") No, not other ponies... I just... don't care about the vote. It happens only once a year, and nothing bad has\n" +
                 "ever happened because of the vote.",
                 UserInput = 1,
                 ID = 44,
@@ -1115,7 +1107,7 @@ namespace ConsoleApp2
             });
             AnswersList.Add(new Answer
             {
-                Text = ") You think I'M the indifferent one here? What about the Overmare? Why do you think she hasn't made any objections\n\r" +
+                Text = ") You think I'm the indifferent one here? What about the Overmare? Why do you think she hasn't made any objections\n" +
                 "against the vote? Seems like as long as she can't be voted out, everything's just fine.",
                 UserInput = 2,
                 ID = 45,
@@ -1139,14 +1131,14 @@ namespace ConsoleApp2
             {
                 Text = ") The less there are annoying ponies, the better the Stable will be, right?",
                 UserInput = 2,
-                ID = 48,
+                ID = 30,
                 InstanceID = 26
             });
             AnswersList.Add(new Answer
             {
                 Text = ") Hm, fair points.",
                 UserInput = 1,
-                ID = 49,
+                ID = 27,
                 InstanceID = 27
             });
             AnswersList.Add(new Answer
@@ -1160,78 +1152,199 @@ namespace ConsoleApp2
             {
                 Text = ") I don't care. If you think I'm going to go against the Overmare, you're out of your mind.",
                 UserInput = 1,
-                ID = 51,
+                ID = 46,
                 InstanceID = 28
             });
             AnswersList.Add(new Answer
             {
-                Text = ") I see where you're coming from, but... Don't you think a rebellion is a bit overkill?",
+                Text = ") Hm, I guess you're right. Tell you what, if you can get more ponies in, and come up with a decent plan, I'll join you.\n" +
+                "\tBut right now I want to eat, let's talk about this some other time.",
                 UserInput = 2,
-                ID = 52,
+                ID = 49,
                 InstanceID = 28
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Hm, I guess you're right.",
-                UserInput = 3,
-                ID = 53,
-                InstanceID = 28
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = ") Wait, you're actually thinking about a rebellion? Count me in!",
+                Text = ") Count me in. But right now I want to eat, let's talk about this more some other time.",
                 UserInput = 1,
-                ID = 54,
+                ID = 49,
                 InstanceID = 29,
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Wait, you're actually thinking about a rebellion? I want nothing to do with it.",
+                Text = ") Sounds good in theory, but what if the rebellion fails? The consequences might be really bad.",
                 UserInput = 2,
-                ID = 55,
-                InstanceID = 29
+                ID = 52,
+                InstanceID = 29,
             });
-
+            AnswersList.Add(new Answer
+            {
+                Text = ") Yeah, I also want to get rid of the vote. And I guess this is the only way we can make it happen.",
+                UserInput = 1,
+                ID = 39,
+                InstanceID = 30,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = ") But right now I want to eat, can't plan anything with an empty stomach.",
+                UserInput = 1,
+                ID = 49,
+                InstanceID = 31,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = ") Alright, I'll think about it.",
+                UserInput = 1,
+                ID = 49,
+                InstanceID = 32,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = ") I'll join. But let's talk about it more some other time, I want to eat now.",
+                UserInput = 2,
+                ID = 49,
+                InstanceID = 32,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = ") Alright, I'll think about it.",
+                UserInput = 1,
+                ID = 49,
+                InstanceID = 33,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = ") Okay, I'm with you. But this needs to be planned well. Let's talk about it more later.",
+                UserInput = 2,
+                ID = 49,
+                InstanceID = 33,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = ") Yeah, I guess you're right. Sorry, I never really thinked about the voting since it has never affected me.",
+                UserInput = 1,
+                ID = 43,
+                InstanceID = 34,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = ") Whatever.",
+                UserInput = 2,
+                ID = 46,
+                InstanceID = 34,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = ") Or maybe she just wants to make us miserable.",
+                UserInput = 1,
+                ID = 53,
+                InstanceID = 35,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = ") Hm, might be.",
+                UserInput = 2,
+                ID = 32,
+                InstanceID = 35,
+            });
 
 
             // ------------------------------------------------------- INSTANCE LIST -------------------------------------------------------
             InstanceList.Add(new Instance
             {
-                Text = "Neither of you say a word to each other. Ardent finishes breakfast before you, and leaves to work in the maintenance office. \n\r " +
-                "Once you finish, you notice that you still have ",
+                Text = "\"Sure thing.\" says the stallion. You and Ardent chat for a while about some lighter things. Ardent finishes eating before you,\n" +
+                "\tand leaves to work in the maintenance toffice. Once you finish, you notice that you still have about an hour before your work starts.\n" +
+                "\tYou are the Stable's network specialist and software developer. Your job is to make sure the Stable's network is running fine,\n" +
+                "\tand to fix any software related problems with terminals. A lot of work for one pony, since barely anypony is interested about\n" +
+                "\tthat kind of stuff in the Stable. But that doesn't bother you, because you enjoy your job.",
                 ID = 37,
+                AnswerID = 49,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"You really seem to have something against the Overmare. Which might be good. Listen, I've been thinking about a rebellion.\n" +
+                "\tI thought you might want to join, so we could get rid of the vote.\" says the stallion in a low voice.",
+                ID = 23,
+                AnswerID = 53,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"I was a bit worried about what you might think. Glad you think the same way I do.\" says the stallion in a relieved tone.\n",
+                ID = 39,
+                AnswerID = 52,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Of course. But it needs to be planned well. And we need more ponies to join it. I don't even want to think about what happens if\n" +
+                "\tthe rebellion fails.\" you say, remembering some stories about past rebellions.\n",
+                ID = 39,
+                AnswerID = 52,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Don't worry, I've got this. I know ponies who are willing to join. But hey, let's talk about it more some other time, I want to\n" +
+                "\teat right now.\" reassures the stallion, taking a bite of his sandwich.\n",
+                ID = 39,
+                AnswerID = 52,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "You and Ardent chat for a while about some lighter things. Ardent finishes eating before you, and leaves to work in the maintenance\n" +
+                "\toffice. Once you finish, you notice that you still have about an hour before your work starts. You are the Stable's network specialist\n" +
+                "\tand software developer. Your job is to make sure the Stable's network is running fine, and to fix any software related problems with\n" +
+                "\tterminals. A lot of work for one pony, since barely anypony is interested about that kind of stuff in the Stable. But that doesn't bother\n" +
+                "\tyou, because you enjoy your job.",
+                ID = 39,
+                AnswerID = 52,
+            });
+            /*InstanceList.Add(new Instance
+            {
+                Text = "\"How else are we going to put an end to this? This is the only way, and you know it.\" says the stallion.",
+                ID = 38,
+                AnswerID = 51,
+            });*/
+            InstanceList.Add(new Instance
+            {
+                Text = "\"That's besides the point. Where I *was* going with this, is that I think we should attempt a new rebellion against the vote.\n" +
+                "\tsays the stallion in a low voice.",
+                ID = 23,
+                AnswerID = 50,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Well in that case you might wanna hear about what I've been planning. I think we should attempt a new rebellion. Would you be willing" +
+                "\tto join it?\" asks the stallion in a low voice.",
+                ID = 23,
+                AnswerID = 47,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "He looks at you for a while in disbelief, huffs, and continues to eat his breakfast.",
+                ID = 36,
                 AnswerID = 46,
             });
             InstanceList.Add(new Instance
             {
-                Text = "[He looks at you for a while in disbelief, huffs, and continues to eat his breakfast]",
-                ID = 37,
+                Text = "Neither of you say a word to each other. Ardent finishes breakfast before you, and leaves to work in the maintenance office. \n " +
+                "\tOnce you finish, you notice that you still have about an hour before your work starts. You are the Stable's network specialist\n" +
+                "\tand software developer. Your job is to make sure the Stable's network is running fine, and to fix any software related problems with\n" +
+                "\tterminals. A lot of work for one pony, since barely anypony is interested about that kind of stuff in the Stable. But that doesn't bother\n" +
+                "\tyou, because you enjoy your job.",
+                ID = 36,
                 AnswerID = 46,
             });
             InstanceList.Add(new Instance
             {
                 Text = "\"Maybe because she's afraid of what Stable-Tec might do?\" says the stallion.",
-                ID = 36,
+                ID = 35,
                 AnswerID = 45,
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"Nothing bad? Are you crazy? Ponies have lost loved ones because of it, and it has caused countless fights and other shitstorms!\"" +
-                "says the stallion, getting slightly frustrated.",
-                ID = 35,
+                Text = "\"Nothing bad? Are you crazy? Ponies have lost loved ones because of it, and it has caused countless fights and other shitstorms!\"\n" +
+                "\tsays the stallion, getting slightly frustrated.",
+                ID = 34,
                 AnswerID = 44,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"Is that so? Well suit yourself then.\" says the stallion, a bit hurt.",
-                ID = 34,
-                AnswerID = 43,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "You eat the rest of your breakfast without saying a word to each other.",
-                ID = 34,
-                AnswerID = 43,
             });
             InstanceList.Add(new Instance
             {
@@ -1257,6 +1370,20 @@ namespace ConsoleApp2
                 ID = 30,
                 AnswerID = 38,
             });
+            /*InstanceList.Add(new Instance 
+            {
+                Text = "\"Yeah, I think it's about time we do something about this. I've been planning this for some time now, \n" +
+                "\tand if it means we - and everyone else - have a chance to live without the fear of getting cast out of the Stable...\n" +
+                "\tI'm ready to take take the risk.\" says the stallion.",
+                ID = 29,
+                AnswerID = 37,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Wait, you're actually thinking about a rebellion?\" you ask, not sure if Ardent is being serious.",
+                ID = 29,
+                AnswerID = 37,
+            });*/
             InstanceList.Add(new Instance
             {
                 Text = "\"Well, that might be what's gonna happen if the Overmare doesn't comply.\" says the stallion.",
@@ -1271,30 +1398,30 @@ namespace ConsoleApp2
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"What, should we just wait and see what happens when everypony realizes they don't want to kick anypony out? Things are gonna" +
-                "get a lot messier then.\" says the stallion.",
+                Text = "\"What, should we just wait and see what happens when everypony realizes they don't want to kick anypony out? Things are gonna\n" +
+                "\tget a lot messier then.\" says the stallion.",
                 ID = 28,
                 AnswerID = 35,
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"I'm... just gonna assume that was a joke. Anyway, my point was, I think we should attempt a new rebellion.\"\n\r" +
-                "says the stallion with a low voice.",
+                Text = "\"I'm... just gonna assume that was a joke. Anyway, my point was, I think we should attempt a new rebellion.\"\n" +
+                "\tsays the stallion with a low voice.",
                 ID = 23,
                 AnswerID = 34,
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"Ugh, sometimes I just don't understand you... Sure, the voting sucks and these hallways are pretty small, but at least we have\n\r" +
-                "food, water and a place to sleep. Who knows what lies on the other side of the Stable's door. For all we know, we might be the last \n\r" +
-                "of our species!\" says the stallion with a hint of anger in his voice.",
+                Text = "\"Ugh, sometimes I just don't understand you... Sure, the voting sucks and these hallways are pretty small, but at least we have\n" +
+                "\tfood, water and a place to sleep. Who knows what lies on the other side of the Stable's door. For all we know, we might be the last \n" +
+                "\tof our species!\" says the stallion with a hint of anger in his voice.",
                 ID = 27,
                 AnswerID = 33,
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"That's what I thought. Anyway, my point was, because I think there's a fair number of ponies now who don't want the vote,\n\r" +
-                "we should attempt a new rebellion.\" says the stallion in a low voice.",
+                Text = "\"That's what I thought. Anyway, my point was, because I think there's a fair number of ponies now who don't want the vote,\n" +
+                "\twe should attempt a new rebellion.\" says the stallion in a low voice.",
                 ID = 23,
                 AnswerID = 32,
             });
@@ -1330,22 +1457,22 @@ namespace ConsoleApp2
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"Who do you think is getting kicked out next year? Is there anypony else than Astral you think is dangerous or annoying?\"\n\r" +
-                "asks the stallion.",
+                Text = "\"Who do you think is getting kicked out next year? Is there anypony else than Astral you think is dangerous or annoying?\"\n" +
+                "\tasks the stallion.",
                 ID = 17,
                 AnswerID = 26,
             });
             InstanceList.Add(new Instance
             {
-                Text = "[he sighs] \"I just find this whole voting useless. Who do you think is going to get kicked next year? Is there anypony else than\n\r" +
-                "Astral you think is dangerous or annoying?\" asks the stallion.",
+                Text = "[he sighs] \"I just find this whole voting useless. Who do you think is going to get kicked next year? Is there anypony else than\n" +
+                "\tAstral you think is dangerous or annoying?\" asks the stallion.",
                 ID = 17,
                 AnswerID = 25,
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"Don't you think it's a bit harsh to kick somepony out of here just because others think they're annoying? Who knows what lies on\n\r" +
-                "the other side of the Stable's door.\" says the stallion.",
+                Text = "\"Don't you think it's a bit harsh to kick somepony out of here just because others think they're annoying? Who knows what\n" +
+                "\tlies on the other side of the Stable's door.\" says the stallion.",
                 ID = 22,
                 AnswerID = 24,
             });
@@ -1381,38 +1508,38 @@ namespace ConsoleApp2
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"That's just it. All the ponies from that rebellion from 12 years ago have been kicked out already. What will happen in next \n\r" +
-                "year's voting? Is there anypony else than Astral who you think is annoying or dangerous?\" asks the stallion in a pressing voice.",
+                Text = "\"That's just it. All the ponies from that rebellion from 12 years ago have been kicked out already. What will happen in next \n" +
+                "\tyear's voting? Is there anypony else than Astral who you think is annoying or dangerous?\" asks the stallion in a pressing voice.",
                 ID = 16,
                 AnswerID = 18,
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"Heh, I guess not. But jokes aside... I've been thinking about The Pariah Vote.\" Ardent says.",
+                Text = "\"Heh, I guess not. But jokes aside... I've been thinking about The Pariah Vote.\" Ardent says.\n",
                 ID = 13,
                 AnswerID = 40,
             });
             InstanceList.Add(new Instance
             {
-                Text = "The Pariah Vote. It's an event that happens once per year. The whole Stable gathers together and everypony gets to vote for the \n\r" +
-                "pony who they think is the most dangerous for the wellbeing of the Stable. The pony who gets the most votes will then be kicked out \n\r" +
-                "of the Stable. You never put much thought into this, as you have always just voted for the pony who you thought was the most annoying \n\r" +
-                "at the time. You have also been lucky enough to not lose any close relatives because of the vote.",
+                Text = "The Pariah Vote. It's an event that happens once per year. The whole Stable gathers together and everypony gets to vote for the \n" +
+                "\tpony who they think is the most dangerous for the wellbeing of the Stable. The pony who gets the most votes will then be kicked out \n" +
+                "\tof the Stable. You never put much thought into this, as you have always just voted for the pony who you thought was the most annoying \n" +
+                "\tat the time. You have also been lucky enough to not lose any close relatives because of the vote.",
                 ID = 13,
                 AnswerID = 40,
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"Well, it's just that The Pariah Vote is just around the corner.\" says the stallion.",
+                Text = "\"Well, it's just that The Pariah Vote is just around the corner.\" says the stallion.\n",
                 ID = 13,
                 AnswerID = 17,
             });
             InstanceList.Add(new Instance
             {
-                Text = "The Pariah Vote. It's an event that happens once per year. The whole Stable gathers together and everypony gets to vote for the \n\r" +
-                "pony who they think is the most dangerous for the wellbeing of the Stable. The pony who gets the most votes will then be kicked out \n\r" +
-                "of the Stable. You never put much thought into this, as you have always just voted for the pony who you thought was the most annoying \n\r" +
-                "at the time. You have also been lucky enough to not lose any close relatives because of the vote.",
+                Text = "The Pariah Vote. It's an event that happens once per year. The whole Stable gathers together and everypony gets to vote for the \n" +
+                "\tpony who they think is the most dangerous for the wellbeing of the Stable. The pony who gets the most votes will then be kicked out \n" +
+                "\tof the Stable. You never put much thought into this, as you have always just voted for the pony who you thought was the most annoying \n" +
+                "\tat the time. You have also been lucky enough to not lose any close relatives because of the vote.",
                 ID = 13,
                 AnswerID = 17,
             });
@@ -1430,16 +1557,16 @@ namespace ConsoleApp2
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"Oh, sorry. It's just that the voting for the next Pariah is just around the corner.\" says the stallion.\n\r",
+                Text = "\"Oh, sorry. It's just that the voting for the next Pariah is just around the corner.\" says the stallion.\n",
                 ID = 13,
                 AnswerID = 14,
             });
             InstanceList.Add(new Instance
             {
-                Text = "The Pariah Vote. It's an event that happens once per year. The whole Stable gathers together and everypony gets to vote for the \n\r" +
-                "pony who they think is the most dangerous for the wellbeing of the Stable. The pony who gets the most votes will then be kicked out \n\r" +
-                "of the Stable. You never put much thought into this, as you have always just voted for the pony who you thought was the most annoying \n\r" +
-                "at the time. You have also been lucky enough to not lose any close relatives because of the vote.",
+                Text = "The Pariah Vote. It's an event that happens once per year. The whole Stable gathers together and everypony gets to vote for the \n" +
+                "\tpony who they think is the most dangerous for the wellbeing of the Stable. The pony who gets the most votes will then be kicked out \n" +
+                "\tof the Stable. You never put much thought into this, as you have always just voted for the pony who you thought was the most annoying \n" +
+                "\tat the time. You have also been lucky enough to not lose any close relatives because of the vote.",
                 ID = 13,
                 AnswerID = 14,
             });
@@ -1485,9 +1612,9 @@ namespace ConsoleApp2
             });
             InstanceList.Add(new Instance
             {
-                Text = "You make your way to the cafeteria. Once you get there, you spot your friend's, Ardent's, light gray coat and bright red mane \n\r" +
-                "from the crowd. You take a sandwich and some water from the counter, and go sit next to Ardent. You notice that he has \n\r" +
-                "a worried expression on his face.",
+                Text = "You make your way to the cafeteria. Once you get there, you spot your friend's, Ardent's, light gray coat and bright red mane \n" +
+                "\tfrom the crowd. You take a sandwich and some water from the counter, and go sit next to Ardent. You notice that he has \n" +
+                "\ta worried expression on his face.",
                 ID = 7,
                 AnswerID = 6,
             });
@@ -1539,40 +1666,40 @@ namespace ConsoleApp2
 
         public static void GetMap() {
 
-            Console.WriteLine("	  \\__					    ^ Crystal Mountains   	    				       '-._ \n\r" +
-                "	     '-_							    		    			           \\\n\r" +
-                "      		\\							    	    				       ____/\n\r" +
-                "  North		 \\						    	    			              /\n\r" +
-                "    Luna     /-. |  * Vanhoover		    	    						       ___    |\n\r" +
-                "      Ocean  | | |    					    	    		       Manehattan *   /   \\___/\n\r" +
-                "             |/  |					    		        	         .---'  .__  \n\r" +
-                "		 /							    	                 |      \\_ \\\n\r" +
-                "	 _______/						    		    	         \\__	  ''\n\r" +
-                "--._____/							    		    	            ''--___\n\r" +
-                "						Canterlot *		    	    		            \\\n\r" +
-                "									    Fillydelphia *     	            |\n\r" +
-                "					    Ponyville *	    			        	       	_--''\n\r" +
-                "						           # Everfree Forest           	               |\n\r" +
-                "						  		            			    	\\\n\r" +
-                "								       	    	        Baltimare * 	 ''--_\n\r" +
-                "	              _____					        				    __    \\\n\r" +
-                "		     /     \\									    _-''  '''\\_\\	Celestial\n\r" +
-                "		 __-'       \\ * Las Pegasus				* ###########		   |		             Sea\n\r" +
-                "       --.___---'            \\_				 * Appleloosa	  N3W APPL3L00SA	    \\_\n\r" +
-                "\\     /                        '-.								      '-.___\n\r" +
-                " \\___/				  |									    __ /\n\r" +
-                "				 /			^ Macintosh Hills				    \\ \\| \n\r" +
-                "		      .-'\\	/									    | \n\r" +
-                "		      |   \\    /									    \\_\n\r" +
-                "		     /     \\__/										  '-.\n\r" +
-                "		    /											        |\n\r" +
-                "		    \\											        |\n\r" +
-                "     South	     \\_											        |_\n\r" +
-                "	Luna	       '-.__											      \\\n\r" +
-                "	   Ocean	    \\											       \\\n\r" +
-                "			     \\___										        \\\n\r" +
-                "	   	 		 '''--._									         |\n\r" +
-                "	      				\\									         |\n\r");
+            Console.WriteLine("	  \\__					    ^ Crystal Mountains   	    				       '-._ \n" +
+                "	     '-_							    		    			           \\\n" +
+                "      		\\							    	    				       ____/\n" +
+                "  North		 \\						    	    			              /\n" +
+                "    Luna     /-. |  * Vanhoover		    	    						       ___    |\n" +
+                "      Ocean  | | |    					    	    		       Manehattan *   /   \\___/\n" +
+                "             |/  |					    		        	         .---'  .__  \n" +
+                "		 /							    	                 |      \\_ \\\n" +
+                "	 _______/						    		    	         \\__	  ''\n" +
+                "--._____/							    		    	            ''--___\n" +
+                "						Canterlot *		    	    		            \\\n" +
+                "									    Fillydelphia *     	            |\n" +
+                "					    Ponyville *	    			        	       	_--''\n" +
+                "						           # Everfree Forest           	               |\n" +
+                "						  		            			    	\\\n" +
+                "								       	    	        Baltimare * 	 ''--_\n" +
+                "	              _____					        				    __    \\\n" +
+                "		     /     \\									    _-''  '''\\_\\	Celestial\n" +
+                "		 __-'       \\ * Las Pegasus				* ###########		   |		             Sea\n" +
+                "       --.___---'            \\_				 * Appleloosa	  N3W APPL3L00SA	    \\_\n" +
+                "\\     /                        '-.								      '-.___\n" +
+                " \\___/				  |									    __ /\n" +
+                "				 /			^ Macintosh Hills				    \\ \\| \n" +
+                "		      .-'\\	/									    | \n" +
+                "		      |   \\    /									    \\_\n" +
+                "		     /     \\__/										  '-.\n" +
+                "		    /											        |\n" +
+                "		    \\											        |\n" +
+                "     South	     \\_											        |_\n" +
+                "	Luna	       '-.__											      \\\n" +
+                "	   Ocean	    \\											       \\\n" +
+                "			     \\___										        \\\n" +
+                "	   	 		 '''--._									         |\n" +
+                "	      				\\									         |\n");
 
             while (Console.ReadKey(true).Key != ConsoleKey.Enter) { }
 
