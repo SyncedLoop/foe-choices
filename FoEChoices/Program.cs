@@ -6,14 +6,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 
-namespace ConsoleApp2
+namespace FoEChoices
 {
 
     public class Answer {
 
         public string Text { get; set; }
         public int UserInput { get; set; }
-        public int ID { get; set; }
+        public int ID { get; set; } // id format example: 2110048 chapter(2), quest(11), quest path(0), id(048)
         public int InstanceID { get; set; }
         public bool HasSpecialFunction { get; set; }
         public List<int> SpecialFunction { get; set; } // set to 1 or more to execute additional code. use with the functions below to use their code
@@ -1064,27 +1064,6 @@ namespace ConsoleApp2
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Yeah, I do. But we need to plan this well, I don't want this to turn out like the previous one.",
-                UserInput = 1,
-                ID = 39,
-                InstanceID = 31
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = ") I said *might*. You know this is extremely dangerous for ourselves, AND the Stable, right?",
-                UserInput = 2,
-                ID = 41,
-                InstanceID = 31
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = ") Actually... Gah, I don't know! I'm not used to making decisions this important!",
-                UserInput = 3,
-                ID = 42,
-                InstanceID = 31
-            });
-            AnswersList.Add(new Answer
-            {
                 Text = ") I... *sigh* I don't know. Sorry, I guess I'm just a little tired.",
                 UserInput = 1,
                 ID = 32,
@@ -1174,22 +1153,29 @@ namespace ConsoleApp2
             {
                 Text = ") Sounds good in theory, but what if the rebellion fails? The consequences might be really bad.",
                 UserInput = 2,
-                ID = 52,
+                ID = 41,
                 InstanceID = 29,
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Yeah, I also want to get rid of the vote. And I guess this is the only way we can make it happen.",
+                Text = ") Yeah, I do. But we need to plan this well, I don't want this to turn out like the previous one.",
                 UserInput = 1,
-                ID = 39,
-                InstanceID = 30,
+                ID = 54,
+                InstanceID = 30
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = ") I said *might*. You know this is extremely dangerous for ourselves, AND the Stable, right?",
+                UserInput = 2,
+                ID = 41,
+                InstanceID = 30
             });
             AnswersList.Add(new Answer
             {
                 Text = ") But right now I want to eat, can't plan anything with an empty stomach.",
                 UserInput = 1,
                 ID = 49,
-                InstanceID = 31,
+                InstanceID = 37,
             });
             AnswersList.Add(new Answer
             {
@@ -1237,7 +1223,7 @@ namespace ConsoleApp2
             {
                 Text = ") Or maybe she just wants to make us miserable.",
                 UserInput = 1,
-                ID = 53,
+                ID = 23,
                 InstanceID = 35,
             });
             AnswersList.Add(new Answer
@@ -1247,17 +1233,74 @@ namespace ConsoleApp2
                 ID = 32,
                 InstanceID = 35,
             });
+            AnswersList.Add(new Answer
+            {
+                Text = ") [Go to the laundry]",
+                UserInput = 1,
+                ID = 0010000,
+                InstanceID = 36,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = ") [Go visit your dad]",
+                UserInput = 2,
+                ID = 0011000,
+                InstanceID = 36,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = ") [Go back to your room]",
+                UserInput = 3,
+                ID = 0012000,
+                InstanceID = 36,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = ") [Wave back] Hey Stitch. I have some laundry here.",
+                UserInput = 1,
+                ID = 0010001,
+                InstanceID = 0010000,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = ") Yeah hi. Here's some laundry for you.",
+                UserInput = 2,
+                ID = 0010002,
+                InstanceID = 0010000,
+            });
 
 
             // ------------------------------------------------------- INSTANCE LIST -------------------------------------------------------
             InstanceList.Add(new Instance
             {
+                Text = "You decide to go do your laundry. You go to your room to pick up your dirty clothes. \"Would be nice to get some different color\n" +
+                "\tclothes once in a while...\" you think to yourself as you eye the blue and yellow shirts. You head to the laundry room. The bland smell\n" +
+                "\tof laundry detergent hits your nose as you open the door and step inside.\t",
+                ID = 0010000,
+                AnswerID = 0010000,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Hey there Silver!\" an overly enthusiastic voice comes from the yellow earth pony over the counter. Cross Stitch waves her\n" +
+                "\thoof to you. She's nice, but a bit too outgoing for your taste.",
+                ID = 0010000,
+                AnswerID = 0010000,
+            });
+            InstanceList.Add(new Instance
+            {
                 Text = "\"Sure thing.\" says the stallion. You and Ardent chat for a while about some lighter things. Ardent finishes eating before you,\n" +
-                "\tand leaves to work in the maintenance toffice. Once you finish, you notice that you still have about an hour before your work starts.\n" +
-                "\tYou are the Stable's network specialist and software developer. Your job is to make sure the Stable's network is running fine,\n" +
+                "\tand leaves to work in the maintenance office. Once you finish, you notice that you still have about an hour before your work starts.\n" +
+                "\tYou are the Stable's network specialist and software engineer. Your job is to make sure the Stable's network is running fine,\n" +
                 "\tand to fix any software related problems with terminals. A lot of work for one pony, since barely anypony is interested about\n" +
-                "\tthat kind of stuff in the Stable. But that doesn't bother you, because you enjoy your job.",
-                ID = 37,
+                "\tthat kind of stuff in the Stable. But that doesn't bother you, because you enjoy your job.\n",
+                ID = 36,
+                AnswerID = 49,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Hmm, now would be a good time to go do the laundry. Or maybe I should I go visit my dad and see how he's doing at the armory.\"\n" +
+                "\tyou ponder to yourself.",
+                ID = 36,
                 AnswerID = 49,
             });
             InstanceList.Add(new Instance
@@ -1270,32 +1313,39 @@ namespace ConsoleApp2
             InstanceList.Add(new Instance
             {
                 Text = "\"I was a bit worried about what you might think. Glad you think the same way I do.\" says the stallion in a relieved tone.\n",
-                ID = 39,
-                AnswerID = 52,
+                ID = 36,
+                AnswerID = 39,
             });
             InstanceList.Add(new Instance
             {
                 Text = "\"Of course. But it needs to be planned well. And we need more ponies to join it. I don't even want to think about what happens if\n" +
                 "\tthe rebellion fails.\" you say, remembering some stories about past rebellions.\n",
-                ID = 39,
-                AnswerID = 52,
+                ID = 36,
+                AnswerID = 39,
             });
             InstanceList.Add(new Instance
             {
                 Text = "\"Don't worry, I've got this. I know ponies who are willing to join. But hey, let's talk about it more some other time, I want to\n" +
                 "\teat right now.\" reassures the stallion, taking a bite of his sandwich.\n",
-                ID = 39,
-                AnswerID = 52,
+                ID = 36,
+                AnswerID = 39,
             });
             InstanceList.Add(new Instance
             {
                 Text = "You and Ardent chat for a while about some lighter things. Ardent finishes eating before you, and leaves to work in the maintenance\n" +
                 "\toffice. Once you finish, you notice that you still have about an hour before your work starts. You are the Stable's network specialist\n" +
-                "\tand software developer. Your job is to make sure the Stable's network is running fine, and to fix any software related problems with\n" +
+                "\tand software engineer. Your job is to make sure the Stable's network is running fine, and to fix any software related problems with\n" +
                 "\tterminals. A lot of work for one pony, since barely anypony is interested about that kind of stuff in the Stable. But that doesn't bother\n" +
-                "\tyou, because you enjoy your job.",
-                ID = 39,
-                AnswerID = 52,
+                "\tyou, because you enjoy your job.\n",
+                ID = 36,
+                AnswerID = 39,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Hmm, now would be a good time to go do the laundry. Or maybe I should I go visit my dad and see how he's doing at the armory.\"\n" +
+                "\tyou ponder to yourself.",
+                ID = 36,
+                AnswerID = 39,
             });
             /*InstanceList.Add(new Instance
             {
@@ -1319,7 +1369,7 @@ namespace ConsoleApp2
             });
             InstanceList.Add(new Instance
             {
-                Text = "He looks at you for a while in disbelief, huffs, and continues to eat his breakfast.",
+                Text = "He looks at you for a while in disbelief, huffs, and continues to eat his breakfast.\n",
                 ID = 36,
                 AnswerID = 46,
             });
@@ -1327,9 +1377,16 @@ namespace ConsoleApp2
             {
                 Text = "Neither of you say a word to each other. Ardent finishes breakfast before you, and leaves to work in the maintenance office. \n " +
                 "\tOnce you finish, you notice that you still have about an hour before your work starts. You are the Stable's network specialist\n" +
-                "\tand software developer. Your job is to make sure the Stable's network is running fine, and to fix any software related problems with\n" +
+                "\tand software engineer. Your job is to make sure the Stable's network is running fine, and to fix any software related problems with\n" +
                 "\tterminals. A lot of work for one pony, since barely anypony is interested about that kind of stuff in the Stable. But that doesn't bother\n" +
-                "\tyou, because you enjoy your job.",
+                "\tyou, because you enjoy your job.\n",
+                ID = 36,
+                AnswerID = 46,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Hmm, now would be a good time to go do the laundry. Or maybe I should I go visit my dad and see how he's doing at the armory.\"\n" +
+                "\tyou ponder to yourself.",
                 ID = 36,
                 AnswerID = 46,
             });
@@ -1361,8 +1418,8 @@ namespace ConsoleApp2
             InstanceList.Add(new Instance
             {
                 Text = "\"Of course. We need to convince others to join us, and make sure the Overmare doesn't hear about this.\" says the stallion.",
-                ID = 31,
-                AnswerID = 39,
+                ID = 37,
+                AnswerID = 54,
             });
             InstanceList.Add(new Instance
             {
@@ -1370,23 +1427,24 @@ namespace ConsoleApp2
                 ID = 30,
                 AnswerID = 38,
             });
-            /*InstanceList.Add(new Instance 
+            InstanceList.Add(new Instance
             {
-                Text = "\"Yeah, I think it's about time we do something about this. I've been planning this for some time now, \n" +
-                "\tand if it means we - and everyone else - have a chance to live without the fear of getting cast out of the Stable...\n" +
-                "\tI'm ready to take take the risk.\" says the stallion.",
+                Text = "\"Well, that might be what's gonna happen if the Overmare doesn't comply.\" says the stallion.\n",
                 ID = 29,
                 AnswerID = 37,
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"Wait, you're actually thinking about a rebellion?\" you ask, not sure if Ardent is being serious.",
+                Text = "\"Are you actually thinking about a rebellion? You know that's a really risky move, right?\" you ask, not sure\n" +
+                "\tif Ardent is being serious.\n",
                 ID = 29,
                 AnswerID = 37,
-            });*/
+            });
             InstanceList.Add(new Instance
             {
-                Text = "\"Well, that might be what's gonna happen if the Overmare doesn't comply.\" says the stallion.",
+                Text = "\"Yeah, I think it's about time we do something about this. I've been planning this for some time now, \n" +
+                "\tand if it means we - and everypony else - have a chance to live without the fear of getting cast out of the Stable...\n" +
+                "\tI'm ready to take take the risk.\" says the stallion.",
                 ID = 29,
                 AnswerID = 37,
             });
