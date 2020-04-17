@@ -106,8 +106,9 @@ namespace FoEChoices
             Console.WriteLine("\tLoading...");
 // ------------------------------------------------------- QUEST LIST -------------------------------------------------------
             QuestList.Add(new Quest() { Description = "Have a constructive conversation with Light Harmony", QuestID = 0, Completed = false });
+            QuestList.Add(new Quest() { Description = "Reset Cross Stitch's terminal's password and not lose your cool", QuestID = 1, Completed = false });
 
-// ------------------------------------------------------- SUCCESSFUL QUEST ANSWERS -------------------------------------------------------
+            // ------------------------------------------------------- SUCCESSFUL QUEST ANSWERS -------------------------------------------------------
             SuccessfulQuestAnswer.Add(
                 new SuccessfulAnswer
                 {
@@ -1265,17 +1266,147 @@ namespace FoEChoices
             {
                 Text = ") Yeah hi. Here's some laundry for you.",
                 UserInput = 2,
-                ID = 0010002,
+                ID = 0010001,
                 InstanceID = 0010000,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = ") Again? This is the third time this week.",
+                UserInput = 1,
+                ID = 0010002,
+                InstanceID = 0010001,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = ") Seriously? This again? I don't have time to always be here resetting the password for you.",
+                UserInput = 2,
+                ID = 0010003,
+                InstanceID = 0010001,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = ") Alright, let's go reset it.",
+                UserInput = 1,
+                ID = 0010004,
+                InstanceID = 0010002,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = ") Hmm, not this time. The lockout will end after 24 hours, that should be enough time for you to try and remember the password.",
+                UserInput = 2,
+                ID = 0010005,
+                InstanceID = 0010002,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = ") Seems to work. Try to keep the password in mind this time, would you?",
+                UserInput = 1,
+                ID = 0010006,
+                InstanceID = 0010004,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 6 }),
+                QuestID = 1
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = ") There we go. Same place, same time tomorrow?",
+                UserInput = 2,
+                ID = 0010007,
+                InstanceID = 0010004,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 6 }),
+                QuestID = 1 
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = ") This better be the last time I have to do this.",
+                UserInput = 3,
+                ID = 0010008,
+                InstanceID = 0010004,
             });
 
 
             // ------------------------------------------------------- INSTANCE LIST -------------------------------------------------------
             InstanceList.Add(new Instance
             {
+                Text = "\"B-but I need to-\" she starts saying, but you're already on your way out. \"I have better things to do than be resetting\n" +
+                "\tpasswords all the time.\" you think to yourself.",
+                ID = 0010005,
+                AnswerID = 0010005,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Awesome, thanks!\" she says. You go to the terminal, power it up to the boot options, select the Stable's network, and login\n" +
+                "\tas admin. You then go to the Stable's terminal list, select the laundry's terminal, and select Stitch's user.\n",
+                ID = 0010004,
+                AnswerID = 0010004,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Alright, enter your new password.\" Stitch starts typing. Really. Slowly. Sweet Celestia it's infuriating. You know that the\n" +
+                "\tonly reason you can type so fast is because you spend most of your day on a terminal. Well, being a unicorn helps too. Still, you\n" +
+                "\tcan't but find it annoying.\n",
+                ID = 0010004,
+                AnswerID = 0010004,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"There!\" she chirps. You confirm the change, change the boot option back to normal, and restart the terminal. She then logs in.",
+                ID = 0010004,
+                AnswerID = 0010004,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"I knoooow. But hey, I remembered the password from two days ago, isn't that great?!\" she says.\n",
+                ID = 0010002,
+                AnswerID = 0010002,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "You let out a heavy sigh. \"Is it really that difficult to remember a password without writing it down?\" you ask, not expecting\n" +
+                "\tanything sensible as a response. You believe it's good to teach some basic rules about terminals to the Stable, but sometimes it just\n" +
+                "\tdoesn't seem to be worth the trouble.\n",
+                ID = 0010002,
+                AnswerID = 0010002,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"I'll try really hard this time, I promise!\" she tries to assure you.",
+                ID = 0010002,
+                AnswerID = 0010002,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Sorry... Can you do it just once more? I'll remember it this time. Promise.\" she assures you. For some reason, you don't think\n" +
+                "\tthis is the last time you'll be doing this.",
+                ID = 0010002,
+                AnswerID = 0010003,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Alrighty, you can come pick them up this afternoon!\" she says in a cheery voice. How somepony can be so happy doing laundry and\n" +
+                "\tsewing ripped clothes is beyond you.\n",
+                ID = 0010001,
+                AnswerID = 0010001,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Sure thing, I'll come by here then.\" you say, and start to walk away, but Stitch calls back to you from the counter.\n",
+                ID = 0010001,
+                AnswerID = 0010001,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Hey Silver, just one tiny thing... I think I may have forgotten the password on the laundry's terminal... again. And now it has\n" +
+                "\tlocked me out of it.\" she says while trying to sound as innocent as possible. And failing quite badly at that.",
+                ID = 0010001,
+                AnswerID = 0010001,
+            });
+            InstanceList.Add(new Instance
+            {
                 Text = "You decide to go do your laundry. You go to your room to pick up your dirty clothes. \"Would be nice to get some different color\n" +
                 "\tclothes once in a while...\" you think to yourself as you eye the blue and yellow shirts. You head to the laundry room. The bland smell\n" +
-                "\tof laundry detergent hits your nose as you open the door and step inside.\t",
+                "\tof laundry detergent hits your nose as you open the door and step inside.\n",
                 ID = 0010000,
                 AnswerID = 0010000,
             });
