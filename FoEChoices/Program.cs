@@ -1329,6 +1329,61 @@ namespace FoEChoices
             // ------------------------------------------------------- INSTANCE LIST -------------------------------------------------------
             InstanceList.Add(new Instance
             {
+                Text = "You decide to go visit your dad at the Stable's armory. His job is to keep count of all the supplies in there whenever the\n" +
+                "\tStable's security comes to change their equipment or take them for maintenance. Which happens quite seldom, so he usually doesn't\n" +
+                "\thave much to do in there.\n",
+                ID = 0011000,
+                AnswerID = 0011000,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "You open the door to the armory. The room is large, and there are countless lockers and boxes against the walls of the room.\n" +
+                "\tThere are also a large number of different weapons ranging from pistols to assault rifles on weapon racks and on the walls. Why there\n" +
+                "\tare so many guns in the Stable, you never knew.\n",
+                ID = 0011000,
+                AnswerID = 0011000,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "Your dad comes from around the corner. \"Silver!\" he says as he notices you. \"Hey dad.\" you answer, and give him a hug.",
+                ID = 0011000,
+                AnswerID = 0011000,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Oh, um... Don't worry, this'll be the last time.\" she says in a sorry voice. \"Good.\" you say, and leave the laundry. You\n" +
+                "\tthen head to the IT-department.",
+                ID = 0010008,
+                AnswerID = 0010008,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Pfft! No need, I'll remember it this time. Thanks a lot!\" she says. At the end of the day, helping others is pretty nice\n" +
+                "\teven though it might sometimes feel like a waste of time, you think to yourself.\n",
+                ID = 0010007,
+                AnswerID = 0010007,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"No problem.\" you say, and leave the laundry. You then head to the IT-department.",
+                ID = 0010007,
+                AnswerID = 0010007,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Will do, thanks a ton!\" she beams. At the end of the day, helping others is pretty nice even though it might sometimes feel\n" +
+                "\tlike a waste of time, you think to yourself.\n",
+                ID = 0010006,
+                AnswerID = 0010006,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"No problem.\" you say, and leave the laundry. You then head to the IT-department.",
+                ID = 0010006,
+                AnswerID = 0010006,
+            });
+            InstanceList.Add(new Instance
+            {
                 Text = "\"B-but I need to-\" she starts saying, but you're already on your way out. \"I have better things to do than be resetting\n" +
                 "\tpasswords all the time.\" you think to yourself.",
                 ID = 0010005,
