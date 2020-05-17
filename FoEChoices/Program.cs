@@ -19,7 +19,7 @@ namespace FoEChoices
         public List<int> SpecialFunction { get; set; } // set to 1 or more to execute additional code. use with the functions below to use their code
         public int RepCheck { get; set; } // SpecialFunction: 1. set to the amount of rep points the player needs to have to pass the check.
         public string FactionName { get; set; } // SpecialFunction: 1. set to the faction's name you want to check the rep points. has to be used with RepCheck!
-        public int QuestID { get; set; } // no SpecialFunction required. set to the ID of a quest to mark as completed
+        public int QuestID { get; set; } // SpecialFuntion: 2. set to the ID of a quest to mark as completed
 
     }
 
@@ -45,7 +45,7 @@ namespace FoEChoices
         public int RepPoints { get; set; } // SpecialFunction: 5. set to the amount of rep points to award or take from the player. has to be used with Faction!
         public int NewArmorID { get; set; } // SpecialFunction: 6. set to the corresponding ArmorID of an armor to give to the player.
         public int ArmorCheck { get; set; } // SpecialFunction: 7. set to the ArmorClass the player's armor needs to have to pass the check.
-        public int QuestCheck { get; set; } // no SpecialFunction required. set to the ID of a quest to check if it has been completed.
+        public int QuestCheck { get; set; } // SpecialFunction: 8. set to the ID of a quest to check if it has been completed.
 
     }
 
@@ -107,6 +107,7 @@ namespace FoEChoices
 // ------------------------------------------------------- QUEST LIST -------------------------------------------------------
             QuestList.Add(new Quest() { Description = "Have a constructive conversation with Light Harmony", QuestID = 0, Completed = false });
             QuestList.Add(new Quest() { Description = "Reset Cross Stitch's terminal's password and not lose your cool", QuestID = 1, Completed = false });
+            QuestList.Add(new Quest() { Description = "Inspect the pistol in the Stable's armory", QuestID = 2, Completed = false });
 
             // ------------------------------------------------------- SUCCESSFUL QUEST ANSWERS -------------------------------------------------------
             SuccessfulQuestAnswer.Add(
@@ -203,25 +204,10 @@ namespace FoEChoices
                 where answer.InstanceID == PassInstanceID
                 select answer;
 
-            var QAnswerEnum = SuccessfulQuestAnswer.OfType<SuccessfulAnswer>();
-            var CurrentQAnswers =
-                from qanswer in QAnswerEnum
-                where qanswer.InstanceID == PassInstanceID
-                select qanswer;
             Console.WriteLine();
             foreach (var answer in CurrentAnswers)
             {
-                Console.WriteLine("\t{0}" + "{1}", answer.UserInput, answer.Text);
-
-                // if there's a quest and it has been completed, print out an additional answer
-                if (QuestList[answer.QuestID].Completed == true)
-                {
-                    foreach (var qanswer in CurrentQAnswers)
-                    {
-                        Console.WriteLine("\t{0}" + "{1}", qanswer.UserInput, qanswer.Text);
-                    }
-                }
-                
+                Console.WriteLine("\t{0}) " + "{1}", answer.UserInput, answer.Text);
             }
             Console.Write("\t");
             NonParsedAnswer = Console.ReadLine();
@@ -243,11 +229,6 @@ namespace FoEChoices
                 where answer.UserInput == ParsedAnswer && answer.InstanceID == PassInstanceID
                 select answer;
 
-            var CurrentQAnswersID =
-                from qanswer in QAnswerEnum
-                where qanswer.InstanceID == PassInstanceID
-                select qanswer;
-
             // check if the now parsed answer corresponds with the possible answers given
             foreach (var answer in QueryAnswerID)
             {
@@ -255,16 +236,6 @@ namespace FoEChoices
                 {
                     AcceptedAnswer = ParsedAnswer;
                     AnsWithinLimits = true;
-                }
-            }
-
-            foreach (var qanswer in CurrentQAnswersID)
-            {
-                if (ParsedAnswer == qanswer.UserInput)
-                {
-                    AcceptedAnswer = ParsedAnswer;
-                    AnsWithinLimits = true;
-                    AnsSecondary = true;
                 }
             }
 
@@ -285,11 +256,6 @@ namespace FoEChoices
                 from answer in AnswerEnum
                 where answer.UserInput == ParsedAnswer && answer.InstanceID == PassInstanceID
                 select answer;
-
-            CurrentQAnswersID =
-                from qanswer in QAnswerEnum
-                where qanswer.InstanceID == PassInstanceID
-                select qanswer;
 
             if (AnsSecondary == false)
             {
@@ -316,15 +282,6 @@ namespace FoEChoices
                             GetQuest(answer.QuestID);
                         }
                     }
-                }
-            }
-            else {
-
-                foreach (var qanswer in CurrentQAnswersID) {
-                    PassAnswerID = qanswer.ID;
-
-                    AnsSecondary = false;
-
                 }
             }
 
@@ -422,7 +379,20 @@ namespace FoEChoices
                                 GetInstance(Answered, CurrentWeaponID);
                             }
                         }
-
+                        // check if a quest has been completed
+                        if (instance.SpecialFunction.Contains(8))
+                        {
+                            if(QuestList[instance.QuestCheck].Completed == true)
+                            {
+                                Answered = instance.AnswerID + 2;
+                                GetInstance(Answered, CurrentWeaponID);
+                            }
+                            else if (QuestList[instance.QuestCheck].Completed == false)
+                            {
+                                Answered = instance.AnswerID + 1;
+                                GetInstance(Answered, CurrentWeaponID);
+                            }
+                        }
                     }
 
                 }
@@ -625,105 +595,105 @@ namespace FoEChoices
             // ------------------------------------------------------- ANSWER LIST -------------------------------------------------------
             AnswersList.Add(new Answer
             {
-                Text = ") Great. Even the kids shun me now.",
+                Text = "Great. Even the kids shun me now.",
                 UserInput = 1,
                 ID = 0,
                 InstanceID = 0
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Hey now, no need to be scared. I won't hurt anypony.",
+                Text = "Hey now, no need to be scared. I won't hurt anypony.",
                 UserInput = 2,
                 ID = 1,
                 InstanceID = 0
             });
             AnswersList.Add(new Answer
             {
-                Text = ") [jump in front of her] BOO!",
+                Text = "[jump in front of her] BOO!",
                 UserInput = 3,
                 ID = 2,
                 InstanceID = 0
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Yeah, you should be avoiding Astral, she's setting a bad example for you and other kids. But not me.",
+                Text = "Yeah, you should be avoiding Astral, she's setting a bad example for you and other kids. But not me.",
                 UserInput = 1,
                 ID = 3,
                 InstanceID = 1,
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Oh please, your mom is overprotective. Don't let her tell you how to live your life.",
+                Text = "Oh please, your mom is overprotective. Don't let her tell you how to live your life.",
                 UserInput = 2,
                 ID = 4,
                 InstanceID = 1,
             });
             AnswersList.Add(new Answer
             {
-                Text = ") I can see why.",
+                Text = "I can see why.",
                 UserInput = 3,
                 ID = 5,
                 InstanceID = 1,
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Stupid kids.",
+                Text = "Stupid kids.",
                 UserInput = 1,
                 ID = 6,
                 InstanceID = 2
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Sorry, didn't mean to scare you THAT badly!",
+                Text = "Sorry, didn't mean to scare you THAT badly!",
                 UserInput = 2,
                 ID = 6,
                 InstanceID = 2
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Of course not. Things just got a little out of hoof yesterday.",
+                Text = "Of course not. Things just got a little out of hoof yesterday.",
                 UserInput = 1,
                 ID = 1,
                 InstanceID = 3,
             });
             AnswersList.Add(new Answer
             {
-                Text = ") We'll see.",
+                Text = "We'll see.",
                 UserInput = 2,
                 ID = 7,
                 InstanceID = 3
             });
             AnswersList.Add(new Answer
             {
-                Text = ") No. Well, maybe Astral if she keeps being that annoying, but nopony else.",
+                Text = "No. Well, maybe Astral if she keeps being that annoying, but nopony else.",
                 UserInput = 3,
                 ID = 8,
                 InstanceID = 3
             });
             AnswersList.Add(new Answer
             {
-                Text = ") *sigh* I know, but still.",
+                Text = "*sigh* I know, but still.",
                 UserInput = 1,
                 ID = 9,
                 InstanceID = 4
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Well, you shouldn't.",
+                Text = "Well, you shouldn't.",
                 UserInput = 2,
                 ID = 9,
                 InstanceID = 4
             });
             AnswersList.Add(new Answer
             {
-                Text = ") It means that your mom won't let you do what you want.",
+                Text = "It means that your mom won't let you do what you want.",
                 UserInput = 1,
                 ID = 10,
                 InstanceID = 5
             });
             AnswersList.Add(new Answer
             {
-                Text = ") It means that your mom doesn't want you to get hurt.",
+                Text = "It means that your mom doesn't want you to get hurt.",
                 UserInput = 2,
                 ID = 10,
                 InstanceID = 5,
@@ -733,21 +703,21 @@ namespace FoEChoices
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Uh, nevermind.",
+                Text = "Uh, nevermind.",
                 UserInput = 3,
                 ID = 10,
                 InstanceID = 5
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Oh, nevermind.",
+                Text = "Oh, nevermind.",
                 UserInput = 1,
                 ID = 10,
                 InstanceID = 6
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Your mom just wants you to be safe, which is understandable.",
+                Text = "Your mom just wants you to be safe, which is understandable.",
                 UserInput = 2,
                 ID = 10,
                 InstanceID = 6,
@@ -757,329 +727,329 @@ namespace FoEChoices
             });
             AnswersList.Add(new Answer
             {
-                Text = ") That's just how moms are.",
+                Text = "That's just how moms are.",
                 UserInput = 3,
                 ID = 10,
                 InstanceID = 6
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Yeah, whatever.",
+                Text = "Yeah, whatever.",
                 UserInput = 1,
                 ID = 6,
                 InstanceID = 8
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Yeah, it was.",
+                Text = "Yeah, it was.",
                 UserInput = 1,
                 ID = 10,
                 InstanceID = 9
             });
             AnswersList.Add(new Answer
             {
-                Text = ") No, really, if she doesn't stop being a prick, there will be consequences.",
+                Text = "No, really, if she doesn't stop being a prick, there will be consequences.",
                 UserInput = 2,
                 ID = 11,
                 InstanceID = 9
             });
             AnswersList.Add(new Answer
             {
-                Text = ") I'll leave that up to you to decide.",
+                Text = "I'll leave that up to you to decide.",
                 UserInput = 3,
                 ID = 11,
                 InstanceID = 9
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Later.",
+                Text = "Later.",
                 UserInput = 1,
                 ID = 6,
                 InstanceID = 10
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Morning.",
+                Text = "Morning.",
                 UserInput = 1,
                 ID = 12,
                 InstanceID = 7
             });
             AnswersList.Add(new Answer
             {
-                Text = ") [say nothing, start eating your breakfast]",
+                Text = "[say nothing, start eating your breakfast]",
                 UserInput = 2,
                 ID = 13,
                 InstanceID = 7
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Something bothering you? You look a bit stressed.",
+                Text = "Something bothering you? You look a bit stressed.",
                 UserInput = 1,
                 ID = 14,
                 InstanceID = 11
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Don't tell me you too are scared of me because of yesterday.",
+                Text = "Don't tell me you too are scared of me because of yesterday.",
                 UserInput = 2,
                 ID = 15,
                 InstanceID = 11
             });
             AnswersList.Add(new Answer
             {
-                Text = ") You know, a \"Good morning\" would have been a nice thing to say.",
+                Text = "You know, a \"Good morning\" would have been a nice thing to say.",
                 UserInput = 1,
                 ID = 16,
                 InstanceID = 12
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Something bothering you?",
+                Text = "Something bothering you?",
                 UserInput = 2,
                 ID = 14,
                 InstanceID = 12
             });
             AnswersList.Add(new Answer
             {
-                Text = ") You know I'm bad with social skills, so if you could just tell me what's bothering you, that would be nice.",
+                Text = "You know I'm bad with social skills, so if you could just tell me what's bothering you, that would be nice.",
                 UserInput = 3,
                 ID = 14,
                 InstanceID = 12
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Whatcha thinking about?",
+                Text = "Whatcha thinking about?",
                 UserInput = 1,
                 ID = 17,
                 InstanceID = 15
             });
             AnswersList.Add(new Answer
             {
-                Text = ") [give him a warm smile] Thinking is not for you.",
+                Text = "[give him a warm smile] Thinking is not for you.",
                 UserInput = 2,
                 ID = 40,
                 InstanceID = 15
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Care to tell me? You're usually not this gloomy.",
+                Text = "Care to tell me? You're usually not this gloomy.",
                 UserInput = 3,
                 ID = 17,
                 InstanceID = 15
             });
             AnswersList.Add(new Answer
             {
-                Text = ") [return the smile] Thanks, Ardent. So, what's on your mind then?",
+                Text = "[return the smile] Thanks, Ardent. So, what's on your mind then?",
                 UserInput = 1,
                 ID = 17,
                 InstanceID = 14
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Oh you, stop being so sweet. Well, if it's not that, then what is it?",
+                Text = "Oh you, stop being so sweet. Well, if it's not that, then what is it?",
                 UserInput = 2,
                 ID = 17,
                 InstanceID = 14
             });
             AnswersList.Add(new Answer
             {
-                Text = ") So what? It happens every year, and I'm pretty sure none of our friends or relatives are gonna get thrown out.",
+                Text = "So what? It happens every year, and I'm pretty sure none of our friends or relatives are gonna get thrown out.",
                 UserInput = 1,
                 ID = 18,
                 InstanceID = 13
             });
             AnswersList.Add(new Answer
             {
-                Text = ") You should be glad, I think Astral is going to get kicked out next.",
+                Text = "You should be glad, I think Astral is going to get kicked out next.",
                 UserInput = 2,
                 ID = 19,
                 InstanceID = 13
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Wait, it's time for that again? Time sure does fly by.",
+                Text = "Wait, it's time for that again? Time sure does fly by.",
                 UserInput = 3,
                 ID = 20,
                 InstanceID = 13
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Oh. Well, it's gonna have to happen, there's nothing we can do about that.",
+                Text = "Oh. Well, it's gonna have to happen, there's nothing we can do about that.",
                 UserInput = 4,
                 ID = 21,
                 InstanceID = 13
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Well, no-",
+                Text = "Well, no-",
                 UserInput = 1,
                 ID = 22,
                 InstanceID = 16
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Hmm. Now that you mention it, the whole Stable is getting along just fine.",
+                Text = "Hmm. Now that you mention it, the whole Stable is getting along just fine.",
                 UserInput = 2,
                 ID = 22,
                 InstanceID = 16
             });
             AnswersList.Add(new Answer
             {
-                Text = ") That's next year's problem, you shouldn't be stressing about that.",
+                Text = "That's next year's problem, you shouldn't be stressing about that.",
                 UserInput = 3,
                 ID = 23,
                 InstanceID = 16
             });
             AnswersList.Add(new Answer
             {
-                Text = ") I... Hadn't thought about that.",
+                Text = "I... Hadn't thought about that.",
                 UserInput = 1,
                 ID = 22,
                 InstanceID = 17
             });
             AnswersList.Add(new Answer
             {
-                Text = ") You mean there's no more annoying ponies here? There's always somepony who annoys others.",
+                Text = "You mean there's no more annoying ponies here? There's always somepony who annoys others.",
                 UserInput = 2,
                 ID = 24,
                 InstanceID = 17
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Geez, calm down. I was just joking.",
+                Text = "Geez, calm down. I was just joking.",
                 UserInput = 1,
                 ID = 25,
                 InstanceID = 18
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Uh, sorry. So, why are you stressed about that? It happens every year, and you're usually not that worried about it.",
+                Text = "Uh, sorry. So, why are you stressed about that? It happens every year, and you're usually not that worried about it.",
                 UserInput = 2,
                 ID = 25,
                 InstanceID = 18
             });
             AnswersList.Add(new Answer
             {
-                Text = ") No, I haven't. Why you ask?",
+                Text = "No, I haven't. Why you ask?",
                 UserInput = 1,
                 ID = 26,
                 InstanceID = 19
             });
             AnswersList.Add(new Answer
             {
-                Text = ") No, I like to live one year at a time.",
+                Text = "No, I like to live one year at a time.",
                 UserInput = 2,
                 ID = 26,
                 InstanceID = 19
             });
             AnswersList.Add(new Answer
             {
-                Text = ") I hope not.",
+                Text = "I hope not.",
                 UserInput = 1,
                 ID = 27,
                 InstanceID = 20
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Don't know. Nor do I care, really.",
+                Text = "Don't know. Nor do I care, really.",
                 UserInput = 2,
                 ID = 28,
                 InstanceID = 20
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Why? It will happen every year, we can't change that.",
+                Text = "Why? It will happen every year, we can't change that.",
                 UserInput = 1,
                 ID = 29,
                 InstanceID = 21
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Look, I couldn't care less for the voting. This year's OR the next.",
+                Text = "Look, I couldn't care less for the voting. This year's OR the next.",
                 UserInput = 2,
                 ID = 28,
                 InstanceID = 21
             });
             AnswersList.Add(new Answer
             {
-                Text = ") No, not really.",
+                Text = "No, not really.",
                 UserInput = 1,
                 ID = 30,
                 InstanceID = 22
             });
             AnswersList.Add(new Answer
             {
-                Text = ") If they are annoying and are aware of it, no.",
+                Text = "If they are annoying and are aware of it, no.",
                 UserInput = 2,
                 ID = 31,
                 InstanceID = 22
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Well, when you put it that way... It kinda is.",
+                Text = "Well, when you put it that way... It kinda is.",
                 UserInput = 3,
                 ID = 32,
                 InstanceID = 22
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Oh, are you kidding me? I would be glad to get out of this Celestia-forsaken hole.",
+                Text = "Oh, are you kidding me? I would be glad to get out of this Celestia-forsaken hole.",
                 UserInput = 4,
                 ID = 33,
                 InstanceID = 22
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Oh, are you kidding me? I would be glad to get to explore the outside world!",
+                Text = "Oh, are you kidding me? I would be glad to get to explore the outside world!",
                 UserInput = 5,
                 ID = 34,
                 InstanceID = 22
             });
             AnswersList.Add(new Answer
             {
-                Text = ") What?! Are you crazy?",
+                Text = "What?! Are you crazy?",
                 UserInput = 1,
                 ID = 35,
                 InstanceID = 23
             });
             AnswersList.Add(new Answer
             {
-                Text = ") I have a better idea. Let's NOT do anything that's dangerous for the entire Stable.",
+                Text = "I have a better idea. Let's NOT do anything that's dangerous for the entire Stable.",
                 UserInput = 2,
                 ID = 36,
                 InstanceID = 23
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Might as well overthrow the Overmare and tell Stable-Tec to go fuck themselves while we're at it.",
+                Text = "Might as well overthrow the Overmare and tell Stable-Tec to go fuck themselves while we're at it.",
                 UserInput = 3,
                 ID = 37,
                 InstanceID = 23
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Hmm. That might not be a bad idea.",
+                Text = "Hmm. That might not be a bad idea.",
                 UserInput = 4,
                 ID = 38,
                 InstanceID = 23
             });
             AnswersList.Add(new Answer
             {
-                Text = ") I... *sigh* I don't know. Sorry, I guess I'm just a little tired.",
+                Text = "I... *sigh* I don't know. Sorry, I guess I'm just a little tired.",
                 UserInput = 1,
                 ID = 32,
                 InstanceID = 24
             });
             AnswersList.Add(new Answer
             {
-                Text = ") None of your business.",
+                Text = "None of your business.",
                 UserInput = 2,
                 ID = 46,
                 InstanceID = 24
             });
             AnswersList.Add(new Answer
             {
-                Text = ") No, not other ponies... I just... don't care about the vote. It happens only once a year, and nothing bad has\n" +
+                Text = "No, not other ponies... I just... don't care about the vote. It happens only once a year, and nothing bad has\n" +
                 "ever happened because of the vote.",
                 UserInput = 1,
                 ID = 44,
@@ -1087,7 +1057,7 @@ namespace FoEChoices
             });
             AnswersList.Add(new Answer
             {
-                Text = ") You think I'm the indifferent one here? What about the Overmare? Why do you think she hasn't made any objections\n" +
+                Text = "You think I'm the indifferent one here? What about the Overmare? Why do you think she hasn't made any objections\n" +
                 "against the vote? Seems like as long as she can't be voted out, everything's just fine.",
                 UserInput = 2,
                 ID = 45,
@@ -1095,49 +1065,49 @@ namespace FoEChoices
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Well now you know.",
+                Text = "Well now you know.",
                 UserInput = 3,
                 ID = 46,
                 InstanceID = 25
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Don't get me wrong, of course I would be happy to get rid of the vote.",
+                Text = "Don't get me wrong, of course I would be happy to get rid of the vote.",
                 UserInput = 1,
                 ID = 47,
                 InstanceID = 26
             });
             AnswersList.Add(new Answer
             {
-                Text = ") The less there are annoying ponies, the better the Stable will be, right?",
+                Text = "The less there are annoying ponies, the better the Stable will be, right?",
                 UserInput = 2,
                 ID = 30,
                 InstanceID = 26
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Hm, fair points.",
+                Text = "Hm, fair points.",
                 UserInput = 1,
                 ID = 27,
                 InstanceID = 27
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Surely there must be at least some life outside? I doubt the megaspells were able to wipe out literally everything.",
+                Text = "Surely there must be at least some life outside? I doubt the megaspells were able to wipe out literally everything.",
                 UserInput = 2,
                 ID = 50,
                 InstanceID = 27
             });
             AnswersList.Add(new Answer
             {
-                Text = ") I don't care. If you think I'm going to go against the Overmare, you're out of your mind.",
+                Text = "I don't care. If you think I'm going to go against the Overmare, you're out of your mind.",
                 UserInput = 1,
                 ID = 46,
                 InstanceID = 28
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Hm, I guess you're right. Tell you what, if you can get more ponies in, and come up with a decent plan, I'll join you.\n" +
+                Text = "Hm, I guess you're right. Tell you what, if you can get more ponies in, and come up with a decent plan, I'll join you.\n" +
                 "\tBut right now I want to eat, let's talk about this some other time.",
                 UserInput = 2,
                 ID = 49,
@@ -1145,161 +1115,161 @@ namespace FoEChoices
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Count me in. But right now I want to eat, let's talk about this more some other time.",
+                Text = "Count me in. But right now I want to eat, let's talk about this more some other time.",
                 UserInput = 1,
                 ID = 49,
                 InstanceID = 29,
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Sounds good in theory, but what if the rebellion fails? The consequences might be really bad.",
+                Text = "Sounds good in theory, but what if the rebellion fails? The consequences might be really bad.",
                 UserInput = 2,
                 ID = 41,
                 InstanceID = 29,
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Yeah, I do. But we need to plan this well, I don't want this to turn out like the previous one.",
+                Text = "Yeah, I do. But we need to plan this well, I don't want this to turn out like the previous one.",
                 UserInput = 1,
                 ID = 54,
                 InstanceID = 30
             });
             AnswersList.Add(new Answer
             {
-                Text = ") I said *might*. You know this is extremely dangerous for ourselves, AND the Stable, right?",
+                Text = "I said *might*. You know this is extremely dangerous for ourselves, AND the Stable, right?",
                 UserInput = 2,
                 ID = 41,
                 InstanceID = 30
             });
             AnswersList.Add(new Answer
             {
-                Text = ") But right now I want to eat, can't plan anything with an empty stomach.",
+                Text = "But right now I want to eat, can't plan anything with an empty stomach.",
                 UserInput = 1,
                 ID = 49,
                 InstanceID = 37,
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Alright, I'll think about it.",
+                Text = "Alright, I'll think about it.",
                 UserInput = 1,
                 ID = 49,
                 InstanceID = 32,
             });
             AnswersList.Add(new Answer
             {
-                Text = ") I'll join. But let's talk about it more some other time, I want to eat now.",
+                Text = "I'll join. But let's talk about it more some other time, I want to eat now.",
                 UserInput = 2,
                 ID = 49,
                 InstanceID = 32,
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Alright, I'll think about it.",
+                Text = "Alright, I'll think about it.",
                 UserInput = 1,
                 ID = 49,
                 InstanceID = 33,
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Okay, I'm with you. But this needs to be planned well. Let's talk about it more later.",
+                Text = "Okay, I'm with you. But this needs to be planned well. Let's talk about it more later.",
                 UserInput = 2,
                 ID = 49,
                 InstanceID = 33,
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Yeah, I guess you're right. Sorry, I never really thinked about the voting since it has never affected me.",
+                Text = "Yeah, I guess you're right. Sorry, I never really thinked about the voting since it has never affected me.",
                 UserInput = 1,
                 ID = 43,
                 InstanceID = 34,
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Whatever.",
+                Text = "Whatever.",
                 UserInput = 2,
                 ID = 46,
                 InstanceID = 34,
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Or maybe she just wants to make us miserable.",
+                Text = "Or maybe she just wants to make us miserable.",
                 UserInput = 1,
                 ID = 23,
                 InstanceID = 35,
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Hm, might be.",
+                Text = "Hm, might be.",
                 UserInput = 2,
                 ID = 32,
                 InstanceID = 35,
             });
             AnswersList.Add(new Answer
             {
-                Text = ") [Go to the laundry]",
+                Text = "[Go to the laundry]",
                 UserInput = 1,
                 ID = 0010000,
                 InstanceID = 36,
             });
             AnswersList.Add(new Answer
             {
-                Text = ") [Go visit your dad]",
+                Text = "[Go visit your dad]",
                 UserInput = 2,
                 ID = 0011000,
                 InstanceID = 36,
             });
             AnswersList.Add(new Answer
             {
-                Text = ") [Go back to your room]",
+                Text = "[Go back to your room]",
                 UserInput = 3,
                 ID = 0012000,
                 InstanceID = 36,
             });
             AnswersList.Add(new Answer
             {
-                Text = ") [Wave back] Hey Stitch. I have some laundry here.",
+                Text = "[Wave back] Hey Stitch. I have some laundry here.",
                 UserInput = 1,
                 ID = 0010001,
                 InstanceID = 0010000,
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Yeah hi. Here's some laundry for you.",
+                Text = "Yeah hi. Here's some laundry for you.",
                 UserInput = 2,
                 ID = 0010001,
                 InstanceID = 0010000,
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Again? This is the third time this week.",
+                Text = "Again? This is the third time this week.",
                 UserInput = 1,
                 ID = 0010002,
                 InstanceID = 0010001,
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Seriously? This again? I don't have time to always be here resetting the password for you.",
+                Text = "Seriously? This again? I don't have time to always be here resetting the password for you.",
                 UserInput = 2,
                 ID = 0010003,
                 InstanceID = 0010001,
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Alright, let's go reset it.",
+                Text = "Alright, let's go reset it.",
                 UserInput = 1,
                 ID = 0010004,
                 InstanceID = 0010002,
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Hmm, not this time. The lockout will end after 24 hours, that should be enough time for you to try and remember the password.",
+                Text = "Hmm, not this time. The lockout will end after 24 hours, that should be enough time for you to try and remember the password.",
                 UserInput = 2,
                 ID = 0010005,
                 InstanceID = 0010002,
             });
             AnswersList.Add(new Answer
             {
-                Text = ") Seems to work. Try to keep the password in mind this time, would you?",
+                Text = "Seems to work. Try to keep the password in mind this time, would you?",
                 UserInput = 1,
                 ID = 0010006,
                 InstanceID = 0010004,
@@ -1309,7 +1279,7 @@ namespace FoEChoices
             });
             AnswersList.Add(new Answer
             {
-                Text = ") There we go. Same place, same time tomorrow?",
+                Text = "There we go. Same place, same time tomorrow?",
                 UserInput = 2,
                 ID = 0010007,
                 InstanceID = 0010004,
@@ -1319,14 +1289,153 @@ namespace FoEChoices
             });
             AnswersList.Add(new Answer
             {
-                Text = ") This better be the last time I have to do this.",
+                Text = "This better be the last time I have to do this.",
                 UserInput = 3,
                 ID = 0010008,
                 InstanceID = 0010004,
             });
+            AnswersList.Add(new Answer
+            {
+                Text = "I see. Must start to feel a bit... monotonous after a while, huh?",
+                UserInput = 1,
+                ID = 0011001,
+                InstanceID = 0011000,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "I'd be bored to tartarus if I had to be here rearranging boxes all the time.",
+                UserInput = 2,
+                ID = 0011002,
+                InstanceID = 0011000,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "Yes please, the coffee they serve at the cafeteria tastes like the coffee grounds have been used a bit too many times.",
+                UserInput = 1,
+                ID = 0011003,
+                InstanceID = 0011001,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "No thanks, I think I'll be going now. Just wanted to stop by here.",
+                UserInput = 2,
+                ID = 0011004,
+                InstanceID = 0011001,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "[Leave the pistol alone]",
+                UserInput = 1,
+                ID = 0011006,
+                InstanceID = 0011002,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "[Inspect the pistol]",
+                UserInput = 2,
+                ID = 0011005,
+                InstanceID = 0011002,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 2 }),
+                QuestID = 2,
+            });
 
 
             // ------------------------------------------------------- INSTANCE LIST -------------------------------------------------------
+            InstanceList.Add(new Instance
+            {
+                Text = "You enter the break room. The room is small-ish and simple. There is only two tables in the room, with eight or so seats for each of the\n" +
+                "\ttables. The coffee is brewing on the counter. Dad is sitting at one of the tables. You wonder where everypony else is.",
+                ID = 0011004,
+                AnswerID = 0011007,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "You take the pistol in your magic and examine it. The weapon is lot shinier than the other pistols here, and it has matte black accents\n" +
+                "\ton it. The left side of the barrel has the words \"The verdict of acquital comes for all\" engraved on it. The engraving is very roughly made.\n" +
+                "\t\"Huh, I wonder what that means.\" you say to yourself.\n",
+                ID = 0011003,
+                AnswerID = 0011005,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "You decide to take the pistol and give it back to dad. You continue to look for the shelf to put the boxes in. You find it, and lift the\n" +
+                "\tboxes to the top of the shelf where there is space. You really should've trained your magic more when you were a filly, because lifting heavy\n" +
+                "\tthings really takes a toll on your magic, you think to yourself. You then start walking towards the break room, eager to get some actual coffee.\n",
+                ID = 0011003,
+                AnswerID = 0011005,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 8 }),
+                QuestCheck = 2,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "You decide not to touch the pistol. It's probably meant to be there, dad wouldn't leave things like that lying in places they don't\n" +
+                "\tbelong, you reason to yourself, and continue to search for the correct shelf.\n",
+                ID = 0011003,
+                AnswerID = 0011006,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "You find the shelf, and lift the boxes to the top of the shelf where there is space. You mentally curse yourself for not practicing your\n" +
+                "\ttelekinesis more when you were a filly, because using your telekinesis on heavy objects really takes a toll on you. You then start walking\n" +
+                "\ttowards the break room, eager to get some actual coffee.\n",
+                ID = 0011003,
+                AnswerID = 0011006,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 8 }),
+                QuestCheck = 2,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "He chuckles. \"Yes, I suppose it does taste a bit... bland.\" he says. He then glances at the boxes he was carrying. \"Could you put\n" +
+                "\tthese on the shelf over there?\" he says and points to the back left corner of the room. \"Shelf G5, put them next to the other boxes with\n" +
+                "\tthese numbers.\" he points to the boxes' side where there is a long string of numbers.\n",
+                ID = 0011002,
+                AnswerID = 0011003,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Oh, of course.\" you say. \"Awesome, come to the break room afterwards, I'll go put the coffee brewing.\" he says and leaves.\n",
+                ID = 0011002,
+                AnswerID = 0011003,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "You take a hold of the boxes with your magic. They are somewhat heavy. But then again, magic and telekinesis never were your strenghts,\n" +
+                "\tas you never really cared to get better at them. Even as a filly you much preferred playing games on terminals to practicing your magic. You\n" +
+                "\tgo to the back corner of the room, and look for the correct shelf. You then notice a glint in one of the shelves. On one of the boxes, there's\n" +
+                "\ta pistol. It looks very out of place in there.",
+                ID = 0011002,
+                AnswerID = 0011003,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"It's not so bad. And to be honest, I'd be bored if I had to be sitting on a terminal all day.\" he says jokingly. \"Hey, there's\n" +
+                "\ta lot more to my job than sitting!\" you say defensively. Why do others think your job is so simple? There's a lot of responsibility\n" +
+                "\tin keeping the network and terminals running, you think to yourself.\n",
+                ID = 0011001,
+                AnswerID = 0011002,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Yes, yes, I know. Just teasing.\" he says with a smile. \"Anyway, would you like some coffee before you leave?\" he asks.",
+                ID = 0011001,
+                AnswerID = 0011002,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"A bit maybe. But I do prefer this to most other jobs here. It's relaxing, and there's no hurry.\" he explains. \"Fair enough.\"\n" +
+                "\tyou answer. Some ponies just like simpler jobs, it seems.\n",
+                ID = 0011001,
+                AnswerID = 0011001,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Say, would you like some coffee before you go?\" he asks.",
+                ID = 0011001,
+                AnswerID = 0011001,
+            });
             InstanceList.Add(new Instance
             {
                 Text = "You decide to go visit your dad at the Stable's armory. His job is to keep count of all the supplies in there whenever the\n" +
@@ -1345,7 +1454,16 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "Your dad comes from around the corner. \"Silver!\" he says as he notices you. \"Hey dad.\" you answer, and give him a hug.",
+                Text = "Your dad comes from around the corner carrying a few boxes. \"Silver!\" he says as he notices you. \"Hey dad.\" you answer,\n" +
+                "\tand give him a hug. \"What brings you here?\" he asks. \"Just thought I'd come and see how you're doing before I go to work.\" you\n" +
+                "\tanswer. You don't usually see each other that often, so it's easy to forget to catch up on things every once in a while.\n",
+                ID = 0011000,
+                AnswerID = 0011000,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Same soup, just reheated, heh. Decided to rearrange some stuff here to pass the time.\" he says and gestures to the boxes he's\n" +
+                "\tcarrying. You can't even begin to think about how many times he must have done that by now.",
                 ID = 0011000,
                 AnswerID = 0011000,
             });
