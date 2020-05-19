@@ -45,7 +45,8 @@ namespace FoEChoices
         public int RepPoints { get; set; } // SpecialFunction: 5. set to the amount of rep points to award or take from the player. has to be used with Faction!
         public int NewArmorID { get; set; } // SpecialFunction: 6. set to the corresponding ArmorID of an armor to give to the player.
         public int ArmorCheck { get; set; } // SpecialFunction: 7. set to the ArmorClass the player's armor needs to have to pass the check.
-        public int QuestCheck { get; set; } // SpecialFunction: 8. set to the ID of a quest to check if it has been completed.
+        public int QuestCheck { get; set; } // SpecialFunction: 8. set to the ID of a quest to check if it has been completed. !!!don't use twice without having answers in between, will break!!!
+        public int RemoveAnswer { get; set; } // Specialfunction: 9. set to the ID of an answer to remove
 
     }
 
@@ -122,7 +123,7 @@ namespace FoEChoices
 
             RefreshTexts();
 
-            int PassInstanceID = 0;
+            int PassInstanceID = 0011000;
             int CurrentWeaponID = 0;
             int PassAnswerID = 0;
             GameState = 0;
@@ -391,6 +392,15 @@ namespace FoEChoices
                             {
                                 Answered = instance.AnswerID + 1;
                                 GetInstance(Answered, CurrentWeaponID);
+                            }
+                        }
+                        if(instance.SpecialFunction.Contains(9))
+                        {
+                            var item = AnswersList.SingleOrDefault(x => x.ID == PassAnswerID);
+
+                            if(item != null)
+                            {
+                                AnswersList.Remove(item);
                             }
                         }
                     }
@@ -1324,14 +1334,14 @@ namespace FoEChoices
             });
             AnswersList.Add(new Answer
             {
-                Text = "[Leave the pistol alone]",
+                Text = "[Leave the pistol alone and don't mention about it to dad]",
                 UserInput = 1,
                 ID = 0011006,
                 InstanceID = 0011002,
             });
             AnswersList.Add(new Answer
             {
-                Text = "[Inspect the pistol]",
+                Text = "[Inspect the pistol and show it to dad]",
                 UserInput = 2,
                 ID = 0011005,
                 InstanceID = 0011002,
@@ -1339,14 +1349,183 @@ namespace FoEChoices
                 SpecialFunction = new List<int>(new int[] { 2 }),
                 QuestID = 2,
             });
+            AnswersList.Add(new Answer
+            {
+                Text = "Do you know why it looks so different compared to the other pistols here?",
+                UserInput = 1,
+                ID = 0011010,
+                InstanceID = 0011005,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "Shouldn't it just be stored with the other weapons?",
+                UserInput = 2,
+                ID = 0011011,
+                InstanceID = 0011005,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "This pistol looks like it has a story behind it.",
+                UserInput = 3,
+                ID = 0011010,
+                InstanceID = 0011005,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "You should keep it as a memory of her. The gun probably meant a lot to her.",
+                UserInput = 1,
+                ID = 0011012,
+                InstanceID = 0011006,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "Can I keep it? It would be nice to have something to remember her by.",
+                UserInput = 2,
+                ID = 0011013,
+                InstanceID = 0011006,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "Do you know what the writing on the side means?",
+                UserInput = 3,
+                ID = 0011014,
+                InstanceID = 0011006,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "[Finish the coffee and leave]",
+                UserInput = 1,
+                ID = 0011015,
+                InstanceID = 0011003,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "How're you feeling about the voting?",
+                UserInput = 2,
+                ID = 0011016,
+                InstanceID = 0011003,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "Where's everypony else?",
+                UserInput = 3,
+                ID = 0011017,
+                InstanceID = 0011003,
+            });
 
 
             // ------------------------------------------------------- INSTANCE LIST -------------------------------------------------------
             InstanceList.Add(new Instance
             {
+                Text = "You finish the coffee with a last sip. \"Leaving already?\" dad asks. \"Yeah, the network won't keep itself running.\" you say jokingly,\n" +
+                "\tand get up. \"I guess it won't. Well, it was nice seeing you.\" he says.\n",
+                ID = 0011008,
+                AnswerID = 0011015,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "You say your goodbyes, and start to walk towards the door. As you're leaving, three ponies come in. You recognise them as the other\n" +
+                "\tworkers from the armory. \"Hey Spade.\" one of them says to your dad. \"I see you have a guest here, hope she left some coffee for the rest\n" +
+                "\tof us.\" says another with a smirk. \"There's plenty of it left, don't worry.\" says dad with a calm voice. You give a little \"Hmph!\",\n" +
+                "\tand leave the armory.\n",
+                ID = 0011008,
+                AnswerID = 0011015,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "He doesn't answer right away. He seems to think about something for a while. \"The same most usually feel about it. Feel bad for the one\n" +
+                "\tyou voted, and be scared about being voted yourself.\" he says after a moment. \"I wouldn't worry about it too much.\" you comfort him. He\n" +
+                "\tdoesn't say anything.",
+                ID = 0011003,
+                AnswerID = 0011016,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 9 }),
+                RemoveAnswer = 0011016
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"A couple guys went to the general depot, there was something that they needed help with. The rest are probably still sleeping, they\n" +
+                "\ttend to come late to work since there's so little to do.\" he says. \"Well that's not very fair.\" you answer. If you had any co-workers, you'd\n" +
+                "\tmake sure they'd be at work on time. \"Oh, it doesn't really matter to me, especially on slow days like this. If they feel like they have\n" +
+                "\tbetter things to do than to be here, I won't stop them.\" he says. To each their own, you guess.",
+                ID = 0011003,
+                AnswerID = 0011017,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 9 }),
+                RemoveAnswer = 0011017
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"I'm sorry, but I'm not allowed to give away firearms to anypony but the security.\" he says. \"Oh, right. Well, I think you should keep\n" +
+                "\tit on display here, or give it to somepony you trust from the security.\" you suggest.\n",
+                ID = 0011007,
+                AnswerID = 0011013,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Yeah, I'll think about that. But hey, the coffee looks like it's ready.\" he says. He gets up, and gives you a cup from the cabinet. You\n" +
+                "\tpour some coffee for the both of you. You sit down, take a sip of the coffee, and relax. So good, you think to yourself.",
+                ID = 0011003,
+                AnswerID = 0011013,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"I would, but I'm not allowed to take firearms from the armory.\" he says. \"Oh. Well in that case I would just put it on display in one\n" +
+                "\tof the racks here. Or give it to somepony you trust from the security.\" you suggest to him.\n",
+                ID = 0011007,
+                AnswerID = 0011012,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Yeah, I'll think about that. But hey, the coffee looks like it's ready.\" he says. He gets up, and gives you a cup from the cabinet. You\n" +
+                "\tpour some coffee for the both of you. You sit down, take a sip of the coffee, and relax. So good, you think to yourself.",
+                ID = 0011003,
+                AnswerID = 0011012,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "He looks at the engraving for a minute. \"Not sure. My guess is it refers to the voting.\" he says.",
+                ID = 0011006,
+                AnswerID = 0011014,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 9 }),
+                RemoveAnswer = 0011014
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "He sighs. \"Silver... this pistol once belonged to your mother.\" he says. You stare at the pistol for a while. Dad barely ever talks about\n" +
+                "\tyour mom. You only know that she was the head of security, and that she died of some disease when you were only a couple years old. It never\n" +
+                "\treally bothered you, probably because you don't even remember how she looked like.\n",
+                ID = 0011006,
+                AnswerID = 0011010,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Oh.\" you say after some time. You don't really know how to feel about it. \"The gun was modified by the gunsmith here. I thought it was\n" +
+                "\tlost after her stuff was returned here. But now I found it, and I'm not sure what to do with it.\" he says.",
+                ID = 0011006,
+                AnswerID = 0011010,
+            });
+            InstanceList.Add(new Instance
+            {
                 Text = "You enter the break room. The room is small-ish and simple. There is only two tables in the room, with eight or so seats for each of the\n" +
-                "\ttables. The coffee is brewing on the counter. Dad is sitting at one of the tables. You wonder where everypony else is.",
-                ID = 0011004,
+                "\ttables. The coffee is brewing on the counter. Dad is sitting at one of the tables and gestures you to come sit next to him. You wonder where\n" +
+                "\teverypony else is.\n",
+                ID = 0011005,
+                AnswerID = 0011007,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Hey dad, I found this in one of the shelves. It looked really out of place, is it supposed to be there?\" you ask dad and set the gun\n" +
+                "\ton the table in front of him. He eyes the pistol for a second.\n",
+                ID = 0011005,
+                AnswerID = 0011007,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Oh, I found it while I was moving some stuff around, I was thinking what I should do with it so I left it there until I figure out\n" +
+                "\twhat to do with it.\" he looks a bit uncomfortable looking at the pistol.",
+                ID = 0011005,
                 AnswerID = 0011007,
             });
             InstanceList.Add(new Instance
@@ -1354,7 +1533,7 @@ namespace FoEChoices
                 Text = "You take the pistol in your magic and examine it. The weapon is lot shinier than the other pistols here, and it has matte black accents\n" +
                 "\ton it. The left side of the barrel has the words \"The verdict of acquital comes for all\" engraved on it. The engraving is very roughly made.\n" +
                 "\t\"Huh, I wonder what that means.\" you say to yourself.\n",
-                ID = 0011003,
+                ID = 0011005,
                 AnswerID = 0011005,
             });
             InstanceList.Add(new Instance
@@ -1362,7 +1541,7 @@ namespace FoEChoices
                 Text = "You decide to take the pistol and give it back to dad. You continue to look for the shelf to put the boxes in. You find it, and lift the\n" +
                 "\tboxes to the top of the shelf where there is space. You really should've trained your magic more when you were a filly, because lifting heavy\n" +
                 "\tthings really takes a toll on your magic, you think to yourself. You then start walking towards the break room, eager to get some actual coffee.\n",
-                ID = 0011003,
+                ID = 0011005,
                 AnswerID = 0011005,
                 HasSpecialFunction = true,
                 SpecialFunction = new List<int>(new int[] { 8 }),
@@ -1382,9 +1561,22 @@ namespace FoEChoices
                 "\ttowards the break room, eager to get some actual coffee.\n",
                 ID = 0011003,
                 AnswerID = 0011006,
-                HasSpecialFunction = true,
-                SpecialFunction = new List<int>(new int[] { 8 }),
-                QuestCheck = 2,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "You enter the break room. The room is small-ish and simple. There is only two tables in the room, with eight or so seats for each of the\n" +
+                "\ttables. Dad is sitting at one of the tables. You wonder where everypony else is.\n",
+                ID = 0011003,
+                AnswerID = 0011006,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Found the shelf?\" he asks, and you nod. \"Good, the coffee looks like it's just about ready.\" he says, gets up, and gives you a cup\n" +
+                "\tfrom the cabinet. You pour some coffee for the both of you, and sit down at one of the tables. Taking a sip from your coffee, you relax.\n" +
+                "\tIt's not everyday you get to enjoy coffee this strong, since the Stable has to ration out the coffee so it lasts as long as possible.\n" +
+                "\tDad apparently has a friend who works at the food depot, so he brings some extra coffee packages here every now and then.",
+                ID = 0011003,
+                AnswerID = 0011006,
             });
             InstanceList.Add(new Instance
             {
