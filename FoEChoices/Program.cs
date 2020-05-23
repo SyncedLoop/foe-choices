@@ -123,7 +123,7 @@ namespace FoEChoices
 
             RefreshTexts();
 
-            int PassInstanceID = 0011000;
+            int PassInstanceID = 0;
             int CurrentWeaponID = 0;
             int PassAnswerID = 0;
             GameState = 0;
@@ -1360,7 +1360,7 @@ namespace FoEChoices
             {
                 Text = "Shouldn't it just be stored with the other weapons?",
                 UserInput = 2,
-                ID = 0011011,
+                ID = 0011010,
                 InstanceID = 0011005,
             });
             AnswersList.Add(new Answer
@@ -1415,6 +1415,13 @@ namespace FoEChoices
 
 
             // ------------------------------------------------------- INSTANCE LIST -------------------------------------------------------
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Oh, in a hurry? Well, it was nice seeing you.\" he says and looks a bit disappointed. \"Yeah, see ya.\" you say and start walking out.\n" +
+                "\tWhy exactly did you leave so early? You don't really know.",
+                ID = 0011009,
+                AnswerID = 0011004,
+            });
             InstanceList.Add(new Instance
             {
                 Text = "You finish the coffee with a last sip. \"Leaving already?\" dad asks. \"Yeah, the network won't keep itself running.\" you say jokingly,\n" +
@@ -1478,7 +1485,9 @@ namespace FoEChoices
             InstanceList.Add(new Instance
             {
                 Text = "\"Yeah, I'll think about that. But hey, the coffee looks like it's ready.\" he says. He gets up, and gives you a cup from the cabinet. You\n" +
-                "\tpour some coffee for the both of you. You sit down, take a sip of the coffee, and relax. So good, you think to yourself.",
+                "\tpour some coffee for the both of you. You sit down, take a sip of the coffee, and relax. So good, you think to yourself. It's not everyday you\n" +
+                "\tget to enjoy coffee this strong, since the Stable has to ration out the coffee so it lasts as long as possible. Dad apparently has a friend who\n" +
+                "\tworks at the food depot, so he brings some extra coffee packages here every now and then.",
                 ID = 0011003,
                 AnswerID = 0011012,
             });
@@ -1524,7 +1533,7 @@ namespace FoEChoices
             InstanceList.Add(new Instance
             {
                 Text = "\"Oh, I found it while I was moving some stuff around, I was thinking what I should do with it so I left it there until I figure out\n" +
-                "\twhat to do with it.\" he looks a bit uncomfortable looking at the pistol.",
+                "\twhat to do with it.\" he says. You can see that he looks a bit uncomfortable looking at the pistol.",
                 ID = 0011005,
                 AnswerID = 0011007,
             });
@@ -1582,7 +1591,7 @@ namespace FoEChoices
             {
                 Text = "He chuckles. \"Yes, I suppose it does taste a bit... bland.\" he says. He then glances at the boxes he was carrying. \"Could you put\n" +
                 "\tthese on the shelf over there?\" he says and points to the back left corner of the room. \"Shelf G5, put them next to the other boxes with\n" +
-                "\tthese numbers.\" he points to the boxes' side where there is a long string of numbers.\n",
+                "\tthese numbers.\" he says as he points to the boxes' side where there is a long string of numbers.\n",
                 ID = 0011002,
                 AnswerID = 0011003,
             });
