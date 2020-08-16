@@ -1417,6 +1417,25 @@ namespace FoEChoices
             // ------------------------------------------------------- INSTANCE LIST -------------------------------------------------------
             InstanceList.Add(new Instance
             {
+                Text = "Feeling rather lazy today, you decide to just go back to your room.",
+                ID = 0012000,
+                AnswerID = 0012000,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "On your way to the living quarters, you start thinking about what you're going to do at work. There was one terminal you noticed yesterday\n" +
+                "\tthat had been disconnected from the Stable's network for a couple days that you didn't have time to check. After that-\n",
+                ID = 0012000,
+                AnswerID = 0012000,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "*thud!* You bump into somepony.",
+                ID = 0012000,
+                AnswerID = 0012000,
+            });
+            InstanceList.Add(new Instance
+            {
                 Text = "\"Oh, in a hurry? Well, it was nice seeing you.\" he says and looks a bit disappointed. \"Yeah, see ya.\" you say and start walking out.\n" +
                 "\tWhy exactly did you leave so early? You don't really know.",
                 ID = 0011009,
