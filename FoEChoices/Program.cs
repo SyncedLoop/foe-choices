@@ -109,6 +109,7 @@ namespace FoEChoices
             QuestList.Add(new Quest() { Description = "Have a constructive conversation with Light Harmony", QuestID = 0, Completed = false });
             QuestList.Add(new Quest() { Description = "Reset Cross Stitch's terminal's password and not lose your cool", QuestID = 1, Completed = false });
             QuestList.Add(new Quest() { Description = "Inspect the pistol in the Stable's armory", QuestID = 2, Completed = false });
+            QuestList.Add(new Quest() { Description = "Mention Astral in your first conversation with Ardent", QuestID = 3, Completed = false });
 
             // ------------------------------------------------------- SUCCESSFUL QUEST ANSWERS -------------------------------------------------------
             SuccessfulQuestAnswer.Add(
@@ -873,7 +874,10 @@ namespace FoEChoices
                 Text = "You should be glad, I think Astral is going to get kicked out next.",
                 UserInput = 2,
                 ID = 19,
-                InstanceID = 13
+                InstanceID = 13,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 2 }),
+                QuestID = 3
             });
             AnswersList.Add(new Answer
             {
@@ -1412,12 +1416,85 @@ namespace FoEChoices
                 ID = 0011017,
                 InstanceID = 0011003,
             });
+            AnswersList.Add(new Answer
+            {
+                Text = "What do you want?",
+                UserInput = 1,
+                ID = 0012001,
+                InstanceID = 0012000,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "Good, good. And you?",
+                UserInput = 2,
+                ID = 0012003,
+                InstanceID = 0012000,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "Go away, I'm busy.",
+                UserInput = 3,
+                ID = 0012001,
+                InstanceID = 0012000,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "I was fine until you showed up.",
+                UserInput = 4,
+                ID = 0012004,
+                InstanceID = 0012000,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "What do you mean?",
+                UserInput = 1,
+                ID = 0012005,
+                InstanceID = 0012002,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "Good, I was really getting sick of you.",
+                UserInput = 2,
+                ID = 0012006,
+                InstanceID = 0012002,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "Fuck off.",
+                UserInput = 3,
+                ID = 0012007,
+                InstanceID = 0012002,
+            });
 
 
             // ------------------------------------------------------- INSTANCE LIST -------------------------------------------------------
             InstanceList.Add(new Instance
             {
-                Text = "Feeling rather lazy today, you decide to just go back to your room.",
+                Text = "Wait, what? Did she hear your chat with Ardent earlier? No, you made sure she wasn't around during the conversation. Maybe she just knows\n" +
+                "\tshe might get kicked this time, you quickly reason to yourself.",
+                ID = 0012002,
+                AnswerID = 0012003,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "Wait, what? Does she think she's getting voted out? You try to think what she meant by that.",
+                ID = 0012002,
+                AnswerID = 0012002,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"What, can't I just come and say hi?\" she asks you with an exaggerated amount of disappointment in her voice. \"No.\" you simply\n" +
+                "\treply. \"Well I just thought you might want to chat with me before...\" she steps closer to you. \"the vote comes. I heard there's a high\n" +
+                "\tchance that you might finally get rid of me.\" she says with a menacing grin.\n",
+                ID = 0012002,
+                AnswerID = 0012001,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 8 }),
+                QuestCheck = 3
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "Feeling rather lazy today, you decide to just go back to your room.\n",
                 ID = 0012000,
                 AnswerID = 0012000,
             });
@@ -1430,7 +1507,14 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "*thud!* You bump into somepony.",
+                Text = "\"Hey Silver.\" a familiar voice comes from behind you. You turn to see the white coat and dark yellow mane of none other than Astral Mist\n" +
+                "\therself. The Stable's very own jackass bully. Just the mere sight of her smug grin makes your blood boil.\n",
+                ID = 0012000,
+                AnswerID = 0012000,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"How's it going?\" she asks in a strangely neutral tone.",
                 ID = 0012000,
                 AnswerID = 0012000,
             });
