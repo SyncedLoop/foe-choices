@@ -299,7 +299,6 @@ namespace FoEChoices
             int PassInstanceID = 0;
             int WeaponDamage;
             int ArmorClass;
-
             int Answered = Convert.ToInt32(PassAnswerID);
 
             bool TextUpdatePending = false;
@@ -343,13 +342,13 @@ namespace FoEChoices
 
                             if (WeaponDamage >= instance.DamageCheck) // does enough damage
                             {
-                                Answered = instance.AnswerID + 2;
-                                GetInstance(Answered, CurrentWeaponID);
+                                Answered = PassAnswerID + 2;
+                                PassInstanceID = GetInstance(Answered, CurrentWeaponID);
                             }
                             else if (WeaponDamage < instance.DamageCheck) // does not do enough damage
                             {
-                                Answered = instance.AnswerID + 1;
-                                GetInstance(Answered, CurrentWeaponID);
+                                Answered = PassAnswerID + 1;
+                                PassInstanceID = GetInstance(Answered, CurrentWeaponID);
                             }
                         }
                         if (instance.SpecialFunction.Contains(5)) // MAKE THIS DYNAMICALLY IF POSSIBLE!!!
@@ -372,13 +371,13 @@ namespace FoEChoices
 
                             if (ArmorClass >= instance.ArmorCheck) // armor protects
                             {
-                                Answered = instance.AnswerID + 2;
-                                GetInstance(Answered, CurrentWeaponID);
+                                Answered = PassAnswerID + 2;
+                                PassInstanceID = GetInstance(Answered, CurrentWeaponID);
                             }
                             else if (ArmorClass < instance.ArmorCheck) // armor does not protect
                             {
-                                Answered = instance.AnswerID + 1;
-                                GetInstance(Answered, CurrentWeaponID);
+                                Answered = PassAnswerID + 1;
+                                PassInstanceID = GetInstance(Answered, CurrentWeaponID);
                             }
                         }
                         // check if a quest has been completed
@@ -386,13 +385,13 @@ namespace FoEChoices
                         {
                             if(QuestList[instance.QuestCheck].Completed == true)
                             {
-                                Answered = instance.AnswerID + 2;
-                                GetInstance(Answered, CurrentWeaponID);
+                                Answered = PassAnswerID + 2;
+                                PassInstanceID = GetInstance(Answered, CurrentWeaponID);
                             }
                             else if (QuestList[instance.QuestCheck].Completed == false)
                             {
-                                Answered = instance.AnswerID + 1;
-                                GetInstance(Answered, CurrentWeaponID);
+                                Answered = PassAnswerID + 1;
+                                PassInstanceID = GetInstance(Answered, CurrentWeaponID);
                             }
                         }
                         if(instance.SpecialFunction.Contains(9))
@@ -1427,7 +1426,7 @@ namespace FoEChoices
             {
                 Text = "Good, good. And you?",
                 UserInput = 2,
-                ID = 0012003,
+                ID = 0012004,
                 InstanceID = 0012000,
             });
             AnswersList.Add(new Answer
@@ -1441,44 +1440,79 @@ namespace FoEChoices
             {
                 Text = "I was fine until you showed up.",
                 UserInput = 4,
-                ID = 0012004,
+                ID = 0012005,
                 InstanceID = 0012000,
             });
             AnswersList.Add(new Answer
             {
                 Text = "What do you mean?",
                 UserInput = 1,
-                ID = 0012005,
-                InstanceID = 0012002,
+                ID = 0012006,
+                InstanceID = 0012003,
             });
             AnswersList.Add(new Answer
             {
                 Text = "Good, I was really getting sick of you.",
                 UserInput = 2,
-                ID = 0012006,
-                InstanceID = 0012002,
+                ID = 0012007,
+                InstanceID = 0012003,
             });
             AnswersList.Add(new Answer
             {
                 Text = "Fuck off.",
                 UserInput = 3,
-                ID = 0012007,
-                InstanceID = 0012002,
+                ID = 0012008,
+                InstanceID = 0012003,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "True. Good thing I have a dad to hang out with.",
+                UserInput = 1,
+                ID = 0012008,
+                InstanceID = 0012005,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "How about you stop threatening me and my dad, and fuck off before I call the security?.",
+                UserInput = 2,
+                ID = 0012009,
+                InstanceID = 0012005,
             });
 
 
             // ------------------------------------------------------- INSTANCE LIST -------------------------------------------------------
             InstanceList.Add(new Instance
             {
+                Text = "She gives a little humph. \"Yeah... Be sure to visit him. Oh, and tell him I said hi.\" she says with a smirk, and starts walking away.\n" +
+                "\tShe's just trying to taunt you, you think to yourself.",
+                ID = 0012006,
+                AnswerID = 0012008,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"I'm fine.\" she says. Something about the tone of her voice makes you a bit nervous. \"How's your dad?\" she asks. \"As good as ever.\"\n" +
+                "\tyou answer. Why's she talking about your dad, you wonder.",
+                ID = 0012005,
+                AnswerID = 0012004,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"That's nice. You know, spending time with family is important. We don't quite appreciate it enough... until it's too late.\" she says.\n" +
+                "\tIs she talking about the vote?",
+                ID = 0012005,
+                AnswerID = 0012004,
+            });
+            InstanceList.Add(new Instance
+            {
                 Text = "Wait, what? Did she hear your chat with Ardent earlier? No, you made sure she wasn't around during the conversation. Maybe she just knows\n" +
                 "\tshe might get kicked this time, you quickly reason to yourself.",
-                ID = 0012002,
+                ID = 0012004,
                 AnswerID = 0012003,
             });
             InstanceList.Add(new Instance
             {
                 Text = "Wait, what? Does she think she's getting voted out? You try to think what she meant by that.",
-                ID = 0012002,
+                ID = 0012003,
                 AnswerID = 0012002,
             });
             InstanceList.Add(new Instance
