@@ -124,7 +124,7 @@ namespace FoEChoices
 
             RefreshTexts();
 
-            int PassInstanceID = 0;
+            int PassInstanceID = 36; // set the starting point for easier debugging
             int CurrentWeaponID = 0;
             int PassAnswerID = 0;
             GameState = 0;
@@ -166,8 +166,13 @@ namespace FoEChoices
             while (Console.ReadKey(true).Key != ConsoleKey.Enter) { }
             Console.WriteLine();
             Console.WriteLine("\tYou wake up in your bed. You get up, and notice that your chest still hurts from yesterday's fight.\n" +
-                "\tYou brush your mane, put on your Stable suit, and head to the cafeteria to get some breakfast.\n" +
-                "\tOn your way there you run into Light Harmony, a young unicorn filly with white coat and dark blue mane.\n" +
+                "\tYou brush your mane, put on your Stable suit, and head to the cafeteria to get some breakfast.\n");
+            while (Console.ReadKey(true).Key != ConsoleKey.Enter) { }
+            Console.WriteLine("\tYou step into the gray hallway. As you turn the first corner, you notice there's some posters that have been hung on the walls.\n" +
+                "\tPosters with the words such as \"Keep The Stable safe!\" and \"Every vote counts!\" are plastered on the walls. \"Oh, it's that time again.\"\n" +
+                "\tyou say to yourself.\n");
+            while (Console.ReadKey(true).Key != ConsoleKey.Enter) { }
+            Console.WriteLine("\tOn your way to the cafeteria you run into Light Harmony, a young unicorn filly with white coat and dark blue mane.\n" +
                 "\tAs she notices you, she tenses up, and looks a bit worried.");
             while (Console.ReadKey(true).Key != ConsoleKey.Enter) { }
             Console.WriteLine();
@@ -1461,7 +1466,7 @@ namespace FoEChoices
             {
                 Text = "Fuck off.",
                 UserInput = 3,
-                ID = 0012008,
+                ID = 0012011,
                 InstanceID = 0012003,
             });
             AnswersList.Add(new Answer
@@ -1473,25 +1478,80 @@ namespace FoEChoices
             });
             AnswersList.Add(new Answer
             {
-                Text = "How about you stop threatening me and my dad, and fuck off before I call the security?.",
+                Text = "How about you stop threatening me and my dad, and fuck off before I call the security?",
                 UserInput = 2,
                 ID = 0012009,
                 InstanceID = 0012005,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "Too bad ponies don't have anything against me.",
+                UserInput = 1,
+                ID = 0012010,
+                InstanceID = 0012008,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "Oh, I don't have to worry about that. You on the other hoof...",
+                UserInput = 2,
+                ID = 0012010,
+                InstanceID = 0012008,
             });
 
 
             // ------------------------------------------------------- INSTANCE LIST -------------------------------------------------------
             InstanceList.Add(new Instance
             {
+                Text = "\"Now now, no need to be so rude. I just wanted to remind you that we should enjoy what we have here. We often don't appreciate\n" +
+                "\tit enough... until it's all gone.\" she says.",
+                ID = 0012007,
+                AnswerID = 0012011,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"I could say the same. But that wouldn't be really nice now, would it?\" she says.",
+                ID = 0012007,
+                AnswerID = 0012007,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Oh, I think you'll find out soon enough. Anyway... see you around.\" she says with a smirk as she starts walking her own way.",
+                ID = 0012007,
+                AnswerID = 0012006,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "She gives a little smile. \"We'll see. Anyway... have a good day.\" she says as she starts walking away. You really wish you could\n" +
+                "\tjust slap the sass out of her.",
+                ID = 0012007,
+                AnswerID = 0012010,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Aw, don't be so mean. I just wanted to check on you, see how you're doing.\" she says. You don't quite believe that. \"Oh yeah?\n" +
+                "\tWhy's that?\" you ask, not really in the mood for this. \"Well, the voting's soon, I thought we should have chat before that... In case\n" +
+                "\tone of us will be voted out.\" she says with a hint of malice in her voice. Your heart skips a beat.",
+                ID = 0012008,
+                AnswerID = 0012005,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Oh I'm not threatening you. I'm just giving some... friendly advice.\" she says with a devious smile. \"Anyway... be seeing you.\"\n" +
+                "\tshe says as she starts walking away. Oh how you want to teach her some manners someday.\n",
+                ID = 0012007,
+                AnswerID = 0012009,
+            });
+            InstanceList.Add(new Instance
+            {
                 Text = "She gives a little humph. \"Yeah... Be sure to visit him. Oh, and tell him I said hi.\" she says with a smirk, and starts walking away.\n" +
-                "\tShe's just trying to taunt you, you think to yourself.",
+                "\tShe's just trying to taunt you, you think to yourself.\n",
                 ID = 0012006,
                 AnswerID = 0012008,
             });
             InstanceList.Add(new Instance
             {
                 Text = "\"I'm fine.\" she says. Something about the tone of her voice makes you a bit nervous. \"How's your dad?\" she asks. \"As good as ever.\"\n" +
-                "\tyou answer. Why's she talking about your dad, you wonder.",
+                "\tyou answer. Why's she talking about your dad, you wonder.\n",
                 ID = 0012005,
                 AnswerID = 0012004,
             });
@@ -1506,7 +1566,7 @@ namespace FoEChoices
             {
                 Text = "Wait, what? Did she hear your chat with Ardent earlier? No, you made sure she wasn't around during the conversation. Maybe she just knows\n" +
                 "\tshe might get kicked this time, you quickly reason to yourself.",
-                ID = 0012004,
+                ID = 0012003,
                 AnswerID = 0012003,
             });
             InstanceList.Add(new Instance
@@ -2164,7 +2224,7 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "[he sighs] \"I just find this whole voting useless. Who do you think is going to get kicked next year? Is there anypony else than\n" +
+                Text = "He sighs. \"I just find this whole voting useless. Who do you think is going to get kicked next year? Is there anypony else than\n" +
                 "\tAstral you think is dangerous or annoying?\" asks the stallion.",
                 ID = 17,
                 AnswerID = 25,
@@ -2272,13 +2332,13 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "[she relaxes a bit] \"Oh, okay. But mom said that I should avoid you and Astral.\" says the filly.",
+                Text = "She relaxes a bit. \"Oh, okay. But mom said that I should avoid you and Astral.\" says the filly.",
                 ID = 1,
                 AnswerID = 1,
             });
             InstanceList.Add(new Instance
             {
-                Text = "[she jumps in the air, let's out a high pitched scream and runs away]",
+                Text = "She jumps in the air, let's out a high pitched scream and runs away.",
                 ID = 2,
                 AnswerID = 2,
                 HasSpecialFunction = true,
