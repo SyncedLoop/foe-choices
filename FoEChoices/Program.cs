@@ -19,7 +19,7 @@ namespace FoEChoices
         public List<int> SpecialFunction { get; set; } // set to 1 or more to execute additional code. use with the functions below to use their code
         public int RepCheck { get; set; } // SpecialFunction: 1. set to the amount of rep points the player needs to have to pass the check.
         public string FactionName { get; set; } // SpecialFunction: 1. set to the faction's name you want to check the rep points. has to be used with RepCheck!
-        public int QuestID { get; set; } // SpecialFuntion: 2. set to the ID of a quest to mark as completed
+        public int QuestID { get; set; } // SpecialFuntion: 2. set to the ID of a quest to mark as completed.
 
     }
 
@@ -46,7 +46,8 @@ namespace FoEChoices
         public int NewArmorID { get; set; } // SpecialFunction: 6. set to the corresponding ArmorID of an armor to give to the player.
         public int ArmorCheck { get; set; } // SpecialFunction: 7. set to the ArmorClass the player's armor needs to have to pass the check.
         public int QuestCheck { get; set; } // SpecialFunction: 8. set to the ID of a quest to check if it has been completed. !!!don't use twice without having answers in between, will break!!!
-        public int RemoveAnswer { get; set; } // Specialfunction: 9. set to the ID of an answer to remove
+        public int RemoveAnswer { get; set; } // Specialfunction: 9. set to the ID of an answer to remove.
+        public int RedirectInstance { get; set; } // Specialfunction: 10. set to the AnswerID of an instance to redirect the current instance chain to.
 
     }
 
@@ -124,10 +125,13 @@ namespace FoEChoices
 
             RefreshTexts();
 
-            int PassInstanceID = 36; // set the starting point for easier debugging
+            int PassInstanceID = 0;
             int CurrentWeaponID = 0;
             int PassAnswerID = 0;
             GameState = 0;
+
+            bool DebugMode = true; // skip the intro and set starting point
+            if (DebugMode) PassInstanceID = 36;
 
             // var SoundPlayer = new System.Media.SoundPlayer();
             // SoundPlayer.SoundLocation = Environment.CurrentDirectory + "\\file-name.wav";
@@ -150,34 +154,36 @@ namespace FoEChoices
             while (Console.ReadKey(true).Key != ConsoleKey.Enter) { }
             Console.Clear();
 
-            Console.WriteLine("\tOnce upon a time, in the magical land of Equestria... A war broke out against the Zebra Empire, \n" +
-                "\tas a consequence to multiple trade sanctions involving natural resources. While the Equestrian Nation had a monopoly \n" +
-                "\ton magical gemstones, the Zebra Empire had a monopoly on coal, which was needed to keep the Equestrian Nation running. \n" +
-                "\tBecause of the war, Equestria was forced into an industrial revolution, as an attempt to outdo the Zebra Empire in wartime technology. \n" +
-                "\tPart of this was Stable-Tec, a corporation specialized in arcane science. One of their most known creations were the Stables. \n" +
-                "\tThey were large fallout shelters, built all around Equestria in case of a megaspell holocaust. Your ancestors were selected \n" +
-                "\tto become inhabitants of Stable 54. \n" +
-                "\tAs neither side was able to make the other side surrender, the bombs eventually fell and engulfed the earth in fire and radiation, \n" +
-                "\tsweeping it almost clean of life. \n" +
-                "\n" +
-                "\tYou are a unicorn mare named Silver Shift. You have been born and raised in Stable 54, which has now been functioning for nearly 200 years.\n" +
-                "\tThis is where your story starts.");
+            if (!DebugMode) {
+                Console.WriteLine("\tOnce upon a time, in the magical land of Equestria... A war broke out against the Zebra Empire, \n" +
+                    "\tas a consequence to multiple trade sanctions involving natural resources. While the Equestrian Nation had a monopoly \n" +
+                    "\ton magical gemstones, the Zebra Empire had a monopoly on coal, which was needed to keep the Equestrian Nation running. \n" +
+                    "\tBecause of the war, Equestria was forced into an industrial revolution, as an attempt to outdo the Zebra Empire in wartime technology. \n" +
+                    "\tPart of this was Stable-Tec, a corporation specialized in arcane science. One of their most known creations were the Stables. \n" +
+                    "\tThey were large fallout shelters, built all around Equestria in case of a megaspell holocaust. Your ancestors were selected \n" +
+                    "\tto become inhabitants of Stable 54. \n" +
+                    "\tAs neither side was able to make the other side surrender, the bombs eventually fell and engulfed the earth in fire and radiation, \n" +
+                    "\tsweeping it almost clean of life. \n" +
+                    "\n" +
+                    "\tYou are a unicorn mare named Silver Shift. You have been born and raised in Stable 54, which has now been functioning for nearly 200 years.\n" +
+                    "\tThis is where your story starts.");
 
-            while (Console.ReadKey(true).Key != ConsoleKey.Enter) { }
-            Console.WriteLine();
-            Console.WriteLine("\tYou wake up in your bed. You get up, and notice that your chest still hurts from yesterday's fight.\n" +
-                "\tYou brush your mane, put on your Stable suit, and head to the cafeteria to get some breakfast.\n");
-            while (Console.ReadKey(true).Key != ConsoleKey.Enter) { }
-            Console.WriteLine("\tYou step into the gray hallway. As you turn the first corner, you notice there's some posters that have been hung on the walls.\n" +
-                "\tPosters with the words such as \"Keep The Stable safe!\" and \"Every vote counts!\" are plastered on the walls. \"Oh, it's that time again.\"\n" +
-                "\tyou say to yourself.\n");
-            while (Console.ReadKey(true).Key != ConsoleKey.Enter) { }
-            Console.WriteLine("\tOn your way to the cafeteria you run into Light Harmony, a young unicorn filly with white coat and dark blue mane.\n" +
-                "\tAs she notices you, she tenses up, and looks a bit worried.");
-            while (Console.ReadKey(true).Key != ConsoleKey.Enter) { }
-            Console.WriteLine();
-            Console.WriteLine("\t\"Oh, hey there Silver... Uhh, I was just about to leave...\" says the filly.");
-            while (Console.ReadKey(true).Key != ConsoleKey.Enter) { }
+                while (Console.ReadKey(true).Key != ConsoleKey.Enter) { }
+                Console.WriteLine();
+                Console.WriteLine("\tYou wake up in your bed. You get up, and notice that your chest still hurts from yesterday's fight.\n" +
+                    "\tYou brush your mane, put on your Stable suit, and head to the cafeteria to get some breakfast.\n");
+                while (Console.ReadKey(true).Key != ConsoleKey.Enter) { }
+                Console.WriteLine("\tYou step into the gray hallway. As you turn the first corner, you notice there's some posters that have been hung on the walls.\n" +
+                    "\tPosters with the words such as \"Keep The Stable safe!\" and \"Every vote counts!\" are plastered on the walls. \"Oh, it's that time again.\"\n" +
+                    "\tyou say to yourself.\n");
+                while (Console.ReadKey(true).Key != ConsoleKey.Enter) { }
+                Console.WriteLine("\tOn your way to the cafeteria you run into Light Harmony, a young unicorn filly with white coat and dark blue mane.\n" +
+                    "\tAs she notices you, she tenses up, and looks a bit worried.");
+                while (Console.ReadKey(true).Key != ConsoleKey.Enter) { }
+                Console.WriteLine();
+                Console.WriteLine("\t\"Oh, hey there Silver... Uhh, I was just about to leave...\" says the filly.");
+                while (Console.ReadKey(true).Key != ConsoleKey.Enter) { }
+            }
 
             while (GameState == 0) {
 
@@ -399,6 +405,7 @@ namespace FoEChoices
                                 PassInstanceID = GetInstance(Answered, CurrentWeaponID);
                             }
                         }
+                        // remove answer
                         if(instance.SpecialFunction.Contains(9))
                         {
                             var item = AnswersList.SingleOrDefault(x => x.ID == PassAnswerID);
@@ -407,6 +414,12 @@ namespace FoEChoices
                             {
                                 AnswersList.Remove(item);
                             }
+                        }
+                        // redirect instance
+                        if (instance.SpecialFunction.Contains(10))
+                        {
+                            Answered = instance.RedirectInstance;
+                            PassInstanceID = GetInstance(Answered, CurrentWeaponID);
                         }
                     }
 
@@ -1502,10 +1515,34 @@ namespace FoEChoices
             // ------------------------------------------------------- INSTANCE LIST -------------------------------------------------------
             InstanceList.Add(new Instance
             {
+                Text = "As you walk to your room, you try hard to forget Astral, but fail miserably. This day got ruined before it even started, you\n" +
+                "\tthink to yourself. You open the door to your room and step inside. The room is designed for three ponies, like most other rooms in\n" +
+                "\tthe living quarters. You've been lucky so far, as the Overmare hasn't assigned anypony else than you to this room. You like being alone.\n",
+                ID = 0012007,
+                AnswerID = 0012012,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "You look at the Sparkle-Cola themed clock on the wall. There's still some time before your work starts.",
+                ID = 0012007,
+                AnswerID = 0012012,
+            });
+            InstanceList.Add(new Instance
+            {
                 Text = "\"Now now, no need to be so rude. I just wanted to remind you that we should enjoy what we have here. We often don't appreciate\n" +
-                "\tit enough... until it's all gone.\" she says.",
+                "\tit enough... until it's all gone.\" she says.\n",
                 ID = 0012007,
                 AnswerID = 0012011,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"I'll keep that in mind. Now, if you're done blabbering, I have places to be.\" you say to her, not in the mood for this. \"Yeah.\n" +
+                "\tSee you around.\" she says and starts walking the other way. How can one mare be so annoying, you wonder.\n",
+                ID = 0012007,
+                AnswerID = 0012011,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0012012
             });
             InstanceList.Add(new Instance
             {
@@ -1515,16 +1552,23 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"Oh, I think you'll find out soon enough. Anyway... see you around.\" she says with a smirk as she starts walking her own way.",
+                Text = "\"Oh, I think you'll find out soon enough. Anyway... see you around.\" she says with a smirk as she starts walking her own way.\n" +
+                "\tShe's up to something, you think to yourself.\n",
                 ID = 0012007,
                 AnswerID = 0012006,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0012012
             });
             InstanceList.Add(new Instance
             {
                 Text = "She gives a little smile. \"We'll see. Anyway... have a good day.\" she says as she starts walking away. You really wish you could\n" +
-                "\tjust slap the sass out of her.",
+                "\tjust slap the sass out of her.\n",
                 ID = 0012007,
                 AnswerID = 0012010,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0012012
             });
             InstanceList.Add(new Instance
             {
