@@ -111,6 +111,7 @@ namespace FoEChoices
             QuestList.Add(new Quest() { Description = "Reset Cross Stitch's terminal's password and not lose your cool", QuestID = 1, Completed = false });
             QuestList.Add(new Quest() { Description = "Inspect the pistol in the Stable's armory", QuestID = 2, Completed = false });
             QuestList.Add(new Quest() { Description = "Mention Astral in your first conversation with Ardent", QuestID = 3, Completed = false });
+            QuestList.Add(new Quest() { Description = "Choose Cross Stitch's path", QuestID = 4, Completed = false });
 
             // ------------------------------------------------------- SUCCESSFUL QUEST ANSWERS -------------------------------------------------------
             SuccessfulQuestAnswer.Add(
@@ -131,7 +132,7 @@ namespace FoEChoices
             GameState = 0;
 
             bool DebugMode = true; // skip the intro and set starting point
-            if (DebugMode) PassInstanceID = 36;
+            if (DebugMode) PassInstanceID = 0020000;
 
             // var SoundPlayer = new System.Media.SoundPlayer();
             // SoundPlayer.SoundLocation = Environment.CurrentDirectory + "\\file-name.wav";
@@ -313,6 +314,7 @@ namespace FoEChoices
             int Answered = Convert.ToInt32(PassAnswerID);
 
             bool TextUpdatePending = false;
+            bool InstanceRedirected = false;
 
             var InstanceEnum = InstanceList.OfType<Instance>();
             var CurrentInstances =
@@ -355,11 +357,13 @@ namespace FoEChoices
                             {
                                 Answered = PassAnswerID + 2;
                                 PassInstanceID = GetInstance(Answered, CurrentWeaponID);
+                                InstanceRedirected = true;
                             }
                             else if (WeaponDamage < instance.DamageCheck) // does not do enough damage
                             {
                                 Answered = PassAnswerID + 1;
                                 PassInstanceID = GetInstance(Answered, CurrentWeaponID);
+                                InstanceRedirected = true;
                             }
                         }
                         if (instance.SpecialFunction.Contains(5)) // MAKE THIS DYNAMICALLY IF POSSIBLE!!!
@@ -384,11 +388,13 @@ namespace FoEChoices
                             {
                                 Answered = PassAnswerID + 2;
                                 PassInstanceID = GetInstance(Answered, CurrentWeaponID);
+                                InstanceRedirected = true;
                             }
                             else if (ArmorClass < instance.ArmorCheck) // armor does not protect
                             {
                                 Answered = PassAnswerID + 1;
                                 PassInstanceID = GetInstance(Answered, CurrentWeaponID);
+                                InstanceRedirected = true;
                             }
                         }
                         // check if a quest has been completed
@@ -398,11 +404,13 @@ namespace FoEChoices
                             {
                                 Answered = PassAnswerID + 2;
                                 PassInstanceID = GetInstance(Answered, CurrentWeaponID);
+                                InstanceRedirected = true;
                             }
                             else if (QuestList[instance.QuestCheck].Completed == false)
                             {
                                 Answered = PassAnswerID + 1;
                                 PassInstanceID = GetInstance(Answered, CurrentWeaponID);
+                                InstanceRedirected = true;
                             }
                         }
                         // remove answer
@@ -420,11 +428,11 @@ namespace FoEChoices
                         {
                             Answered = instance.RedirectInstance;
                             PassInstanceID = GetInstance(Answered, CurrentWeaponID);
+                            InstanceRedirected = true;
                         }
                     }
-
                 }
-
+                if (InstanceRedirected) { InstanceRedirected = false; break; }
             }
 
             if (TextUpdatePending) {
@@ -1241,6 +1249,9 @@ namespace FoEChoices
                 UserInput = 1,
                 ID = 0010000,
                 InstanceID = 36,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 2 }),
+                QuestID = 4,
             });
             AnswersList.Add(new Answer
             {
@@ -1510,14 +1521,176 @@ namespace FoEChoices
                 ID = 0012010,
                 InstanceID = 0012008,
             });
+            AnswersList.Add(new Answer
+            {
+                Text = "[go lie down in your bed]",
+                UserInput = 1,
+                ID = 0012013,
+                InstanceID = 0012007,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "[go to the terminal]",
+                UserInput = 2,
+                ID = 0012014,
+                InstanceID = 0012007,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "[inspect the contents of the shelf]",
+                UserInput = 3,
+                ID = 0012015,
+                InstanceID = 0012007,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "Morning. You're here earlier than normal.",
+                UserInput = 1,
+                ID = 0020000,
+                InstanceID = 0020000,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "Already working at full steam, I see.",
+                UserInput = 2,
+                ID = 0020000,
+                InstanceID = 0020000,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "bruh.",
+                UserInput = 1,
+                ID = 0020005,
+                InstanceID = 0020004,
+            });
 
 
             // ------------------------------------------------------- INSTANCE LIST -------------------------------------------------------
+
+            InstanceList.Add(new Instance
+            {
+                Text = "Before you get to the door, a pony with a beige coat and hazel brown mane steps into the office.",
+                ID = 0020004,
+                AnswerID = 0020004,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Yeah, I think I figured out what's wrong with this motherboard while I was at the shower yesterday.\" she says. \"Yeah, that's\n" +
+                "\tthe best place to do debugging too.\" you answer with a chuckle. You then go sit at your terminal and log on to it. You first go over\n" +
+                "\tthe normal routine, checking the Stable's server status. After that you check the intramail.\n",
+                ID = 0020001,
+                AnswerID = 0020000,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 8 }),
+                QuestCheck = 4,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "No new messages. After that, you check your todo list. There was that one terminal that was disconnected from the Stable's network,\n" +
+                "\tyou should go and check that. It looks to be in the living quarters, room 87. You lock the terminal, and start walking towards the door.\n",
+                ID = 0020002,
+                AnswerID = 0020002,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0020004
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "There's one new message, it's from the general depot. You open the message. It says that the laundry's terminal has been locked\n" +
+                "\tbecause to Cross Stitch forgot the password to it. Seriously, it's the third time this week. You can't help but facehoof hard. \"Let\n" +
+                "\tme guess, another forgotten password?\" says Scanline with a smile. \"Yup.\" you answer with a sigh. You lock the terminal and start\n" +
+                "\twalking towards the door.\n",
+                ID = 0020003,
+                AnswerID = 0020001,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0020004
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "You walk to the shelf. Half a dozen glass bottles of Sparkle-Cola are sitting neatly in a row. The only drink you like more\n" +
+                "\tthan coffee is Sparkle-Cola. You have collected most of the different variations of the drink over the years. Sparkle-Cola Quantum,\n" +
+                "\tSparkle-Cola Cherry, Sparkle-Light, Sparkle-Cola Orange, Sparkle-Cola Cranberry, and of course a classic one. Only two are missing,\n" +
+                "\twhich you probably won't even see in your lifetime, are Sparkle-Grape and Rum & Sparkle. To your knowledge, the Stable doesn't even\n" +
+                "\thave them. You've only seen them mentioned on a promotional poster you have hung up on the wall. They were probably released just\n" +
+                "\tbefore the bombs fell, and didn't get widespread enough. Kinda bummer, but it is what it is.\n",
+                ID = 0012007,
+                AnswerID = 0012015,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "There's also some other Sparkle-Cola themed stuff on the shelf, such as a toy carriage, a scarf, and glasses. Some say that\n" +
+                "\tcollecting stuff like that is foalish, but you don't mind that. It gives something to do, other than to sit at a terminal.",
+                ID = 0012007,
+                AnswerID = 0012015,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 9 }),
+                RemoveAnswer = 0012015
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "You decide to turn on your trusty terminal. You should open it up and clean some of the dust from it, but haven't gotten around\n" +
+                "\tto do it. The machine gives a soft hum as the screen lights up. You check the intramail. Just a message from the Overmare reminding\n" +
+                "\tponies to vote. You then look at a folder named \"Projects\". You've been writing a small game on your freetime. You should probably\n" +
+                "\tstart writing it more, or it's never going to get finished, you think to yourself. But, like usual, you decide against it and\n" +
+                "\tstart a game of solitaire to pass the time.\n",
+                ID = 0012009,
+                AnswerID = 0012014,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0012016
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "Wow, feeling really lazy today. You decide to just lie on the bed until the work starts.\n",
+                ID = 0012008,
+                AnswerID = 0012013,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "As you lie in the bed, your mind wanders to various things, including the vote, Astral, and life in the Stable in general. It gets\n" +
+                "\tpretty boring here sometimes, even for somepony like you, who likes peace and quiet. But then you remember all those educational videos\n" +
+                "\tfrom Stable-Tec saying it's for the good of the ponykind for you to stay in the Stable until the surface is habitable again.\n",
+                ID = 0012008,
+                AnswerID = 0012013,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0012016
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "After a while, you get up and start heading to the IT-department. You take the elevator to the lower level, where the IT-department,\n" +
+                "\tmaintenance and PipBuck service station are located.\n",
+                ID = 0012010,
+                AnswerID = 0012016,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0012017
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "The door to the IT-department slides open with a hydraulic hiss. The office isn't that big. A couple of terminals are sitting on\n" +
+                "\ttables, a small fridge is on the right side of the room, and a glass door is on the left side of the room, leading to the server room.\n" +
+                "\tA pony with a red coat and orange mane is sitting at a table, tinkering with a circuit board. Fitting, as her cutie mark is a circuit\n" +
+                "\tpattern with screwdriver next to it.\n",
+                ID = 0020000,
+                AnswerID = 0012017,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Morning Silver.\" says Scanline. She's also working at the IT. Her job leans more towards the hardware side of terminals. You\n" +
+                "\tlike her, as she's a lot like you. Doesn't talk too much, and prefers to be alone. That's not to say you two don't like talking to\n" +
+                "\teach other. She's one of the few ponies you can discuss tech stuff with.",
+                ID = 0020000,
+                AnswerID = 0012017,
+            });
             InstanceList.Add(new Instance
             {
                 Text = "As you walk to your room, you try hard to forget Astral, but fail miserably. This day got ruined before it even started, you\n" +
                 "\tthink to yourself. You open the door to your room and step inside. The room is designed for three ponies, like most other rooms in\n" +
-                "\tthe living quarters. You've been lucky so far, as the Overmare hasn't assigned anypony else than you to this room. You like being alone.\n",
+                "\tthe living quarters. There's three beds on the left side of the room. Your personal terminal is on the far right corner of the room.\n" +
+                "\tYou're usually there when you're not working. There's a shelf on the back wall, filled with different Sparkle-Cola bottles. You've\n" +
+                "\tbeen lucky so far, as nopony else has been assigned to this room other than you. You like being alone.\n",
                 ID = 0012007,
                 AnswerID = 0012012,
             });
@@ -1546,9 +1719,13 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"I could say the same. But that wouldn't be really nice now, would it?\" she says.",
+                Text = "\"I could say the same. But that wouldn't be really nice now, would it?\" she says. Sweet Celestia she's annoying. \"Anyway, I'll\n" +
+                "\tleave you to it. Be seeing you.\" she says and walks away. You really hope she gets kicked out in the next voting.\n",
                 ID = 0012007,
                 AnswerID = 0012007,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0012012
             });
             InstanceList.Add(new Instance
             {
@@ -1659,9 +1836,12 @@ namespace FoEChoices
             InstanceList.Add(new Instance
             {
                 Text = "\"Oh, in a hurry? Well, it was nice seeing you.\" he says and looks a bit disappointed. \"Yeah, see ya.\" you say and start walking out.\n" +
-                "\tWhy exactly did you leave so early? You don't really know.",
+                "\tWhy exactly did you leave so early? You don't really know.\n",
                 ID = 0011009,
                 AnswerID = 0011004,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0011018
             });
             InstanceList.Add(new Instance
             {
@@ -1678,6 +1858,18 @@ namespace FoEChoices
                 "\tand leave the armory.\n",
                 ID = 0011008,
                 AnswerID = 0011015,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0011018
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "You take the elevator to the lower level, where the IT-department, maintenance and PipBuck service station is.\n",
+                ID = 0011008,
+                AnswerID = 0011018,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0012017
             });
             InstanceList.Add(new Instance
             {
@@ -1693,8 +1885,8 @@ namespace FoEChoices
             InstanceList.Add(new Instance
             {
                 Text = "\"A couple guys went to the general depot, there was something that they needed help with. The rest are probably still sleeping, they\n" +
-                "\ttend to come late to work since there's so little to do.\" he says. \"Well that's not very fair.\" you answer. If you had any co-workers, you'd\n" +
-                "\tmake sure they'd be at work on time. \"Oh, it doesn't really matter to me, especially on slow days like this. If they feel like they have\n" +
+                "\ttend to come late to work since there's so little to do.\" he says. \"Well that's not very fair.\" you answer. If Scanline did that, you'd\n" +
+                "\tgive her a few carefully chosen words. \"Oh, it doesn't really matter to me, especially on slow days like this. If they feel like they have\n" +
                 "\tbetter things to do than to be here, I won't stop them.\" he says. To each their own, you guess.",
                 ID = 0011003,
                 AnswerID = 0011017,
@@ -1912,7 +2104,8 @@ namespace FoEChoices
             InstanceList.Add(new Instance
             {
                 Text = "\"Oh, um... Don't worry, this'll be the last time.\" she says in a sorry voice. \"Good.\" you say, and leave the laundry. You\n" +
-                "\tthen head to the IT-department.",
+                "\tthen head to the IT-department. You take the elevator to the lower level, where the IT-department, maintenance and PipBuck service\n" +
+                "\tstation are located.\n",
                 ID = 0010008,
                 AnswerID = 0010008,
             });
@@ -1925,9 +2118,13 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"No problem.\" you say, and leave the laundry. You then head to the IT-department.",
+                Text = "\"No problem.\" you say, wave her goodbye, and leave the laundry. You then head to the IT-department. You take the elevator\n" +
+                "\tto the lower level, where the IT-department, maintenance and PipBuck service station are located.\n",
                 ID = 0010007,
                 AnswerID = 0010007,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0012017
             });
             InstanceList.Add(new Instance
             {
