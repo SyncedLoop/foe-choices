@@ -112,6 +112,7 @@ namespace FoEChoices
             QuestList.Add(new Quest() { Description = "Inspect the pistol in the Stable's armory", QuestID = 2, Completed = false });
             QuestList.Add(new Quest() { Description = "Mention Astral in your first conversation with Ardent", QuestID = 3, Completed = false });
             QuestList.Add(new Quest() { Description = "Choose Cross Stitch's path", QuestID = 4, Completed = false });
+            QuestList.Add(new Quest() { Description = "Annoy the Overmare during your first conversation", QuestID = 5, Completed = false });
 
             // ------------------------------------------------------- SUCCESSFUL QUEST ANSWERS -------------------------------------------------------
             SuccessfulQuestAnswer.Add(
@@ -1558,10 +1559,55 @@ namespace FoEChoices
             });
             AnswersList.Add(new Answer
             {
-                Text = "bruh.",
+                Text = "Uh, sorry?",
                 UserInput = 1,
                 ID = 0020005,
                 InstanceID = 0020004,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "Well, technically it is both since we have to keep all the terminal hardware here because they don't have a place elsewhere.",
+                UserInput = 2,
+                ID = 0020006,
+                InstanceID = 0020004,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "Soo, what do you want me to do?",
+                UserInput = 1,
+                ID = 0020008,
+                InstanceID = 0020006,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "I assume this is the part where I come in?",
+                UserInput = 2,
+                ID = 0020008,
+                InstanceID = 0020006,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "Alright, I'll start looking into it.",
+                UserInput = 1,
+                ID = 0020009,
+                InstanceID = 0020007,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "And if I refuse?",
+                UserInput = 2,
+                ID = 0020012,
+                InstanceID = 0020007,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 2 }),
+                QuestID = 5
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "The voting starts in a week, correct?",
+                UserInput = 3,
+                ID = 0020013,
+                InstanceID = 0020007,
             });
 
 
@@ -1569,7 +1615,132 @@ namespace FoEChoices
 
             InstanceList.Add(new Instance
             {
-                Text = "Before you get to the door, a pony with a beige coat and hazel brown mane steps into the office.",
+                Text = "You go sit at your terminal and log back in. \"Well, I guess I better get to work.\" you say to yourself. You start off by thinking how\n" +
+                "\tthe voting process will work. You settle on sending everypony an intramail with a unique code and a link to the program that'll be hosted on\n" +
+                "\tan encrypted virtual server. Ponies will use their code to vote, after which the code will become invalid. Once you're done with the initial\n" +
+                "\tplanning, you start to write the program.\n",
+                ID = 0020008,
+                AnswerID = 0020014,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "A week passes...\n",
+                ID = 0020008,
+                AnswerID = 0020014,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "You wake up on the floor. \"Nnnhhg, fucking headache...\" you groan. You get up and take a look at your surroundings. Your at the IT.\n" +
+                "\tYour heart skips a beat. \"Fuck, shit, what's the time!?\" you say to yourself and take a look at your PipBuck. 11:23. Okay, half an hour\n" +
+                "\tleft until the vote.",
+                ID = 0020008,
+                AnswerID = 0020014,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "You look at Scanline. She still looks a bit nervous. \"Well then. A week to write a program for the most important event of the year.\"\n" +
+                "\tyou say her, already feeling exhausted just by thinking about the project. \"I'm sure you'll manage. I can help you a bit, although my\n" +
+                "\tprogramming skills are not quite on par with yours.\" she says comfortingly.\n",
+                ID = 0020008,
+                AnswerID = 0020010,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0020014
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "You look at Scanline. She seems very disturbed by your conversation with the Overmare. \"I uh, knew the Overmare wasn't the nicest pony\n" +
+                "\taround, but that was straight up threatening.\" she says after a moment. \"Yeah, no kidding.\" you answer.\n",
+                ID = 0020008,
+                AnswerID = 0020011,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0020014
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Good. I trust it'll be ready by next week.\" she says and starts walking towards the door. She gives a last look at you and Scanline\n" +
+                "\tat the door, and leaves.\n",
+                ID = 0020008,
+                AnswerID = 0020009,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 8 }),
+                QuestCheck = 5,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "She slowly walks closer to you. \"Now, why would you do that?\" she says in a strangely disappointed tone. She gets right next to you.\n" +
+                "\t\"If you refuse, I'll personally make sure you'll win the voting.\" she hisses at you. You just gulp and nod. O-kay, that escalated quickly.\n" +
+                "\t\"I'm happy we understand each other.\" she says coldly, and takes a step back from you.",
+                ID = 0020007,
+                AnswerID = 0020012,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 9 }),
+                RemoveAnswer = 0020012
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Correct. I trust you can make it in time.\" she says like it's no big deal. She really has high expectations of you, it seems.",
+                ID = 0020007,
+                AnswerID = 0020013,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 9 }),
+                RemoveAnswer = 0020013
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"I want you to write a program and distribute it to every terminal in the living quarters, so ponies can vote from there. That way we\n" +
+                "\tdon't have to count the votes one at a time. Should be simple enough, right?\" she says.",
+                ID = 0020007,
+                AnswerID = 0020008,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Anyway, that wasn't what I came here for. Now, as you're aware, the Pariah Vote is around the corner. I've thought about how we can\n" +
+                "\timprove the voting process. The classic pen and paper method is a relatively slow process, as counting the votes manually takes a lot of\n" +
+                "\ttime. So, I thought it's time to make the voting process faster.\" she explains while walking around the office. She seems to think about\n" +
+                "\tsomething for a while.\n",
+                ID = 0020006,
+                AnswerID = 0020007,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"...and reduce the risk of ponies trying to tamper with the votes...\" you hear her say under her breath. You and Scanline glance at\n" +
+                "\teach other. She seems a bit unsettled about the Overmare's presence.",
+                ID = 0020006,
+                AnswerID = 0020007,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"I mean, this place looks a mess. Clean it up.\" she says in a deadpan tone. A mess? It's called organized chaos! You open your mouth\n" +
+                "\tto protest, but decide against it and just nod in submission.\n",
+                ID = 0020005,
+                AnswerID = 0020005,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0020007
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "She looks unamused by your comment. \"Clean this place up.\" she simply says, not in the mood for jokes. Clean it up? it's organized\n" +
+                "\tchaos! \"But-\" you begin to say, but she just raises a hoof to silence you.\n",
+                ID = 0020005,
+                AnswerID = 0020006,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0020007
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "Before you get to the door, a unicorn with a beige coat and hazel brown mane steps into the office. \"Good morning.\" says the Overmare.\n" +
+                "\t\"Oh! Good morning, Crystal Sand. What brings you here?\" you say to her. It's not everyday the Overmare visits the lower level of the\n" +
+                "\tStable.\n",
+                ID = 0020004,
+                AnswerID = 0020004,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "She looks around the room for a bit before saying anything. \"Is this an office or a scrapyard?\" she says and looks at you quizzically.",
                 ID = 0020004,
                 AnswerID = 0020004,
             });
@@ -1671,8 +1842,8 @@ namespace FoEChoices
             {
                 Text = "The door to the IT-department slides open with a hydraulic hiss. The office isn't that big. A couple of terminals are sitting on\n" +
                 "\ttables, a small fridge is on the right side of the room, and a glass door is on the left side of the room, leading to the server room.\n" +
-                "\tA pony with a red coat and orange mane is sitting at a table, tinkering with a circuit board. Fitting, as her cutie mark is a circuit\n" +
-                "\tpattern with screwdriver next to it.\n",
+                "\tAn earth pony with a red coat and orange mane is sitting at a table, tinkering with a circuit board. Fitting, as her cutie mark is a\n" +
+                "\tcircuit pattern with screwdriver next to it.\n",
                 ID = 0020000,
                 AnswerID = 0012017,
             });
