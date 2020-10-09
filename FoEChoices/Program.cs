@@ -134,7 +134,7 @@ namespace FoEChoices
             GameState = 0;
 
             bool DebugMode = true; // skip the intro and set starting point
-            if (DebugMode) PassInstanceID = 0020008;
+            if (DebugMode) PassInstanceID = 0020012;
 
             // var SoundPlayer = new System.Media.SoundPlayer();
             // SoundPlayer.SoundLocation = Environment.CurrentDirectory + "\\file-name.wav";
@@ -1684,18 +1684,158 @@ namespace FoEChoices
                 ID = 0020021,
                 InstanceID = 0020011,
             });
+            AnswersList.Add(new Answer
+            {
+                Text = "[vote for Astral]",
+                UserInput = 1,
+                ID = 0020026,
+                InstanceID = 0020012,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "[vote Astral]",
+                UserInput = 2,
+                ID = 0020026,
+                InstanceID = 0020012,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "[vote Astral out]",
+                UserInput = 3,
+                ID = 0020026,
+                InstanceID = 0020012,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "G'morning.",
+                UserInput = 1,
+                ID = 0020029,
+                InstanceID = 0020013,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "You look a bit tired. Are you nervous about the vote?",
+                UserInput = 2,
+                ID = 0020030,
+                InstanceID = 0020013,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "Morning. Did you sleep well last night?",
+                UserInput = 3,
+                ID = 0020031,
+                InstanceID = 0020013,
+            });
 
 
             // ------------------------------------------------------- INSTANCE LIST -------------------------------------------------------
 
             InstanceList.Add(new Instance
             {
+                Text = "\"No, not really. I've been planning the rebellion pretty much non-stop for the past week.\" he says, and yawns. \"Trust me, I know how that\n" +
+                "\tfeels like.\" you say to him, knowing full well how he must feel like.",
+                ID = 0020016,
+                AnswerID = 0020031,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "He yawns. \"Yeah, I guess I am. And to be fair, I'm kinda nervous about the rebellion too. It has to work. If it doesn't...\" he trails off.\n" +
+                "\tYou nod understandingly. \"Listen, I didn't mean to come off as hostile when I asked you about the rebellion. I know it's a dangerous thing, and\n" +
+                "\tI should've just accepted your response when you said you didn't want to join in. And I'm sorry for that.\" he apologizes to you.\n",
+                ID = 0020015,
+                AnswerID = 0020030,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "He seems to think about something for a few minutes while you two eat in silence. \"Listen, I didn't mean to come off as hostile when I asked\n" +
+                "\tyou about the rebellion. I know it's a dangerous thing, and I should've just accepted your response when you said you didn't want to join in. So...\n" +
+                "\tI'm sorry.\" he apologizes.\n",
+                ID = 0020015,
+                AnswerID = 0020029,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "joined",
+                ID = 0020014,
+                AnswerID = 0020028,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Morning.\" he says and sits on the other side of the table. He looks somewhat tired.",
+                ID = 0020013,
+                AnswerID = 0020027,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "You decide to vote for Astral, surprise surprise. For the first time in quite a while, you don't actually feel like sitting at a terminal.\n" +
+                "\tYou go lie down at your bed, and turn on the radio on your PipBuck. \"---vote. If y'all been livin' under ah rock, there's ah new votin' system\n" +
+                "\tin test this time aroun'. All y'all need to do to vote is to open your intramail, go to the link in the mail an' input the included code when\n" +
+                "\tthe machine asks for it. Then jus' select the name y'all want to vote for. It's that easy!\" explains Dust over the radio with that strange\n" +
+                "\taccent of his. It's nice to hear that he likes the program.\n",
+                ID = 0020013,
+                AnswerID = 0020026,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"And next, some Sweetie Belle for ya'll. Get Happy!\" he says, and a cheery song comes on. One of your favorites. \"Forget your troubles,\n" +
+                "\tcome on, get happy! You'd better chase all your cares away!...\" the sweet sounds carry on from your PipBuck. Even though you've heard all of\n" +
+                "\tthe songs countless times already, they're still good. The last time the radio got a new song was about 40 years ago, when there still was a\n" +
+                "\tmusician in the Stable. But apparently she was voted out, due to some drama. Or so you've heard.\n",
+                ID = 0020013,
+                AnswerID = 0020026,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "You slowly drift to sleep while listening to the radio, as the past week's lack of sleep finally catches up with you.\n",
+                ID = 0020013,
+                AnswerID = 0020026,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "Next day...\n",
+                ID = 0020013,
+                AnswerID = 0020026,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Good mornin', my lil' ponies!\" you hear as you wake up. You look around to see where the voice came from, and glance at your PipBuck.\n" +
+                "\tLooks like the radio was on for the whole night. \"Today's the day! This year's Pariah will be chosen today after lunch. Make sure ya'll are\n" +
+                "\tat the cafeteria by then!\" says Dust. You turn off the radio, and yawn deeply. You look at the time, and notice that you slept about 18 hours.\n" +
+                "\t\"Huh, I guess I was a bit tired.\" you mumble to yourself. After laying on the bed for a few more minutes you get up, brush your mane and tail,\n" +
+                "\tand head to the cafeteria to get some breakfast. You're feeling quite hungry.\n",
+                ID = 0020013,
+                AnswerID = 0020026,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "As you come around the corner to the cafeteria, you see tons of decorations that have been hung up on the walls and the ceiling, in\n" +
+                "\taddition to a few banners saying \"Happy judgement day!\". You never really understood why the Stable makes this day such a big thing that they\n" +
+                "\thave to put decorations up for it. You go to the counter to get some water and bread, like you usually do. To your pleasant surprise, in addition\n" +
+                "\tto the usual selection of bread and water, there are apples! The Stable's orchard is relatively small, meaning apples are quite the rare treat.\n" +
+                "\tYou pick one up along with the bread and water, and go sit at your usual spot. It's a nice, quiet place in a corner, where nopony else usually\n" +
+                "\tgoes to sit.\n",
+                ID = 0020013,
+                AnswerID = 0020026,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "As you munch on your bread, you eye over the cafeteria and the ponies in there. The cafeteria is more packed than normally, likely because\n" +
+                "\tof the day off. Most of the ponies seem to go about their day as usual, although you can see a few who look a bit stressed. You then notice\n" +
+                "\tArdent trotting your way.\n",
+                ID = 0020013,
+                AnswerID = 0020026,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 8 }),
+                QuestCheck = 6,
+            });
+            InstanceList.Add(new Instance
+            {
                 Text = "\"Please do.\" she says and motions for you to come to her terminal. You access the database and tell her that the database can only be\n" +
-                "\taccessed from the IT-department and from here. You then show her where she can see the total vote count, and votes for individual ponies.\n" +
-                "\t\"Alright, that should cover all you need to know about the program. If something comes up, just send me an intramail.\" you say to her.\n" +
-                "\tYou then start to leave to go monitor the program for some more time. \"Don't forget to vote!\" the Overmare calls back from the table.\n" +
-                "\tYou smile and give a little nod to her, and leave. Huh, Crystal was in a better mood than you'd first imagined. You guess the program really\n" +
-                "\tfacilitates her job.\n",
+                "\taccessed from the IT-department and from here. You then show her where she can see the total vote count, votes for individual ponies, as\n" +
+                "\twell as a few other tidbits she might want to know. \"Alright, that should cover all you need to know about the program. If something comes\n" +
+                "\tup, just send me an intramail.\" you say to her. You then start to leave to go monitor the program for some more time. \"Don't forget to\n" +
+                "\tvote!\" the Overmare calls back from the table. You smile and give a little nod to her, and leave. Huh, Crystal was in a better mood than\n" +
+                "\tyou'd first imagined. You guess the program really facilitates her job.\n",
                 ID = 0020012,
                 AnswerID = 0020022,
             });
@@ -1750,20 +1890,7 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "You decide to turn on your terminal and drop off your vote. You decide to vote for Astral, surprise surprise. For the first time in quite\n" +
-                "\ta while, you don't actually feel like sitting at a terminal. You go lie down at your bed, and turn on the radio on your PipBuck. \"---vote. If\n" +
-                "\tyou've been living under a rock, there's a new voting mechanism in test this time around. All you need to do to vote is to open your intramail,\n" +
-                "\tgo to the link in the mail and input the included code when the machine asks for it. Then just select the name you want to vote for. It's that\n" +
-                "\teasy!\" explains Dust over the radio. It's nice to hear that they like the program.\n",
-                ID = 0020012,
-                AnswerID = 0020025,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"And next, some Sweetie Belle for ya'll. Get Happy!\" he says, and a cheery song comes on. One of your favorites. \"Forget your troubles,\n" +
-                "\tcome on, get happy! You'd better chase all your cares away!...\" the sweet sounds carry on from your PipBuck. Even though you've heard all of\n" +
-                "\tthe songs countless times already, they're still good. The last time the radio got a new song was about 40 years ago, when there still was a\n" +
-                "\tmusician in the Stable. But apparently she was voted out, due to some drama. Or so you've heard.",
+                Text = "You turn on your terminal to drop off your vote and to distract yourself from the rebellion. \"Hmm, who to vote...\" you think to yourself.",
                 ID = 0020012,
                 AnswerID = 0020025,
             });
