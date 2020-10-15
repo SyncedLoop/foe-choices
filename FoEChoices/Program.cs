@@ -41,7 +41,7 @@ namespace FoEChoices
         public List<int> SpecialFunction { get; set; } // set to 1 or more to execute additional code. needs to be used with HasSpecialFunction. 1 = Finish; 2 = Death. syntax: new List<int>(new int[]{ 5 })
         public int NewWeaponID { get; set; } // SpecialFunction: 3. set to the corresponding WeaponID of a weapon to give to the player.
         public int DamageCheck { get; set; } // SpecialFunction: 4. set to the amount of damage the player's weapon needs to do to pass the check. default weapon makes 1 point of damage, so there's no point in having this set to 1.
-        public string Faction { get; set; } // SpecialFunction: 5. set to the faction's name you want to add/remove rep points to/from
+        public string Faction { get; set; } // SpecialFunction: 5. set to the faction's name you want to add/remove rep points to/from.
         public int RepPoints { get; set; } // SpecialFunction: 5. set to the amount of rep points to award or take from the player. has to be used with Faction!
         public int NewArmorID { get; set; } // SpecialFunction: 6. set to the corresponding ArmorID of an armor to give to the player.
         public int ArmorCheck { get; set; } // SpecialFunction: 7. set to the ArmorClass the player's armor needs to have to pass the check.
@@ -112,8 +112,8 @@ namespace FoEChoices
             QuestList.Add(new Quest() { Description = "Inspect the pistol in the Stable's armory", QuestID = 2, Completed = false });
             QuestList.Add(new Quest() { Description = "Mention Astral in your first conversation with Ardent", QuestID = 3, Completed = false });
             QuestList.Add(new Quest() { Description = "Choose Cross Stitch's path", QuestID = 4, Completed = false });
-            QuestList.Add(new Quest() { Description = "Annoy the Overmare during your first conversation", QuestID = 5, Completed = false });
-            QuestList.Add(new Quest() { Description = "Agree to join the rebellion", QuestID = 6, Completed = false });
+            QuestList.Add(new Quest() { Description = "Annoy the Overmare during your first conversation", QuestID = 5, Completed = true });
+            QuestList.Add(new Quest() { Description = "Agree to join the rebellion", QuestID = 6, Completed = true });
 
             // ------------------------------------------------------- SUCCESSFUL QUEST ANSWERS -------------------------------------------------------
             SuccessfulQuestAnswer.Add(
@@ -150,7 +150,7 @@ namespace FoEChoices
                 "\t               ----------------------------------");
 
             Console.WriteLine("\tDone.");
-            Console.WriteLine("\tWelcome to Fallout Equestria: Choices. Before you start the game, please resize the console window so that this line of text fits on one line.");
+            Console.WriteLine("\tWelcome to Fallout Equestria: Choices. Before you start the game, please make sure this window is wide enough to fit this line of text on one line.");
             Console.WriteLine("\tIt's also recommended that you raise the font size a bit, so that the text is easier to read.");
             Console.WriteLine("\tRight click on the top part of the console window and choose \"Properties\". Click on the \"Font\" tab. Font size of 20 should be ok.");
             Console.WriteLine("\tPress Enter to start.");
@@ -1726,22 +1726,157 @@ namespace FoEChoices
                 ID = 0020031,
                 InstanceID = 0020013,
             });
+            AnswersList.Add(new Answer
+            {
+                Text = "Apology accepted.",
+                UserInput = 1,
+                ID = 0020032,
+                InstanceID = 0020015,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "No need to apologize. I think I got a bit too heated during our conversation.",
+                UserInput = 2,
+                ID = 0020032,
+                InstanceID = 0020015,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "Morning. Yeah, I've been busy.",
+                UserInput = 1,
+                ID = 0020034,
+                InstanceID = 0020014,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "I've been pretty much living in the IT-department for the past week.",
+                UserInput = 2,
+                ID = 0020034,
+                InstanceID = 0020014,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "That's what happens when somepony gives me a deadline that's way too short.",
+                UserInput = 3,
+                ID = 0020034,
+                InstanceID = 0020014,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "Of course. But can I really refuse the Overmare's orders?",
+                UserInput = 1,
+                ID = 0020037,
+                InstanceID = 0020017,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "The Overmare asked me to do it. Would you have refused to do it in that situation?",
+                UserInput = 2,
+                ID = 0020037,
+                InstanceID = 0020017,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "The Overmare ordered me to do it. I couldn't have refused it even if I wanted to.",
+                UserInput = 1,
+                ID = 0020037,
+                InstanceID = 0020018,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "Listen. The Overmare quite literally threatened to kick me out of the Stable if I didn't do it.",
+                UserInput = 2,
+                ID = 0020038,
+                InstanceID = 0020018,
+            });
 
 
             // ------------------------------------------------------- INSTANCE LIST -------------------------------------------------------
 
+
+            InstanceList.Add(new Instance
+            {
+                Text = "You both continue to eat as you catch up on things. ",
+                ID = 0020019,
+                AnswerID = 0020039,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "He looks shocked by your statement. \"Really? That's... quite alarming, to put it lightly. Have you told anypony else?\" he asks you.\n" +
+                "\"No. Well, Scanline was there when she said it. But what does it matter? I doubt anything good is gonna come if I try to tell about it.\"\n" +
+                "\tyou reason to him. He seems to think about it for a while. \"I guess you're right.\" he admits in defeat, clearly wanting something to\n" +
+                "\taccuse the Overmare of.\n",
+                ID = 0020019,
+                AnswerID = 0020038,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "Wanting to change the subject, you pick up your apple from the table with your magic. \"Apples, huh? I guess Carrot Leaf wanted to treat us\n" +
+                "\ttoday.\" he says. You take a bite of the apple in your magic. It's a tad sour, but still good. \"Yup. I wonder if she's planned something\n" +
+                "\tspecial for lunch and dinner, too.\" you say to him.\n",
+                ID = 0020019,
+                AnswerID = 0020038,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0020039
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "He looks at you for a second, and sighs. \"You're right. Sorry, I'm just frustrated about the vote.\" he says apologetically. \"It's fine.\n" +
+                "\tBut can we talk about something else now? I'm getting tired of the vote.\" you say to him.\n",
+                ID = 0020019,
+                AnswerID = 0020037,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0020032
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Doesn't it bother you contributing to the voting process?\" he asks with a hint of disappointment in his voice.",
+                ID = 0020018,
+                AnswerID = 0020036,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"I know that, but... doesn't it bother you? Making the voting process easier?\" he asks with a hint of disappointment in his voice.",
+                ID = 0020017,
+                AnswerID = 0020035,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Ah, I see.\" he says, and bites down on his bread. \"Wait, you created the new voting system, right?\" he continues after a few seconds.\n" +
+                "\t\"Well yeah, I don't really know anypony else with enough knowledge of programming to do it.\" you answer.\n",
+                ID = 0020017,
+                AnswerID = 0020034,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 8 }),
+                QuestCheck = 5,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "Ardent smiles at you, and changes the subject. \"Apples, huh? I guess Carrot Leaf wanted to treat us today.\" he says and gestures to the\n" +
+                "\tapples on the table. You take a hold of your apple with your magic and take a bite. It's a tad sour, but still good. \"Yup. I wonder if she's\n" +
+                "\tplanned something special for lunch and dinner, too.\" you say to him.\n",
+                ID = 0020016,
+                AnswerID = 0020032,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0020039
+            });
             InstanceList.Add(new Instance
             {
                 Text = "\"No, not really. I've been planning the rebellion pretty much non-stop for the past week.\" he says, and yawns. \"Trust me, I know how that\n" +
-                "\tfeels like.\" you say to him, knowing full well how he must feel like.",
-                ID = 0020016,
+                "\tfeels like.\" you say to him, knowing full well how he must feel like. \"Listen, I didn't mean to come off as hostile when I asked you about the\n" +
+                "\trebellion. I know it's a dangerous thing, and I should've just accepted your response when you said you didn't want to join in. And I'm sorry\n" +
+                "\tfor that.\" he apologizes to you.",
+                ID = 0020015,
                 AnswerID = 0020031,
             });
             InstanceList.Add(new Instance
             {
                 Text = "He yawns. \"Yeah, I guess I am. And to be fair, I'm kinda nervous about the rebellion too. It has to work. If it doesn't...\" he trails off.\n" +
                 "\tYou nod understandingly. \"Listen, I didn't mean to come off as hostile when I asked you about the rebellion. I know it's a dangerous thing, and\n" +
-                "\tI should've just accepted your response when you said you didn't want to join in. And I'm sorry for that.\" he apologizes to you.\n",
+                "\tI should've just accepted your response when you said you didn't want to join in. And I'm sorry for that.\" he apologizes to you.",
                 ID = 0020015,
                 AnswerID = 0020030,
             });
@@ -1749,13 +1884,13 @@ namespace FoEChoices
             {
                 Text = "He seems to think about something for a few minutes while you two eat in silence. \"Listen, I didn't mean to come off as hostile when I asked\n" +
                 "\tyou about the rebellion. I know it's a dangerous thing, and I should've just accepted your response when you said you didn't want to join in. So...\n" +
-                "\tI'm sorry.\" he apologizes.\n",
+                "\tI'm sorry.\" he apologizes.",
                 ID = 0020015,
                 AnswerID = 0020029,
             });
             InstanceList.Add(new Instance
             {
-                Text = "joined",
+                Text = "\"Morning! Haven't seen you in a while.\" he says to you, and sits down on the other side of the table. He looks a bit tired.",
                 ID = 0020014,
                 AnswerID = 0020028,
             });
@@ -1821,7 +1956,7 @@ namespace FoEChoices
             {
                 Text = "As you munch on your bread, you eye over the cafeteria and the ponies in there. The cafeteria is more packed than normally, likely because\n" +
                 "\tof the day off. Most of the ponies seem to go about their day as usual, although you can see a few who look a bit stressed. You then notice\n" +
-                "\tArdent trotting your way.\n",
+                "\tArdent walking your way.\n",
                 ID = 0020013,
                 AnswerID = 0020026,
                 HasSpecialFunction = true,
