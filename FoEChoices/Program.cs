@@ -45,7 +45,7 @@ namespace FoEChoices
         public int RepPoints { get; set; } // SpecialFunction: 5. set to the amount of rep points to award or take from the player. has to be used with Faction!
         public int NewArmorID { get; set; } // SpecialFunction: 6. set to the corresponding ArmorID of an armor to give to the player.
         public int ArmorCheck { get; set; } // SpecialFunction: 7. set to the ArmorClass the player's armor needs to have to pass the check.
-        public int QuestCheck { get; set; } // SpecialFunction: 8. set to the ID of a quest to check if it has been completed. !!!don't use twice without having answers in between, will break!!!
+        public int QuestCheck { get; set; } // SpecialFunction: 8. set to the ID of a quest to check if it has been completed. !!!don't use twice without having answers in between, will break!!! <-- not sure if fixed?
         public int RemoveAnswer { get; set; } // Specialfunction: 9. set to the ID of an answer to remove.
         public int RedirectInstance { get; set; } // Specialfunction: 10. set to the AnswerID of an instance to redirect the current instance chain to.
 
@@ -1789,6 +1789,27 @@ namespace FoEChoices
                 ID = 0020038,
                 InstanceID = 0020018,
             });
+            AnswersList.Add(new Answer
+            {
+                Text = "That's it?",
+                UserInput = 1,
+                ID = 0020042,
+                InstanceID = 0020019,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "Sweet Celestia, this is not going to work.",
+                UserInput = 2,
+                ID = 0020043,
+                InstanceID = 0020019,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "Alright, worth a shot. I guess we don't have much of a choice.",
+                UserInput = 3,
+                ID = 0020044,
+                InstanceID = 0020019,
+            });
 
 
             // ------------------------------------------------------- INSTANCE LIST -------------------------------------------------------
@@ -1796,14 +1817,110 @@ namespace FoEChoices
 
             InstanceList.Add(new Instance
             {
-                Text = "You both continue to eat as you catch up on things. ",
+                Text = "\"If you say so. I just don't want anyone to get hurt. Or worse... Who knows how much force the security will try to use.\" you wonder. You\n" +
+                "\tdistantly remember somepony getting shot after they refused to leave the Stable after getting voted out when you were young. \"As long as we don't\n" +
+                "\tget violent, the security will do the same. I have a few friends in security that agreed to join the rebellion. I asked them about how much the\n" +
+                "\tsecurity has been authorised to use force in situations like this.\" he says, almost as if he was expecting you to ask that.\n",
+                ID = 0020020,
+                AnswerID = 0020045,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"That's good. At least some peace of mind.\" you say, feeling a little relief. Maybe the rebellion will go smoothly, and you're just worrying\n" +
+                "\ttoo much. Ardent sure seems to have things under control. Just like he always has. He's the type to always keep his cool in stressful situations.\n" +
+                "\t\"Anyways, I think I'll leave you be. I have some stuff to do in the maintenance wing.\" he says as he stands up from the bed. \"But don't you have\n" +
+                "\ta day off today?\" you ask.\n",
+                ID = 0020020,
+                AnswerID = 0020045,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"I was supposed to have one, yeah. But something came up this morning. The Stable doesn't care that it's my day off, heh.\" he says jokingly.\n",
+                ID = 0020020,
+                AnswerID = 0020045,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Yeah. Depending on how the Overmare'll react to the riot, we may have to overthrow her and pick a new leader for the Stable.\" he says. You can\n" +
+                "\thear it in his voice that he clearly wants it to happen. \"That would likely prove to be difficult.\" you say, thinking about how the Stable would\n" +
+                "\treact to being without an Overmare, even for a short time. \"Difficult, yes, but we would manage.\" he says, sounding confident.\n",
+                ID = 0020020,
+                AnswerID = 0020044,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0020045
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"I was hoping you'd try to be a bit more supportive. I know it seems like a bad idea, but do we really have any choice if we want to end this\n" +
+                "\tinsanity?\" he says disappointingly. \"I guess we don't. But it still is dangerous, and I'm really worried about what happens if...\" you trail off.\n" +
+                "\t\"That won't happen, I promise.\" he says comfortingly.\n",
+                ID = 0020020,
+                AnswerID = 0020043,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0020045
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Pretty much, yeah. We'll have to see how the Overmare'll react. In the worst case, we'll have to overthrow her and pick a new leader for the\n" +
+                "\tStable.\" he says matter-of-factly. You have a hard time trying to wrap your head around this whole thing. It's not everyday you face events this big.\n" +
+                "\t\"How well would that even work out? I imagine there would be some unrest among everyone when there's no Overmare.\" you ponder out loud. \"Hey,\n" +
+                "\tdon't worry so much. Me and a couple others have things already planned out.\" he says comfortingly.\n",
+                ID = 0020020,
+                AnswerID = 0020042,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0020045
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "You both continue to eat as you catch up on things. You learn that the Stable's reactor had an extensive maintenance done to it during the\n" +
+                "\tpast week. Ardent explains that the reactor is divided into three different sectors and that it's able to run for a short period of time even\n" +
+                "\tif two of the sectors are offline. That way the maintenance crew can work on the reactor while still providing power to the Stable.\n",
                 ID = 0020019,
                 AnswerID = 0020039,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 8 }),
+                QuestCheck = 6,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "After you've finished your breakfast, Ardent leaves to do some last minute preparations for the rebellion. You can't help but be worried about how\n" +
+                "\tit will go. After a minute, you shove those thoughts aside. You then look at the applecore on your plate. \"Maybe the orchard has some spare apples.\n" +
+                "\tMight as well visit the place while I wait for the vote to end.\" you think to yourself. You start heading to the orchard, which is located at the\n" +
+                "\tsame story as the IT-department.\n",
+                ID = 0020019,
+                AnswerID = 0020040,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "After you've finished your breakfast, you two decide to go to your room to discuss the rebellion. \"I've already given the run-down for the\n" +
+                "\tothers who I've asked to join. We have about a quarter of the Stable's inhabitants with us on this.\" Ardent says to you while you're walking\n" +
+                "\ttowards the living quarters. Part of you is worried that somepony has ratted out the plan to the Overmare, but you shove those thoughts aside.\n",
+                ID = 0020019,
+                AnswerID = 0020041,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "Once you get to your room, you sit down at your terminal. Ardent sits down on your bed and seems to look at all the Sparkle-Cola merch on\n" +
+                "\tyour shelf for a while. \"I don't think I've said it before, but I really like your collection.\" he says while looking at the bottles. You\n" +
+                "\tsmile proudly. \"Thanks, I take pride in it. It was quite difficult to get a hold of some of those things.\" you explain to him, feeling\n" +
+                "\tgood that somepony took notice to your collection.\n",
+                ID = 0020019,
+                AnswerID = 0020041,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"So. The plan is pretty simple. Once the time comes to throw The Pariah outside, we prevent them from going out, and demand the Overmare\n" +
+                "\tto stop the vote and let The Pariah stay with us.\" he says.",
+                ID = 0020019,
+                AnswerID = 0020041,
             });
             InstanceList.Add(new Instance
             {
                 Text = "He looks shocked by your statement. \"Really? That's... quite alarming, to put it lightly. Have you told anypony else?\" he asks you.\n" +
-                "\"No. Well, Scanline was there when she said it. But what does it matter? I doubt anything good is gonna come if I try to tell about it.\"\n" +
+                "\t\"No. Well, Scanline was there when she said it. But what does it matter? I doubt anything good is gonna come if I try to tell about it.\"\n" +
                 "\tyou reason to him. He seems to think about it for a while. \"I guess you're right.\" he admits in defeat, clearly wanting something to\n" +
                 "\taccuse the Overmare of.\n",
                 ID = 0020019,
