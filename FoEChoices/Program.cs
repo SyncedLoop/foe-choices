@@ -108,14 +108,15 @@ namespace FoEChoices
             Console.WriteLine("\tLoading...");
 // ------------------------------------------------------- QUEST LIST -------------------------------------------------------
             QuestList.Add(new Quest() { Description = "Have a constructive conversation with Light Harmony", QuestID = 0, Completed = false });
-            QuestList.Add(new Quest() { Description = "Reset Cross Stitch's terminal's password without losing your cool", QuestID = 1, Completed = true });
+            QuestList.Add(new Quest() { Description = "Reset Cross Stitch's terminal's password without losing your cool", QuestID = 1, Completed = false });
             QuestList.Add(new Quest() { Description = "Inspect the pistol in the Stable's armory", QuestID = 2, Completed = false });
             QuestList.Add(new Quest() { Description = "Mention Astral in your first conversation with Ardent", QuestID = 3, Completed = false });
             QuestList.Add(new Quest() { Description = "Choose Cross Stitch's path", QuestID = 4, Completed = false });
             QuestList.Add(new Quest() { Description = "Annoy the Overmare during your first conversation", QuestID = 5, Completed = true });
-            QuestList.Add(new Quest() { Description = "Agree to join the rebellion", QuestID = 6, Completed = false });
+            QuestList.Add(new Quest() { Description = "Agree to join the rebellion", QuestID = 6, Completed = true });
             QuestList.Add(new Quest() { Description = "Get apples from the orchard", QuestID = 7, Completed = false });
             QuestList.Add(new Quest() { Description = "Get some Sparkle-Cola from the bar", QuestID = 8, Completed = false });
+            QuestList.Add(new Quest() { Description = "Meet Astral during the first day", QuestID = 9, Completed = true });
 
             // ------------------------------------------------------- SUCCESSFUL QUEST ANSWERS -------------------------------------------------------
             SuccessfulQuestAnswer.Add(
@@ -136,7 +137,7 @@ namespace FoEChoices
             GameState = 0;
 
             bool DebugMode = true; // skip the intro and set starting point
-            if (DebugMode) PassInstanceID = 0030002;
+            if (DebugMode) PassInstanceID = 0030005;
 
             // var SoundPlayer = new System.Media.SoundPlayer();
             // SoundPlayer.SoundLocation = Environment.CurrentDirectory + "\\file-name.wav";
@@ -1157,7 +1158,7 @@ namespace FoEChoices
                 ID = 49,
                 InstanceID = 28,
                 HasSpecialFunction = true,
-                SpecialFunction = new List<int>(new int[] { 6 }),
+                SpecialFunction = new List<int>(new int[] { 2 }),
                 QuestID = 6
             });
             AnswersList.Add(new Answer
@@ -1167,7 +1168,7 @@ namespace FoEChoices
                 ID = 49,
                 InstanceID = 29,
                 HasSpecialFunction = true,
-                SpecialFunction = new List<int>(new int[] { 6 }),
+                SpecialFunction = new List<int>(new int[] { 2 }),
                 QuestID = 6
             });
             AnswersList.Add(new Answer
@@ -1184,7 +1185,7 @@ namespace FoEChoices
                 ID = 54,
                 InstanceID = 30,
                 HasSpecialFunction = true,
-                SpecialFunction = new List<int>(new int[] { 6 }),
+                SpecialFunction = new List<int>(new int[] { 2 }),
                 QuestID = 6
             });
             AnswersList.Add(new Answer
@@ -1201,7 +1202,7 @@ namespace FoEChoices
                 ID = 49,
                 InstanceID = 37,
                 HasSpecialFunction = true,
-                SpecialFunction = new List<int>(new int[] { 6 }),
+                SpecialFunction = new List<int>(new int[] { 2 }),
                 QuestID = 6
             });
             AnswersList.Add(new Answer
@@ -1218,7 +1219,7 @@ namespace FoEChoices
                 ID = 49,
                 InstanceID = 32,
                 HasSpecialFunction = true,
-                SpecialFunction = new List<int>(new int[] { 6 }),
+                SpecialFunction = new List<int>(new int[] { 2 }),
                 QuestID = 6
             });
             AnswersList.Add(new Answer
@@ -1235,7 +1236,7 @@ namespace FoEChoices
                 ID = 49,
                 InstanceID = 33,
                 HasSpecialFunction = true,
-                SpecialFunction = new List<int>(new int[] { 6 }),
+                SpecialFunction = new List<int>(new int[] { 2 }),
                 QuestID = 6
             });
             AnswersList.Add(new Answer
@@ -1289,6 +1290,9 @@ namespace FoEChoices
                 UserInput = 3,
                 ID = 0012000,
                 InstanceID = 36,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 2 }),
+                QuestID = 9
             });
             AnswersList.Add(new Answer
             {
@@ -1339,7 +1343,7 @@ namespace FoEChoices
                 ID = 0010006,
                 InstanceID = 0010004,
                 HasSpecialFunction = true,
-                SpecialFunction = new List<int>(new int[] { 6 }),
+                SpecialFunction = new List<int>(new int[] { 2 }),
                 QuestID = 1
             });
             AnswersList.Add(new Answer
@@ -1349,7 +1353,7 @@ namespace FoEChoices
                 ID = 0010007,
                 InstanceID = 0010004,
                 HasSpecialFunction = true,
-                SpecialFunction = new List<int>(new int[] { 6 }),
+                SpecialFunction = new List<int>(new int[] { 2 }),
                 QuestID = 1 
             });
             AnswersList.Add(new Answer
@@ -1952,10 +1956,199 @@ namespace FoEChoices
                 ID = 0030016,
                 InstanceID = 0030005,
             });
+            AnswersList.Add(new Answer
+            {
+                Text = "I'll quickly go check the votes.",
+                UserInput = 1,
+                ID = 0030031,
+                InstanceID = 0030007,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "I'll check the votes after we're done with the rebellion.",
+                UserInput = 2,
+                ID = 0030032,
+                InstanceID = 0030007,
+            });
 
             // ------------------------------------------------------- INSTANCE LIST -------------------------------------------------------
 
 
+            InstanceList.Add(new Instance
+            {
+                Text = "The three of you then fall silent for a moment. You can clearly see how nervous Ardent and dad are getting, despite their best\n" +
+                "\tattempts at hiding it. Not that you can blame them, this is the biggest event in the Stable since... well, since the last rebellion attempt.\n" +
+                "\tArdent then speaks up, breaking the silence.\n",
+                ID = 0030007,
+                AnswerID = 0030031,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"I can't help but think how the Overmare acted during the announcement. She didn't seem the least bit surprised that you got\n" +
+                "\tthe most votes. Isn't that kinda suspicious to you too?\" he asks you.\n" +
+                "\t\"That's true. Or maybe she just doesn't care about anypony else than herself,\" you respond. On the other hoof, it is be possible that\n" +
+                "\tshe could have tampered with the votes. A realization then hits you.\n",
+                ID = 0030007,
+                AnswerID = 0030031,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"I could go check the logs from the voting program to see if the votes are legit! Goddesses, why didn't I think of it sooner...\"\n" +
+                "\tyou say, disappointed in yourself. The lack of sleep recently really has taken a toll on you.\n" +
+                "\t\"You're gonna have to hurry if you want to do that, we need to be at the Stable's door soon,\" dad says.",
+                ID = 0030007,
+                AnswerID = 0030031,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Oh, before I forget... Here, I think you should have this,\" dad says, and pulls out something from his saddlebags. Is that...\n" +
+                "\t\"A gun?\" you ask, trying to keep your voice down.\n" +
+                "\t\"It's the pistol you found last week. You should keep it for now, just in case things get ugly during the rebellion,\" he says. You can\n" +
+                "\tbarely believe what you're hearing. You've never even handled a gun before.\n",
+                ID = 0030007,
+                AnswerID = 0030030,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"B-but I don't even know how to use it!\" you say.\n" +
+                "\t\"Oh, it's easy. Remove the safety, load it, point at the target, and pull the trigger. Nothing more to it. And they did teach how to use\n" +
+                "\ta gun in classes when you were younger, correct?\" dad says like it's no big deal.\n",
+                ID = 0030007,
+                AnswerID = 0030030,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Yeah, but it was only in theory. We didn't actually get to use them,\" you say.\n" +
+                "\t\"And theory has always been your strength,\" dad says encouragingly. Seemingly having no room for an argument, you decide to take the pistol,\n" +
+                "\tand put it in your saddlebags. Here's hoping you won't have to use it.\n",
+                ID = 0030007,
+                AnswerID = 0030030,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"What happened to the whole 'not allowed to give guns to anypony but the security' thing?\" you ask dad playfully.\n" +
+                "\t\"Well as it turns out, this pistol wasn't actually even listed in our system, which is quite weird. But it means I'm not technically doing\n" +
+                "\tanything wrong by giving it to you, since there's no documentation of it,\" dad explains. Not documented?\n",
+                ID = 0030007,
+                AnswerID = 0030030,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Really? You'd think the Stable would keep a good record of all firearms,\" you say.\n" +
+                "\t\"Yeah. And what's even weirder is that it doesn't seem to have a serial number on it,\" dad says. Either it's worn off, of it's a custom made,\n" +
+                "\tyou think to yourself.\n",
+                ID = 0030007,
+                AnswerID = 0030030,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0030029
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "You then remember a particular event that happened a week ago. You ran into Astral during one morning, and then she proceeded to make some\n" +
+                "\tambiguous threats towards you. Could it be that she's somehow behind all this? What reason would she have to take such drastic measures?\n" +
+                "\t\"I guess I have one theory. I think it might have been Astral. I ran into her some time ago, and it sounded like she was planning something,\"\n" +
+                "\tyou explain to Ardent.\n",
+                ID = 0030007,
+                AnswerID = 0030027,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Sounds a bit far fetched to me. Why would she have even done it?\" Ardent asks sceptically.\n" +
+                "\t\"I don't know. I just wish she would leave me alone,\" you answer.\n",
+                ID = 0030007,
+                AnswerID = 0030027,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0030026
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"It doesn't matter right now, we can ask her about it later. What matters now is making sure we stop the vote from happening in the future,\"\n" +
+                "\tdad chimes in. You and Ardent both agree.\n",
+                ID = 0030007,
+                AnswerID = 0030026,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0030028
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"So, I guess the next thing to do is to make sure Silver doesn't get thrown out. We've already planned everything with the others who\n" +
+                "\tjoined us in the rebellion, so we shouldn't have any problems with that,\" Ardent explains. \"You just make sure not to leave the Stable, alright?\"" +
+                "\the adds, poking you in the chest playfully.\n" +
+                "\t\"I'll try to remember that,\" you answer.\n",
+                ID = 0030007,
+                AnswerID = 0030028,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 8 }),
+                QuestCheck = 2,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"But seriously, what happened? There's no way you actually had the most votes. Are you sure the program you made works as it's\n" +
+                "\tsupposed to?\" Ardent asks. You act shocked by the question.\n" +
+                "\t\"Are you suggesting I'm bad at my job?\" you ask in a playful manner. Now it's Ardent's turn to roll his eyes.\n",
+                ID = 0030007,
+                AnswerID = 0030025,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 8 }),
+                QuestCheck = 9,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"And it looks like you will be part of the rebellion too, whether you wanted to or not,\" Ardent says to you, half-joking.\n" +
+                "\t\"I guess so,\" you reply. You really didn't want to get involved in it, but it seems like fate had other ideas.\n",
+                ID = 0030007,
+                AnswerID = 0030024,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0030025
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Silver!\" dad exclaims, and leaps in for a hug. \"Well, that was an unexpected turn of events,\" he continues after he lets you go.\n" +
+                "\t\"Not really,\" you almost say aloud, but stop at the last second. Wait, what? You shake your head to clear your thoughts.\n" +
+                "\t\"Yeah,\" you reply simply.\n",
+                ID = 0030007,
+                AnswerID = 0030020,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 8 }),
+                QuestCheck = 1,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Going for a new look, huh? Where'd you get that jumpsuit?\" dad asks after getting a closer look at you.\n" +
+                "\t\"Oh, Cross Stitch gave it to me. Said it would keep me warm,\" you answer. He seems impressed about the outfit.\n",
+                ID = 0030007,
+                AnswerID = 0030022,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0030021
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Alright, what the fuck is going on? How did you manage get the most votes? I don't think most ponies here even know you exist!\" Ardent says\n" +
+                "\tafter closing the door behind him. You raise an eyebrow at him.\n" +
+                "\t\"Oh, I uh- meant that in a good way, heh,\" he then says, somewhat embarrassed. You roll your eyes at that.\n" +
+                "\t\"Your guess is as good as mine,\" you respond.\n",
+                ID = 0030007,
+                AnswerID = 0030021,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0030023
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"It's a good thing we decided to do the rebellion this year,\" dad says, lowering his voice.\n" +
+                "\t\"Oh, Ardent recruited you to the rebellion too?\" you ask him.\n" +
+                "\t\"He asked me to join some time ago, actually,\" dad replies. You nod in acknowledgement.\n",
+                ID = 0030007,
+                AnswerID = 0030023,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 8 }),
+                QuestCheck = 6,
+            });
             InstanceList.Add(new Instance
             {
                 Text = "\"Alright, what should I pack with me?\" you think aloud. Maybe some food in case the rebellion fails and you actually get kicked out? No,\n" +
@@ -1963,6 +2156,23 @@ namespace FoEChoices
                 "\tcollection of Sparkle-Cola merch for a moment, before taking the six bottles from the shelf and putting them into the saddlebags.\n",
                 ID = 0030007,
                 AnswerID = 0030018,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "You then open your drawer and pull out a box of sugar apple bombs. What, can't a mare have some snacks hidden away for those lazy days when\n" +
+                "\tthey don't want to leave the room?\n",
+                ID = 0030007,
+                AnswerID = 0030018,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "After placing the box of sugary goodness in your saddlebags, you hear the door open behind you. Sighing heavily, you turn around ready to give\n" +
+                "\ta few carefully chosen words to the security ponies. But to your pleasant surprise, you see Ardent and your dad walk into the room.\n",
+                ID = 0030007,
+                AnswerID = 0030018,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0030020
             });
             InstanceList.Add(new Instance
             {
