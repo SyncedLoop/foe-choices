@@ -17,8 +17,6 @@ namespace FoEChoices
         public int InstanceID { get; set; }
         public bool HasSpecialFunction { get; set; }
         public List<int> SpecialFunction { get; set; } // set to 1 or more to execute additional code. use with the functions below to use their code
-        public int RepCheck { get; set; } // SpecialFunction: 1. set to the amount of rep points the player needs to have to pass the check.
-        public string FactionName { get; set; } // SpecialFunction: 1. set to the faction's name you want to check the rep points. has to be used with RepCheck!
         public int QuestID { get; set; } // SpecialFuntion: 2. set to the ID of a quest to mark as completed.
 
     }
@@ -41,13 +39,14 @@ namespace FoEChoices
         public List<int> SpecialFunction { get; set; } // set to 1 or more to execute additional code. needs to be used with HasSpecialFunction. 1 = Finish; 2 = Death. syntax: new List<int>(new int[]{ 5 })
         public int NewWeaponID { get; set; } // SpecialFunction: 3. set to the corresponding WeaponID of a weapon to give to the player.
         public int DamageCheck { get; set; } // SpecialFunction: 4. set to the amount of damage the player's weapon needs to do to pass the check. default weapon makes 1 point of damage, so there's no point in having this set to 1.
-        public string Faction { get; set; } // SpecialFunction: 5. set to the faction's name you want to add/remove rep points to/from.
+        public string Faction { get; set; } // SpecialFunction: 5/11. set to the faction's name you want to add/remove rep points to/from, or to check the Faction's rep points.
         public int RepPoints { get; set; } // SpecialFunction: 5. set to the amount of rep points to award or take from the player. has to be used with Faction!
         public int NewArmorID { get; set; } // SpecialFunction: 6. set to the corresponding ArmorID of an armor to give to the player.
         public int ArmorCheck { get; set; } // SpecialFunction: 7. set to the ArmorClass the player's armor needs to have to pass the check.
-        public int QuestCheck { get; set; } // SpecialFunction: 8. set to the ID of a quest to check if it has been completed. !!!don't use twice without having answers in between, will break!!! <-- not sure if fixed?
+        public int QuestCheck { get; set; } // SpecialFunction: 8. set to the ID of a quest to check if it has been completed. !!!don't use twice without having answers in between, will break!!! <-- not sure if fixed? <-- yeah, it's fixed
         public int RemoveAnswer { get; set; } // Specialfunction: 9. set to the ID of an answer to remove.
         public int RedirectInstance { get; set; } // Specialfunction: 10. set to the AnswerID of an instance to redirect the current instance chain to.
+        public int RepCheck { get; set; } // SpecialFunction: 11. set to the amount of rep points the player needs to have to pass the check. has to be used with Faction!
 
     }
 
@@ -88,6 +87,11 @@ namespace FoEChoices
         public static Faction Stable54 = new Faction
         {
             FactionName = "Stable 54",
+            RepPoints = 0
+        };
+        public static Faction Security = new Faction
+        {
+            FactionName = "Security",
             RepPoints = 0
         };
 
@@ -286,16 +290,6 @@ namespace FoEChoices
                     //check for any special functions
                     if (answer.HasSpecialFunction)
                     {
-                        // add/remove rep points
-                        if (answer.SpecialFunction.Contains(1))
-                        {
-                            int points = GetRepPoints(answer.FactionName, 0);
-
-                            if (answer.RepCheck < points)
-                            {
-                                PassAnswerID += 1;
-                            }
-                        }
                         // set the quest to completed
                         if (answer.SpecialFunction.Contains(2))
                         {
@@ -372,11 +366,16 @@ namespace FoEChoices
                                 InstanceRedirected = true;
                             }
                         }
-                        if (instance.SpecialFunction.Contains(5)) // MAKE THIS DYNAMICALLY IF POSSIBLE!!!
+                        // add/remove rep points
+                        if (instance.SpecialFunction.Contains(5)) // TODO: MAKE THIS DYNAMIC!!!
                         {
                             if (instance.Faction == "Stable 54")
                             {
                                 GetRepPoints("Stable 54", instance.RepPoints);
+                            }
+                            if (instance.Faction == "Security")
+                            {
+                                GetRepPoints("Security", instance.RepPoints);
                             }
                         }
                         // give new armor to the player
@@ -388,7 +387,7 @@ namespace FoEChoices
                         // check if the players armor is strong enough to pass the check
                         if (instance.SpecialFunction.Contains(7))
                         {
-                            ArmorClass = WeaponName(CurrentWeaponID, 2);
+                            ArmorClass = GetNewArmor(CurrentArmorID, 2);
 
                             if (ArmorClass >= instance.ArmorCheck) // armor protects
                             {
@@ -435,6 +434,26 @@ namespace FoEChoices
                             Answered = instance.RedirectInstance;
                             PassInstanceID = GetInstance(Answered, CurrentWeaponID);
                             InstanceRedirected = true;
+                        }
+                        // check reputation
+                        if (instance.SpecialFunction.Contains(11))
+                        {
+                            int points = GetRepPoints(instance.Faction, 0);
+
+                            if (instance.RepCheck <= points) {
+
+                                Answered = PassAnswerID + 2;
+                                PassInstanceID = GetInstance(Answered, CurrentWeaponID);
+                                InstanceRedirected = true;
+
+                            }
+                            else {
+
+                                Answered = PassAnswerID + 1;
+                                PassInstanceID = GetInstance(Answered, CurrentWeaponID);
+                                InstanceRedirected = true;
+
+                            }
                         }
                     }
                 }
@@ -487,15 +506,17 @@ namespace FoEChoices
             int RepPoints = SentRepPoints;
             int RepPointsToSend = 0;
 
-            // MAKE THIS DYNAMICALLY IF POSSIBLE!!!
+            // TODO: MAKE THIS DYNAMIC!!!
             if (FactionName == "Stable 54") {
-
                 // add or remove the possible amount of points
                 Stable54.RepPoints += RepPoints;
-
                 // send the requested faction's rep points
                 RepPointsToSend = Stable54.RepPoints;
-
+            }
+            if (FactionName == "Security")
+            {
+                Security.RepPoints += RepPoints;
+                RepPointsToSend = Security.RepPoints;
             }
 
             return RepPointsToSend;
@@ -514,7 +535,7 @@ namespace FoEChoices
             int RequestedInfo = InfoType; // 0 = WeaponName; 1 = WeaponID; 2 = Damage
             int WeaponDamage;
 
-            ArrayList WeaponList = new ArrayList()
+            List<Weapon> WeaponList = new List<Weapon>()
             {
 
                 new Weapon
@@ -1976,8 +1997,113 @@ namespace FoEChoices
 
             InstanceList.Add(new Instance
             {
+                Text = "You then hear the younger security pony rush to the office.\n" +
+                "\t\"There you are, you little prick!\" he growls at you. He starts walking towards you... with a baton in his magic. Oh no.\n" +
+                "\t\"I've just about had enough of you for today!\" he says, and pulls the chair from under you with his magic. You fall onto the floor in a heap.\n",
+                ID = 0030008,
+                AnswerID = 0030033,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "You start to get up, but are interrupted by a strike to your side from the baton. Yelping in pain, you raise your forehooves to protect you.\n" +
+                "\t\"Maybe this'll teach you a little respect, bitch!\" the stallion says, as he keeps beating down on you.\n",
+                ID = 0030008,
+                AnswerID = 0030033,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Alright, that's enough. We need to get going,\" comes the voice of the older stallion from the door. The younger pony stops his strikes.\n" +
+                "\t\"Get up,\" he says to you. Hurting all over, you slowly get up. You almost collapse again when you try to put weight on your left forehoof.\n",
+                ID = 0030008,
+                AnswerID = 0030033,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Oww... What was that for?\" you ask the stallion.\n" +
+                "\t\"You know it already. Maybe start showing some respect to the ponies around you, huh?\" he spats at you. You almost go for an insult, but\n" +
+                "\tdecide against it. The three of you then start walking towards the top level of the Stable. You try to put as little weight on your left\n" +
+                "\tforehoof as you walk. This day just keeps getting shittier.\n",
+                ID = 0030008,
+                AnswerID = 0030033,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "It would be a huge help in the rebellion if we could catch the Overmare messing with the votes, you reason to yourself.\n" +
+                "\t\"Alright, see you at the door,\" you say as you pick up your saddlebags, and leave the room. You don't have much time, so you start running\n" +
+                "\tfor the IT-department.\n",
+                ID = 0030008,
+                AnswerID = 0030031,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 5 }),
+                Faction = "Security",
+                RepPoints = 1,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Hey, wait up!\" you hear the security ponies say behind you. You don't slow down however, and instead keep running.\n",
+                ID = 0030008,
+                AnswerID = 0030031,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "The hallways are almost empty, you notice. Most ponies are probably at the top level of the Stable. Exactly how many ponies are in\n" +
+                "\tthe revolt? You hope it's the majority of the Stable, it's gonna be a lot easier to pressure the Overmare to abandon the vote\n.",
+                ID = 0030008,
+                AnswerID = 0030031,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "Once you get to the lower level, you see Scanline leave the IT-department, much to your surprise. She then notices you.\n" +
+                "\t\"Silver? what are you doing here?\" she asks, also surprised.\n",
+                ID = 0030008,
+                AnswerID = 0030031,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"I could ask you the same,\" you respond to her.\n" +
+                "\t\"Something urgent came up, had to take care of it. Aren't you supposed to be, uh, leaving?\" she asks. You open your mouth to respond, but\n" +
+                "\tnotice that Scanline seems to have... a black eye?\n",
+                ID = 0030008,
+                AnswerID = 0030031,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"I was just gonna check if the votes I got are legit. Are you okay? What happened to your eye?\" you ask her.\n" +
+                "\t\"Oh, I tripped yesterday, don't worry,\" she says. You're not sure if you believe her, but let it be for now.\n",
+                ID = 0030008,
+                AnswerID = 0030031,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Well, be sure to hurry. I was on my way to the top level to, you know... say goodbye,\" she says after a few seconds of silence.\n" +
+                "\t\"I'll be quick,\" you say to her, and continue walking to the IT-department.\n",
+                ID = 0030008,
+                AnswerID = 0030031,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "You step into the office, turn on your terminal, and log in. But instead of letting you in, the machine gives you an error.\n" +
+                "\t'The username or password is incorrect.' You type them again, but get the same response. A third time, you type slowly to not make any typos.\n" +
+                "\tStill no luck.\n",
+                ID = 0030008,
+                AnswerID = 0030031,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"FUCK!\" you yell in frustration. Nothing is ever easy, is it? You realize that the program automatically deleted the Pariah's account\n" +
+                "\tfrom the system. And since your personal account is tied to the admin account, it got deleted too. This mess is going to take ages to fix...\n" +
+                "\tShould've put more thought into edge cases. You yell a few more profanities to let some of the stress out.\n",
+                ID = 0030008,
+                AnswerID = 0030031,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 11 }),
+                Faction = "Security",
+                RepCheck = 3,
+            });
+            InstanceList.Add(new Instance
+            {
                 Text = "The three of you then fall silent for a moment. You can clearly see how nervous Ardent and dad are getting, despite their best\n" +
-                "\tattempts at hiding it. Not that you can blame them, this is the biggest event in the Stable since... well, since the last rebellion attempt.\n" +
+                "\tattempts at hiding it. Not that you can blame them, this is the biggest event in the Stable since... well, since the last revolt attempt.\n" +
                 "\tArdent then speaks up, breaking the silence.\n",
                 ID = 0030007,
                 AnswerID = 0030031,
@@ -1986,8 +2112,8 @@ namespace FoEChoices
             {
                 Text = "\"I can't help but think how the Overmare acted during the announcement. She didn't seem the least bit surprised that you got\n" +
                 "\tthe most votes. Isn't that kinda suspicious to you too?\" he asks you.\n" +
-                "\t\"That's true. Or maybe she just doesn't care about anypony else than herself,\" you respond. On the other hoof, it is be possible that\n" +
-                "\tshe could have tampered with the votes. A realization then hits you.\n",
+                "\t\"That's true. Or maybe she just doesn't care about anypony else than herself,\" you respond. Although, the Overmare would have an easy\n" +
+                "\ttime rigging the votes because of the program. A realization then hits you.\n",
                 ID = 0030007,
                 AnswerID = 0030031,
             });
@@ -2238,8 +2364,10 @@ namespace FoEChoices
                 ID = 0030006,
                 AnswerID = 0030016,
                 HasSpecialFunction = true,
-                SpecialFunction = new List<int>(new int[] { 10 }),
-                RedirectInstance = 0030017
+                SpecialFunction = new List<int>(new int[] { 5, 10 }),
+                RedirectInstance = 0030017,
+                Faction = "Security",
+                RepPoints = 1,
             });
             InstanceList.Add(new Instance
             {
@@ -2404,8 +2532,10 @@ namespace FoEChoices
                 ID = 0030002,
                 AnswerID = 0030006,
                 HasSpecialFunction = true,
-                SpecialFunction = new List<int>(new int[] { 10 }),
-                RedirectInstance = 0030007
+                SpecialFunction = new List<int>(new int[] { 5, 10 }),
+                RedirectInstance = 0030007,
+                Faction = "Security",
+                RepPoints = 1,
             });
             InstanceList.Add(new Instance
             {
