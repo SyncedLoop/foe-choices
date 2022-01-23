@@ -327,133 +327,129 @@ namespace FoEChoices
                 Console.WriteLine("\t{0}", instance.Text);
                 while (Console.ReadKey(true).Key != ConsoleKey.Enter) { }
 
-                if (instance.HasSpecialFunction)
+                if (instance.HasSpecialFunction) // check for any SpecialFunctions
                 {
-                    // check for any special functions
-                    for (int i = 0; i < instance.SpecialFunction.Count; i++)
+
+                    if (instance.SpecialFunction.Contains(1))
                     {
+                        Finished();
+                    }
+                    if (instance.SpecialFunction.Contains(2))
+                    {
+                        Death();
+                    }
+                    // give the player a new weapon
+                    if (instance.SpecialFunction.Contains(3))
+                    {
+                        CurrentWeaponID = instance.NewWeaponID;
+                        CurrentWeaponName = WeaponName(CurrentWeaponID, 0);
+                        TextUpdatePending = true;
+                    }
+                    // check if the player's weapon does enough damage to pass the check
+                    if (instance.SpecialFunction.Contains(4))
+                    {
+                        WeaponDamage = WeaponName(CurrentWeaponID, 2);
 
-                        if (instance.SpecialFunction.Contains(1))
+                        if (WeaponDamage >= instance.DamageCheck) // does enough damage
                         {
-                            Finished();
-                        }
-                        if (instance.SpecialFunction.Contains(2))
-                        {
-                            Death();
-                        }
-                        // give the player a new weapon
-                        if (instance.SpecialFunction.Contains(3))
-                        {
-                            CurrentWeaponID = instance.NewWeaponID;
-                            CurrentWeaponName = WeaponName(CurrentWeaponID, 0);
-                            TextUpdatePending = true;
-                        }
-                        // check if the player's weapon does enough damage to pass the check
-                        if (instance.SpecialFunction.Contains(4))
-                        {
-                            WeaponDamage = WeaponName(CurrentWeaponID, 2);
-
-                            if (WeaponDamage >= instance.DamageCheck) // does enough damage
-                            {
-                                Answered = PassAnswerID + 2;
-                                PassInstanceID = GetInstance(Answered, CurrentWeaponID);
-                                InstanceRedirected = true;
-                            }
-                            else if (WeaponDamage < instance.DamageCheck) // does not do enough damage
-                            {
-                                Answered = PassAnswerID + 1;
-                                PassInstanceID = GetInstance(Answered, CurrentWeaponID);
-                                InstanceRedirected = true;
-                            }
-                        }
-                        // add/remove rep points
-                        if (instance.SpecialFunction.Contains(5)) // TODO: MAKE THIS DYNAMIC!!!
-                        {
-                            if (instance.Faction == "Stable 54")
-                            {
-                                GetRepPoints("Stable 54", instance.RepPoints);
-                            }
-                            if (instance.Faction == "Security")
-                            {
-                                GetRepPoints("Security", instance.RepPoints);
-                            }
-                        }
-                        // give new armor to the player
-                        if (instance.SpecialFunction.Contains(6)) {
-                            CurrentArmorID = instance.NewArmorID;
-                            CurrentArmorName = GetNewArmor(CurrentArmorID, 0);
-                            TextUpdatePending = true;
-                        }
-                        // check if the players armor is strong enough to pass the check
-                        if (instance.SpecialFunction.Contains(7))
-                        {
-                            ArmorClass = GetNewArmor(CurrentArmorID, 2);
-
-                            if (ArmorClass >= instance.ArmorCheck) // armor protects
-                            {
-                                Answered = PassAnswerID + 2;
-                                PassInstanceID = GetInstance(Answered, CurrentWeaponID);
-                                InstanceRedirected = true;
-                            }
-                            else if (ArmorClass < instance.ArmorCheck) // armor does not protect
-                            {
-                                Answered = PassAnswerID + 1;
-                                PassInstanceID = GetInstance(Answered, CurrentWeaponID);
-                                InstanceRedirected = true;
-                            }
-                        }
-                        // check if a quest has been completed
-                        if (instance.SpecialFunction.Contains(8))
-                        {
-                            if(QuestList[instance.QuestCheck].Completed)
-                            {
-                                Answered = PassAnswerID + 2;
-                                PassInstanceID = GetInstance(Answered, CurrentWeaponID);
-                                InstanceRedirected = true;
-                            }
-                            else if (!QuestList[instance.QuestCheck].Completed)
-                            {
-                                Answered = PassAnswerID + 1;
-                                PassInstanceID = GetInstance(Answered, CurrentWeaponID);
-                                InstanceRedirected = true;
-                            }
-                        }
-                        // remove answer
-                        if(instance.SpecialFunction.Contains(9))
-                        {
-                            var item = AnswersList.SingleOrDefault(x => x.ID == PassAnswerID);
-
-                            if(item != null)
-                            {
-                                AnswersList.Remove(item);
-                            }
-                        }
-                        // redirect instance
-                        if (instance.SpecialFunction.Contains(10))
-                        {
-                            Answered = instance.RedirectInstance;
+                            Answered = PassAnswerID + 2;
                             PassInstanceID = GetInstance(Answered, CurrentWeaponID);
                             InstanceRedirected = true;
                         }
-                        // check reputation
-                        if (instance.SpecialFunction.Contains(11))
+                        else if (WeaponDamage < instance.DamageCheck) // does not do enough damage
                         {
-                            int points = GetRepPoints(instance.Faction, 0);
+                            Answered = PassAnswerID + 1;
+                            PassInstanceID = GetInstance(Answered, CurrentWeaponID);
+                            InstanceRedirected = true;
+                        }
+                    }
+                    // add/remove rep points
+                    if (instance.SpecialFunction.Contains(5)) // TODO: MAKE THIS DYNAMIC!!!
+                    {
+                        if (instance.Faction == "Stable 54")
+                        {
+                            GetRepPoints("Stable 54", instance.RepPoints);
+                        }
+                        if (instance.Faction == "Security")
+                        {
+                            GetRepPoints("Security", instance.RepPoints);
+                        }
+                    }
+                    // give new armor to the player
+                    if (instance.SpecialFunction.Contains(6)) {
+                        CurrentArmorID = instance.NewArmorID;
+                        CurrentArmorName = GetNewArmor(CurrentArmorID, 0);
+                        TextUpdatePending = true;
+                    }
+                    // check if the players armor is strong enough to pass the check
+                    if (instance.SpecialFunction.Contains(7))
+                    {
+                        ArmorClass = GetNewArmor(CurrentArmorID, 2);
 
-                            if (instance.RepCheck <= points) {
+                        if (ArmorClass >= instance.ArmorCheck) // armor protects
+                        {
+                            Answered = PassAnswerID + 2;
+                            PassInstanceID = GetInstance(Answered, CurrentWeaponID);
+                            InstanceRedirected = true;
+                        }
+                        else if (ArmorClass < instance.ArmorCheck) // armor does not protect
+                        {
+                            Answered = PassAnswerID + 1;
+                            PassInstanceID = GetInstance(Answered, CurrentWeaponID);
+                            InstanceRedirected = true;
+                        }
+                    }
+                    // check if a quest has been completed
+                    if (instance.SpecialFunction.Contains(8))
+                    {
+                        if(QuestList[instance.QuestCheck].Completed)
+                        {
+                            Answered = PassAnswerID + 2;
+                            PassInstanceID = GetInstance(Answered, CurrentWeaponID);
+                            InstanceRedirected = true;
+                        }
+                        else if (!QuestList[instance.QuestCheck].Completed)
+                        {
+                            Answered = PassAnswerID + 1;
+                            PassInstanceID = GetInstance(Answered, CurrentWeaponID);
+                            InstanceRedirected = true;
+                        }
+                    }
+                    // remove answer
+                    if(instance.SpecialFunction.Contains(9))
+                    {
+                        var item = AnswersList.SingleOrDefault(x => x.ID == PassAnswerID);
 
-                                Answered = PassAnswerID + 2;
-                                PassInstanceID = GetInstance(Answered, CurrentWeaponID);
-                                InstanceRedirected = true;
+                        if(item != null)
+                        {
+                            AnswersList.Remove(item);
+                        }
+                    }
+                    // redirect instance
+                    if (instance.SpecialFunction.Contains(10))
+                    {
+                        Answered = instance.RedirectInstance;
+                        PassInstanceID = GetInstance(Answered, CurrentWeaponID);
+                        InstanceRedirected = true;
+                    }
+                    // check reputation
+                    if (instance.SpecialFunction.Contains(11))
+                    {
+                        int points = GetRepPoints(instance.Faction, 0);
 
-                            }
-                            else {
+                        if (instance.RepCheck <= points) {
 
-                                Answered = PassAnswerID + 1;
-                                PassInstanceID = GetInstance(Answered, CurrentWeaponID);
-                                InstanceRedirected = true;
+                            Answered = PassAnswerID + 2;
+                            PassInstanceID = GetInstance(Answered, CurrentWeaponID);
+                            InstanceRedirected = true;
 
-                            }
+                        }
+                        else {
+
+                            Answered = PassAnswerID + 1;
+                            PassInstanceID = GetInstance(Answered, CurrentWeaponID);
+                            InstanceRedirected = true;
+
                         }
                     }
                 }
@@ -1988,13 +1984,367 @@ namespace FoEChoices
             {
                 Text = "I'll check the votes after we're done with the rebellion.",
                 UserInput = 2,
-                ID = 0030032,
+                ID = 0030035,
                 InstanceID = 0030007,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "Why are you doing this? We can put an end to this madness!",
+                UserInput = 1,
+                ID = 0030039,
+                InstanceID = 0030008,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "[Bluff] Stop waving that thing around, we both know you don't have what it takes to shoot one of your own!",
+                UserInput = 2,
+                ID = 0030040,
+                InstanceID = 0030008,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "Let's just calm down for a second, we can work this out without anypony else getting hurt!",
+                UserInput = 3,
+                ID = 0030041,
+                InstanceID = 0030008,
             });
 
             // ------------------------------------------------------- INSTANCE LIST -------------------------------------------------------
 
 
+            InstanceList.Add(new Instance
+            {
+                Text = "As you're walking, you notice how empty the hallways are. Most ponies are probably at the top level of the Stable. Exactly how many rebels are in\n" +
+                "\tthe revolt? You hope it's the majority of the Stable, as it would be a lot easier to pressure the Overmare to abandon the vote.\n",
+                ID = 0030008,
+                AnswerID = 0030043,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0030038
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "With one final glance back at Ardent, you whisper your last words to him.\n" +
+                "\t\"Goodbye, friend.\"\n",
+                ID = 0030009,
+                AnswerID = 0030042,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "You step outside the Stable, and in to the darkness.\n",
+                ID = 0030009,
+                AnswerID = 0030042,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"There's nothing to work out, this is the way it's going to have to be!\" the Overmare yells at you.\n",
+                ID = 0030009,
+                AnswerID = 0030041,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"No, it doesn't have to! We can abandon the vote, find other ways to keep us safe!\" you try to reason to her, but they seem to fall on deaf ears.\n",
+                ID = 0030009,
+                AnswerID = 0030041,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"You don't understand the situation! If there were any alternatives, I would have taken them! Just go away!\" she yells back at you.\n",
+                ID = 0030009,
+                AnswerID = 0030041,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Please, think about what you're d-\"\n",
+                ID = 0030009,
+                AnswerID = 0030041,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Leave, before I do something we'll both regret!\" she screams at you. She just doesn't want to cooperate. You glance at Ardent, who seems to be\n" +
+                "\tfrozen in fear by the pistol pointed at you.\n",
+                ID = 0030009,
+                AnswerID = 0030041,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "You look at the Overmare for a moment longer. She seems to be on the verge of a complete meltdown. Seemingly left with no choice, you turn around,\n" +
+                "\tand start walking towards the open door.\n",
+                ID = 0030009,
+                AnswerID = 0030041,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0030042
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"I don't?\" she asks. You two stare at each others' eyes for what feels like an eternity.\n",
+                ID = 0030009,
+                AnswerID = 0030040,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "She then moves the pistol to point towards Ardent. *BANG*\n",
+                ID = 0030009,
+                AnswerID = 0030040,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "Ardent drops to the ground, not moving. Your blood runs cold. Another wave of screams can be heard from the crowd.\n",
+                ID = 0030009,
+                AnswerID = 0030040,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"You motherfucking piece of shit monster,\" you growl at the Overmare. Deep hatred burns within you, like never before.\n",
+                ID = 0030009,
+                AnswerID = 0030040,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Now get out, before you meet a similar fate,\" the Overmare hisses back at you, the smoking barrel of the pistol once again pointed at you.\n",
+                ID = 0030009,
+                AnswerID = 0030040,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "Never before have you felt so much anger and fear. You stare at the Overmare for a moment longer. Seemingly with no choice left, you turn around,\n" +
+                "\tand start walking towards the open door.\n",
+                ID = 0030009,
+                AnswerID = 0030040,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0030042
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"You don't understand what's at stake here! I'm doing this to protect our Stable, whether your small brain can comprehend it or not!\" she yells\n" +
+                "\tat you angrily.\n",
+                ID = 0030009,
+                AnswerID = 0030039,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"This is not the way to keep our Stable safe, there are better ways to do it! We can help you!\" you try to reason to her.\n",
+                ID = 0030009,
+                AnswerID = 0030039,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Fuck you, if there were any other options, I would have taken them! Like I said, You don't understand the situation we're in! Now get the fuck out,\n" +
+                "\tbefore I'll do something we'll both regret!\" she screams desperately. She is clearly on the verge of a complete meltdown.\n",
+                ID = 0030009,
+                AnswerID = 0030039,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "You glance at Ardent, who seems to be frozen in fear by the pistol pointed at you.\n",
+                ID = 0030009,
+                AnswerID = 0030039,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "Seemingly having no choice left, you turn around, and start walking towards the open door.\n",
+                ID = 0030008,
+                AnswerID = 0030039,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0030042
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "When you get to the top level of the Stable, you are immediately greeted by a crowd of ponies. The top level is small-ish, the only notable things\n" +
+                "\tin the room being the giant metal gear-shaped door with the number 54 printed on it, and the control panel for the door on the right side of the room.\n" +
+                "\tYou can't even remember the last time you were here.\n",
+                ID = 0030008,
+                AnswerID = 0030038,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "The security ponies take you to the front of the crowd. You're feeling really uncomfortable about the amount of ponies watching you, but do your\n" +
+                "\tbest to ignore them. The Overmare is standing next to the door's control panel. She's looking at you with a seemingly neutral expression. She then\n" +
+                "\tspeaks up, silencing the ponies in the room.\n",
+                ID = 0030008,
+                AnswerID = 0030038,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"The time has come once again to exile the Pariah from our home,\" she starts her speech. You notice Ardent and dad arriving in the back of\n" +
+                "\tthe crowd. You feel your heart start beating faster, as you wait for the moment the rebellion starts.\n",
+                ID = 0030008,
+                AnswerID = 0030038,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"We thank you for the effort you've put into the wellbeing of our Stable, but unfortunately the votes don't lie.\" she continues. You somehow doubt\n" +
+                "\tthat last statement. \"May Luna watch over you,\" she says, and hits a button on the control panel. Alarms start blaring, and red lights start flashing.\n",
+                ID = 0030008,
+                AnswerID = 0030038,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "A huge hydraulic arm comes down from the ceiling, and latches itself on the middle of the door. Hydraulic hisses can be heard from the arm as it pulls\n" +
+                "\tthe door inwards, and starts rolling it slowly to the left along the tracks on the floor. You glance at the crowd of ponies. Most of them are staring\n" +
+                "\tsilently at the door.\n",
+                ID = 0030008,
+                AnswerID = 0030038,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "Once the door comes to a halt, the alarms and lights also stop.\n" +
+                "\t\"Silver Shift. Please m-\"\n",
+                ID = 0030008,
+                AnswerID = 0030038,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "*BANG*\n",
+                ID = 0030008,
+                AnswerID = 0030038,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "Chaos breaks loose. The crowd starts screaming in panic. Some ponies try rushing for the stairs, while some are clashing with the security ponies\n" +
+                "\tin the room. Was that a gun shot? Wasn't this supposed to be a peaceful rebellion, what the hell happened?!\n",
+                ID = 0030008,
+                AnswerID = 0030038,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"What the hell is going on?!\" the Overmare screams to nopony in particular, mirroring your thoughts pretty well. You then notice somepony lying in\n" +
+                "\ta heap, unmoving in the crowd. Oh no. They're not dead, right? You can't make out whether they're security or not from this distance.\n",
+                ID = 0030008,
+                AnswerID = 0030038,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "Ardent then emerges from the chaos, rushing towards you.\n" +
+                "\t\"Come on Silver, let's go!\" he motions for you to come forward.\n",
+                ID = 0030008,
+                AnswerID = 0030038,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"If you take a single step back towards the Stable, you will regret it deeply!\" the Overmare yells at you. She's holding a pistol in her magic,\n" +
+                "\tpointed towards you.",
+                ID = 0030008,
+                AnswerID = 0030038,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"You came here just to make fun of the situation?\" you ask her, not in the mood for a chat.\n",
+                ID = 0030008,
+                AnswerID = 0030036,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Nah, I was just passing through. But I do have to admit, it is kinda funny seeing you being dragged away,\" she says. She glances at the security\n" +
+                "\tponies behind you, and gives you a smirk. \"I see you're running short on time, so I'll leave you be. Goodbye~\" she says, and flicks her tail at you\n" +
+                "\tas she turns to leave. You glare at her for a moment before continuing on your way.",
+                ID = 0030008,
+                AnswerID = 0030036,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Yeah, what a coincidence, right? You certainly didn't have anything to do with me getting voted out, did you?\" you quip at her sarcastically.\n",
+                ID = 0030008,
+                AnswerID = 0030037,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"What, me? I would never do such a thing. Although, I do have to say, it is kinda funny seeing you being dragged away,\" she responds.\n" +
+                "\t\"And I guess this means the admin's job is now vacant. I hope the Stable finds a suitable replacement for it~\" she continues.\n",
+                ID = 0030008,
+                AnswerID = 0030037,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Wha- That's the reason for all this? My job? You're sick, you know that?\" you say, appalled.\n",
+                ID = 0030008,
+                AnswerID = 0030037,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Serves you right, if you ask me. Always acting like you're better than the rest of us, and getting handed everything on a silver platter.\n" +
+                "\tWarms my heart to see you get the short end of the stick,\" she says, clearly taking great pleasure from the situation.\n",
+                ID = 0030008,
+                AnswerID = 0030037,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"But it looks like you're running short on time, so I'll leave you to it. Goodbye, Silver Shift,\" she says, and flicks her tail at you as she\n" +
+                "\tturns to leave. You can barely contain your anger at this point.\n",
+                ID = 0030008,
+                AnswerID = 0030037,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0030038
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"You seeing this? Isn't it obvious she rigged the vote?\" you ask the security ponies. They just shrug in response.\n",
+                ID = 0030008,
+                AnswerID = 0030037,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Not my problem, really. And besides, I didn't really see any concrete evidence about her rigging the vote,\" they older pony says. You can't\n" +
+                "\tbelieve what you're hearing. Since when has the security been so useless? Feeling utterly defeated, you sigh and continue on your way.\n",
+                ID = 0030008,
+                AnswerID = 0030037,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0030038
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "You don't want to keep the Overmare waiting. The logs aren't going anywhere, you can check them later.\n" +
+                "\t\"Alright. We're going to check up on a couple of friends, and then we'll come to the Stable's door, okay?\" dad says to you. You nod in response.\n" +
+                "\tArdent and dad then get up, and leave. After a moment, you pick up your saddlebags, and leave too.\n",
+                ID = 0030008,
+                AnswerID = 0030035,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Finally. Let's go,\" the younger security pony says as you step out from the room. You ignore the comment and continue walking towards the top\n" +
+                "\tlevel of the Stable.\n",
+                ID = 0030008,
+                AnswerID = 0030035,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "As you're walking, you notice how empty the hallways are. Most ponies are probably at the top level of the Stable. Exactly how many rebels are in\n" +
+                "\tthe revolt? You hope it's the majority of the Stable, as it would be a lot easier to pressure the Overmare to abandon the vote.\n",
+                ID = 0030008,
+                AnswerID = 0030035,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Fancy seeing you here, Silver,\" comes the voice of none other than the bitch herself, Astral. Fucking great. You turn to look at her smug face.\n",
+                ID = 0030008,
+                AnswerID = 0030035,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 8 }),
+                QuestCheck = 9,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "You then hear the younger security pony walk to the office.\n" +
+                "\t\"There you are! Maybe don't run away like that, huh?\" the stallion says. Feeling utterly defeated, you decide to just shut down the terminal\n" +
+                "\tand start walking towards the door.\n",
+                ID = 0030008,
+                AnswerID = 0030032,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Yeah, yeah. Let's just go,\" you say to him. You're already dreading about the amount of work it's going to take to restore your accounts.\n" +
+                "\tIf you're lucky, it's going to be easily restored with backups. If you're unlucky, however... You're too tired to even think about that.\n",
+                ID = 0030008,
+                AnswerID = 0030032,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0030043
+            });
             InstanceList.Add(new Instance
             {
                 Text = "You then hear the younger security pony rush to the office.\n" +
@@ -2025,6 +2375,9 @@ namespace FoEChoices
                 "\tforehoof as you walk. This day just keeps getting shittier.\n",
                 ID = 0030008,
                 AnswerID = 0030033,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0030043
             });
             InstanceList.Add(new Instance
             {
@@ -2046,8 +2399,8 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "The hallways are almost empty, you notice. Most ponies are probably at the top level of the Stable. Exactly how many ponies are in\n" +
-                "\tthe revolt? You hope it's the majority of the Stable, it's gonna be a lot easier to pressure the Overmare to abandon the vote\n.",
+                Text = "The hallways are almost empty, you notice. Most ponies are probably at the top level of the Stable. Exactly how many rebels are in\n" +
+                "\tthe revolt? You hope it's the majority of the Stable, as it would be a lot easier to pressure the Overmare to abandon the vote\n.",
                 ID = 0030008,
                 AnswerID = 0030031,
             });
@@ -2106,7 +2459,7 @@ namespace FoEChoices
                 "\tattempts at hiding it. Not that you can blame them, this is the biggest event in the Stable since... well, since the last revolt attempt.\n" +
                 "\tArdent then speaks up, breaking the silence.\n",
                 ID = 0030007,
-                AnswerID = 0030031,
+                AnswerID = 0030029,
             });
             InstanceList.Add(new Instance
             {
@@ -2115,7 +2468,7 @@ namespace FoEChoices
                 "\t\"That's true. Or maybe she just doesn't care about anypony else than herself,\" you respond. Although, the Overmare would have an easy\n" +
                 "\ttime rigging the votes because of the program. A realization then hits you.\n",
                 ID = 0030007,
-                AnswerID = 0030031,
+                AnswerID = 0030029,
             });
             InstanceList.Add(new Instance
             {
@@ -2123,7 +2476,7 @@ namespace FoEChoices
                 "\tyou say, disappointed in yourself. The lack of sleep recently really has taken a toll on you.\n" +
                 "\t\"You're gonna have to hurry if you want to do that, we need to be at the Stable's door soon,\" dad says.",
                 ID = 0030007,
-                AnswerID = 0030031,
+                AnswerID = 0030029,
             });
             InstanceList.Add(new Instance
             {
@@ -2201,7 +2554,7 @@ namespace FoEChoices
             InstanceList.Add(new Instance
             {
                 Text = "\"So, I guess the next thing to do is to make sure Silver doesn't get thrown out. We've already planned everything with the others who\n" +
-                "\tjoined us in the rebellion, so we shouldn't have any problems with that,\" Ardent explains. \"You just make sure not to leave the Stable, alright?\"" +
+                "\tjoined us in the rebellion, so we shouldn't have any problems with that,\" Ardent explains. \"You just make sure not to leave the Stable, alright?\"\n" +
                 "\the adds, poking you in the chest playfully.\n" +
                 "\t\"I'll try to remember that,\" you answer.\n",
                 ID = 0030007,
