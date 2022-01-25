@@ -47,6 +47,7 @@ namespace FoEChoices
         public int RemoveAnswer { get; set; } // Specialfunction: 9. set to the ID of an answer to remove.
         public int RedirectInstance { get; set; } // Specialfunction: 10. set to the AnswerID of an instance to redirect the current instance chain to.
         public int RepCheck { get; set; } // SpecialFunction: 11. set to the amount of rep points the player needs to have to pass the check. has to be used with Faction!
+        public int ChangeGameState { get; set; } // SpecialFunction: 12. set to the id of a GameState to change to.
 
     }
 
@@ -97,7 +98,7 @@ namespace FoEChoices
 
         public static int CurrentArmorID { get; set; }
         public static string CurrentArmorName { get; set; }
-        public static int GameState { get; set; } // 0 = playing; 1 = game over
+        public static int GameState { get; set; } // 0 = playing; 1 = game over; 2 = demo finished
 
         public static List<SuccessfulAnswer> SuccessfulQuestAnswer = new List<SuccessfulAnswer>();
 
@@ -116,11 +117,11 @@ namespace FoEChoices
             QuestList.Add(new Quest() { Description = "Inspect the pistol in the Stable's armory", QuestID = 2, Completed = false });
             QuestList.Add(new Quest() { Description = "Mention Astral in your first conversation with Ardent", QuestID = 3, Completed = false });
             QuestList.Add(new Quest() { Description = "Choose Cross Stitch's path", QuestID = 4, Completed = false });
-            QuestList.Add(new Quest() { Description = "Annoy the Overmare during your first conversation", QuestID = 5, Completed = true });
-            QuestList.Add(new Quest() { Description = "Agree to join the rebellion", QuestID = 6, Completed = true });
+            QuestList.Add(new Quest() { Description = "Annoy the Overmare during your first conversation", QuestID = 5, Completed = false });
+            QuestList.Add(new Quest() { Description = "Agree to join the rebellion", QuestID = 6, Completed = false });
             QuestList.Add(new Quest() { Description = "Get apples from the orchard", QuestID = 7, Completed = false });
             QuestList.Add(new Quest() { Description = "Get some Sparkle-Cola from the bar", QuestID = 8, Completed = false });
-            QuestList.Add(new Quest() { Description = "Meet Astral during the first day", QuestID = 9, Completed = true });
+            QuestList.Add(new Quest() { Description = "Meet Astral during the first day", QuestID = 9, Completed = false });
 
             // ------------------------------------------------------- SUCCESSFUL QUEST ANSWERS -------------------------------------------------------
             SuccessfulQuestAnswer.Add(
@@ -135,13 +136,13 @@ namespace FoEChoices
 
             RefreshTexts();
 
-            int PassInstanceID = 0;
+            int PassInstanceID = 0040000;
             int CurrentWeaponID = 0;
-            int PassAnswerID = 0;
+            int PassAnswerID = 0040000;
             GameState = 0;
 
             bool DebugMode = true; // skip the intro and set starting point
-            if (DebugMode) PassInstanceID = 0030005;
+            if (DebugMode) PassAnswerID = 0030008;
 
             // var SoundPlayer = new System.Media.SoundPlayer();
             // SoundPlayer.SoundLocation = Environment.CurrentDirectory + "\\file-name.wav";
@@ -158,6 +159,7 @@ namespace FoEChoices
 
             Console.WriteLine("\tDone.");
             Console.WriteLine("\tWelcome to Fallout Equestria: Choices. Before you start the game, please make sure this window is wide enough to fit the line below on one row.");
+            Console.WriteLine("\tThe window should be fine by default. However, if it's not, please resize it.");
             Console.WriteLine("\t<---------------------------------------------------------------------------------------------------------------------------------------------------->");
             Console.WriteLine("\tIt's also recommended that you raise the font size a bit, so that the text is easier to read.");
             Console.WriteLine("\tRight click on the top part of the console window and choose \"Properties\". Click on the \"Font\" tab. Font size of 20 or 24 should be ok.");
@@ -166,43 +168,40 @@ namespace FoEChoices
             Console.Clear();
 
             if (!DebugMode) {
-                Console.WriteLine("\tOnce upon a time, in the magical land of Equestria... A war broke out against the Zebra Empire, \n" +
-                    "\tas a consequence to multiple trade sanctions involving natural resources. While the Equestrian Nation had a monopoly \n" +
-                    "\ton magical gemstones, the Zebra Empire had a monopoly on coal, which was needed to keep the Equestrian Nation running. \n" +
-                    "\tBecause of the war, Equestria was forced into an industrial revolution, as an attempt to outdo the Zebra Empire in wartime technology. \n" +
-                    "\tPart of this was Stable-Tec, a corporation specialized in arcane science. One of their most known creations were the Stables. \n" +
-                    "\tThey were large fallout shelters, built all around Equestria in case of a megaspell holocaust. Your ancestors were selected \n" +
-                    "\tto become inhabitants of Stable 54. \n" +
-                    "\tAs neither side was able to make the other side surrender, the bombs eventually fell and engulfed the earth in fire and radiation, \n" +
-                    "\tsweeping it almost clean of life. \n" +
+                Console.WriteLine();
+                Console.WriteLine("\tOnce upon a time, in the magical land of Equestria... A war broke out against the Zebra Empire,\n" +
+                    "\tas a consequence to multiple trade sanctions involving natural resources. While the Equestrian Nation had a monopoly\n" +
+                    "\ton magical gemstones, the Zebra Empire had a monopoly on coal, which was needed to keep the Equestrian Nation running.\n" +
+                    "\tBecause of the war, Equestria was forced into an industrial revolution, as an attempt to outdo the Zebra Empire in wartime technology.\n" +
+                    "\t\n" +
+                    "\tOne of the more successful corporations of this era was Stable-Tec, which specialized in arcane science. Their most known creations\n" +
+                    "\twere the Stables. They were large fallout shelters, built all around Equestria in case of a megaspell holocaust.\n" +
+                    "\tIf you were wealthy enough, you could buy your family access to one these shelters. Your ancestors were fortunate enough to become\n" +
+                    "\tinhabitants of Stable 54.\n" +
+                    "\t\n" +
+                    "\tAs neither side was able to make the other side surrender, the bombs eventually fell and engulfed the earth in fire and radiation,\n" +
+                    "\tsweeping it almost clean of life.\n" +
                     "\n" +
                     "\tYou are a unicorn mare named Silver Shift. You have been born and raised in Stable 54, which has now been functioning for nearly 200 years.\n" +
                     "\tThis is where your story starts.");
-
-                while (Console.ReadKey(true).Key != ConsoleKey.Enter) { }
                 Console.WriteLine();
-                Console.WriteLine("\tYou wake up in your bed. You get up, and notice that your chest still hurts from yesterday's fight.\n" +
-                    "\tYou brush your mane, put on your Stable suit, and head to the cafeteria to get some breakfast.\n");
                 while (Console.ReadKey(true).Key != ConsoleKey.Enter) { }
-                Console.WriteLine("\tYou step into the gray hallway. As you turn the first corner, you notice there's some posters that have been hung on the walls.\n" +
-                    "\tPosters with the words such as \"Keep The Stable safe!\" and \"Every vote counts!\" are plastered on the walls. \"Oh, it's that time again.\"\n" +
-                    "\tyou say to yourself.\n");
-                while (Console.ReadKey(true).Key != ConsoleKey.Enter) { }
-                Console.WriteLine("\tOn your way to the cafeteria you run into Light Harmony, a young unicorn filly with white coat and dark blue mane.\n" +
-                    "\tAs she notices you, she tenses up, and looks a bit worried.");
-                while (Console.ReadKey(true).Key != ConsoleKey.Enter) { }
-                Console.WriteLine();
-                Console.WriteLine("\t\"Oh, hey there Silver... Uhh, I was just about to leave...\" says the filly.");
-                while (Console.ReadKey(true).Key != ConsoleKey.Enter) { }
+                
             }
 
             while (GameState == 0) {
 
-                PassAnswerID = GetAnswers(PassInstanceID, CurrentWeaponID);
-
                 PassInstanceID = GetInstance(PassAnswerID, CurrentWeaponID);
 
+                PassAnswerID = GetAnswers(PassInstanceID, CurrentWeaponID);
+
             }
+
+            if (GameState == 2) { DemoFinished(); }
+
+            Console.WriteLine("\tWhoops, something went wrong with the GameState... press any key to exit the game.");
+            Console.ReadKey();
+            System.Environment.Exit(1);
 
         }
 
@@ -219,7 +218,7 @@ namespace FoEChoices
             int AcceptedAnswer = 0;
             int PassAnswerID = 0;
             bool AnsWithinLimits = false;
-            bool AnsSecondary = false;
+            bool GoodAnswer = false;
 
             //arraylist query
             var AnswerEnum = AnswersList.OfType<Answer>();
@@ -235,66 +234,79 @@ namespace FoEChoices
             }
             Console.Write("\t");
             NonParsedAnswer = Console.ReadLine();
-
+            
             // try to parse the answer given by the player
             bool successfullyParsed = int.TryParse(NonParsedAnswer, out int IgnoreMe);
             if (successfullyParsed)
             {
                 ParsedAnswer = Convert.ToInt32(NonParsedAnswer);
             }
-            else
-            {
-                Console.WriteLine("\tUnacceptable answer. Please type a number that is a valid answer.");
-                return GetAnswers(PassInstanceID, CurrentWeaponID);
-            }
+            var iQueryAnswerID =
+                    from answer in AnswerEnum
+                    where answer.UserInput == ParsedAnswer && answer.InstanceID == PassInstanceID
+                    select answer;
 
-            var QueryAnswerID =
-                from answer in AnswerEnum
-                where answer.UserInput == ParsedAnswer && answer.InstanceID == PassInstanceID
-                select answer;
-
-            // check if the now parsed answer corresponds with the possible answers given
-            foreach (var answer in QueryAnswerID)
+            foreach (var answer in iQueryAnswerID)
             {
                 if (ParsedAnswer == answer.UserInput)
                 {
                     AcceptedAnswer = ParsedAnswer;
-                    AnsWithinLimits = true;
+                    GoodAnswer = true;
                 }
             }
 
-            // check if the foreach was skipped
-            if (!AnsWithinLimits)
-            {
-                Console.WriteLine("\tUnacceptable answer. Please type a number that is a valid answer.");
-                return GetAnswers(PassInstanceID, CurrentWeaponID);
-            }
-            else
-            {
-                AnsWithinLimits = false;
+            while (!GoodAnswer) {
+
+                Console.WriteLine("\tInvalid answer. Please type a number that is a valid answer.");
+                Console.Write("\t");
+                NonParsedAnswer = Console.ReadLine();
+                successfullyParsed = int.TryParse(NonParsedAnswer, out IgnoreMe);
+
+                if (successfullyParsed) {
+                    ParsedAnswer = Convert.ToInt32(NonParsedAnswer);
+                }
+
+                var QueryAnswerID =
+                    from answer in AnswerEnum
+                    where answer.UserInput == ParsedAnswer && answer.InstanceID == PassInstanceID
+                    select answer;
+
+                // check if the now parsed answer corresponds with the possible answers given
+                foreach (var answer in QueryAnswerID)
+                {
+                    if (ParsedAnswer == answer.UserInput)
+                    {
+                        AcceptedAnswer = ParsedAnswer;
+                        AnsWithinLimits = true;
+                    }
+                }
+
+                if (AnsWithinLimits)
+                {
+                    foreach (var answer in QueryAnswerID)
+                    {
+                        if (ParsedAnswer == answer.UserInput)
+                        {
+                            ParsedAnswer = Convert.ToInt32(NonParsedAnswer);
+                            GoodAnswer = true;
+                        }
+                    }
+                }
             }
 
             Console.WriteLine();
 
-            QueryAnswerID =
-                from answer in AnswerEnum
-                where answer.UserInput == ParsedAnswer && answer.InstanceID == PassInstanceID
-                select answer;
-
-            if (!AnsSecondary)
+            foreach (var answer in iQueryAnswerID)
             {
-                foreach (var answer in QueryAnswerID)
-                {
-                    PassAnswerID = answer.ID;
+                PassAnswerID = answer.ID;
 
-                    //check for any special functions
-                    if (answer.HasSpecialFunction)
+                //check for any special functions
+                if (answer.HasSpecialFunction)
+                {
+                    // set the quest to completed
+                    if (answer.SpecialFunction.Contains(2))
                     {
-                        // set the quest to completed
-                        if (answer.SpecialFunction.Contains(2))
-                        {
-                            GetQuest(answer.QuestID);
-                        }
+                        GetQuest(answer.QuestID);
                     }
                 }
             }
@@ -452,6 +464,11 @@ namespace FoEChoices
 
                         }
                     }
+                    // change gamestate
+                    if (instance.SpecialFunction.Contains(12))
+                    {
+                        GameState = instance.ChangeGameState;
+                    }
                 }
                 if (InstanceRedirected) { InstanceRedirected = false; break; }
             }
@@ -491,6 +508,21 @@ namespace FoEChoices
 
             Console.WriteLine("Congratulations, you won the game! Now, go outside. \n\r" +
                 "You've probably been sitting on your ass all day.");
+            Console.ReadKey();
+            System.Environment.Exit(1);
+
+        }
+
+        public static void DemoFinished()
+        {
+
+            Console.WriteLine("\tThank you for playing this demo of Fallout Equestria: Choices!\n" +
+                "\tFeel free to play the game again and choose different options to see how it affects the story!\n" +
+                "\tFeedback is very much appreciated.\n" +
+                "\t\n" +
+                "\tThanks to Kkat for creating the original Fallout: Equestria, and giving us huge sandbox world to create our own stories in.\n" +
+                "\t\n" +
+                "\tPress any key to exit the game.");
             Console.ReadKey();
             System.Environment.Exit(1);
 
@@ -781,7 +813,7 @@ namespace FoEChoices
                 ID = 10,
                 InstanceID = 6,
                 HasSpecialFunction = true,
-                SpecialFunction = new List<int>(new int[] { 6 }),
+                SpecialFunction = new List<int>(new int[] { 2 }),
                 QuestID = 0
             });
             AnswersList.Add(new Answer
@@ -2014,6 +2046,57 @@ namespace FoEChoices
 
             InstanceList.Add(new Instance
             {
+                Text = "\n" +
+                "\t\t\t\tPrologue:\n" +
+                "\t\t\tCan't You Hear, The Judgement Bells Are Near\n" +
+                "\n",
+                ID = 0040000,
+                AnswerID = 0040000,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "*beep beep*\n" +
+                "\tYou wake up to the sound of your alarm clock going off. You shut off the alarm, and slowly start getting up from the bed, last night's strange\n" +
+                "\tdreams already slipping away from your memory. You feel a slight headache coming on, but do your best to ignore it.\n",
+                ID = 0040000,
+                AnswerID = 0040000,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "You put on one of the Stable's blue and yellow suits, and do a quick brush of your mane so it doesn't look like a rat's nest.\n" +
+                "\tNot feeling like doing your bed, you decide to leave it be. You then start making your way to the cafeteria to get some breakfast.\n",
+                ID = 0040000,
+                AnswerID = 0040000,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "You step into the gray hallway. As you turn the first corner, you notice there's some posters that have been hung on the walls.\n" +
+                "\tPosters with words such as \"Keep The Stable safe!\" and \"Every vote counts!\" are plastered on the walls. Feeling tired however, you don't\n" +
+                "\tpay them too much mind.\n",
+                ID = 0040000,
+                AnswerID = 0040000,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "A couple of ponies greet you as they walk by you. Not feeling too social right now, you just give them a half-nod.\n",
+                ID = 0040000,
+                AnswerID = 0040000,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "Finally getting to the cafeteria, you notice the long line of ponies waiting to get their breakfast. You sigh, frustrated about the lenght\n" +
+                "\tof the line. Feeling hungry however, you decide to join the line.\n",
+                ID = 0040000,
+                AnswerID = 0040000,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "When you finally get your turn, you're disappointed to see today's selection just water and a sandwich.",
+                ID = 0040000,
+                AnswerID = 0040000,
+            });
+            InstanceList.Add(new Instance
+            {
                 Text = "As you're walking, you notice how empty the hallways are. Most ponies are probably at the top level of the Stable. Exactly how many rebels are in\n" +
                 "\tthe revolt? You hope it's the majority of the Stable, as it would be a lot easier to pressure the Overmare to abandon the vote.\n",
                 ID = 0030008,
@@ -2034,6 +2117,9 @@ namespace FoEChoices
                 Text = "You step outside the Stable, and in to the darkness.\n",
                 ID = 0030009,
                 AnswerID = 0030042,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 12 }),
+                ChangeGameState = 2
             });
             InstanceList.Add(new Instance
             {
@@ -2176,7 +2262,7 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"We thank you for the effort you've put into the wellbeing of our Stable, but unfortunately the votes don't lie.\" she continues. You somehow doubt\n" +
+                Text = "\"We thank you for the effort you've put into the wellbeing of our Stable, but unfortunately the votes don't lie,\" she continues. You somehow doubt\n" +
                 "\tthat last statement. \"May Luna watch over you,\" she says, and hits a button on the control panel. Alarms start blaring, and red lights start flashing.\n",
                 ID = 0030008,
                 AnswerID = 0030038,
