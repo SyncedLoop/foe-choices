@@ -136,6 +136,13 @@ namespace FoEChoices
 
             RefreshTexts();
 
+            // stop ctrl-c from terminating the program
+            Console.CancelKeyPress += (object sender, ConsoleCancelEventArgs e) =>
+            {
+                e.Cancel = true;
+                Console.WriteLine("\tDon't do that, I'm too lazy to try to fix these indents!");
+            };
+            
             int PassInstanceID = 0040000;
             int CurrentWeaponID = 0;
             int PassAnswerID = 0040000;
@@ -217,7 +224,6 @@ namespace FoEChoices
             int ParsedAnswer = 0;
             int AcceptedAnswer = 0;
             int PassAnswerID = 0;
-            bool AnsWithinLimits = false;
             bool GoodAnswer = false;
 
             //arraylist query
@@ -232,35 +238,14 @@ namespace FoEChoices
             {
                 Console.WriteLine("\t{0}) " + "{1}", answer.UserInput, answer.Text);
             }
-            Console.Write("\t");
-            NonParsedAnswer = Console.ReadLine();
             
-            // try to parse the answer given by the player
-            bool successfullyParsed = int.TryParse(NonParsedAnswer, out int IgnoreMe);
-            if (successfullyParsed)
-            {
-                ParsedAnswer = Convert.ToInt32(NonParsedAnswer);
-            }
-            var iQueryAnswerID =
-                    from answer in AnswerEnum
-                    where answer.UserInput == ParsedAnswer && answer.InstanceID == PassInstanceID
-                    select answer;
-
-            foreach (var answer in iQueryAnswerID)
-            {
-                if (ParsedAnswer == answer.UserInput)
-                {
-                    AcceptedAnswer = ParsedAnswer;
-                    GoodAnswer = true;
-                }
-            }
-
             while (!GoodAnswer) {
 
-                Console.WriteLine("\tInvalid answer. Please type a number that is a valid answer.");
                 Console.Write("\t");
                 NonParsedAnswer = Console.ReadLine();
-                successfullyParsed = int.TryParse(NonParsedAnswer, out IgnoreMe);
+
+                // try to parse the answer given by the player
+                var successfullyParsed = int.TryParse(NonParsedAnswer, out int IgnoreMe);
 
                 if (successfullyParsed) {
                     ParsedAnswer = Convert.ToInt32(NonParsedAnswer);
@@ -277,24 +262,19 @@ namespace FoEChoices
                     if (ParsedAnswer == answer.UserInput)
                     {
                         AcceptedAnswer = ParsedAnswer;
-                        AnsWithinLimits = true;
+                        GoodAnswer = true;
                     }
                 }
 
-                if (AnsWithinLimits)
-                {
-                    foreach (var answer in QueryAnswerID)
-                    {
-                        if (ParsedAnswer == answer.UserInput)
-                        {
-                            ParsedAnswer = Convert.ToInt32(NonParsedAnswer);
-                            GoodAnswer = true;
-                        }
-                    }
-                }
+                if (!GoodAnswer) { Console.WriteLine("\tInvalid answer. Please type a number that is a valid answer."); }
             }
 
             Console.WriteLine();
+
+            var iQueryAnswerID =
+                    from answer in AnswerEnum
+                    where answer.UserInput == ParsedAnswer && answer.InstanceID == PassInstanceID
+                    select answer;
 
             foreach (var answer in iQueryAnswerID)
             {
@@ -517,7 +497,8 @@ namespace FoEChoices
         {
 
             Console.WriteLine("\tThank you for playing this demo of Fallout Equestria: Choices!\n" +
-                "\tFeel free to play the game again and choose different options to see how it affects the story!\n" +
+                "\tFeel free to play the game again and choose different options to see how it affects the story,\n" +
+                "\tand to uncover hints to piece together the reason why Silver got kicked from the Stable.\n" +
                 "\tFeedback is very much appreciated.\n" +
                 "\t\n" +
                 "\tThanks to Kkat for creating the original Fallout: Equestria, and giving us huge sandbox world to create our own stories in.\n" +
@@ -2091,7 +2072,8 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "When you finally get your turn, you're disappointed to see today's selection just water and a sandwich.",
+                Text = "When you finally get your turn, you're disappointed to see today's selection is just water and a sandwich. You pick a glass of water and one of the\n" +
+                "\tready-made sandwiches with your magic, and start walking towards your usual spot in the cafeteria.",
                 ID = 0040000,
                 AnswerID = 0040000,
             });
@@ -3961,7 +3943,8 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "Before you get to the door, a unicorn with a beige coat and hazel brown mane steps into the office. \"Good morning,\" says the Overmare.\n" +
+                Text = "Before you get to the door, a unicorn with a beige coat and hazel brown mane steps into the office.\n" +
+                "\t\"Good morning,\" says the Overmare.\n" +
                 "\t\"Oh! Good morning, Crystal Sand. What brings you here?\" you say to her. It's not everyday the Overmare visits the lower level of the\n" +
                 "\tStable.\n",
                 ID = 0020004,
@@ -4333,7 +4316,7 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "He looks at the engraving for a minute. \"Not sure. My guess is it refers to the voting,\" he says.",
+                Text = "He looks at the engraving for a moment. \"Not sure. It probably had some personal meaning to the original owner,\" he says.",
                 ID = 0011006,
                 AnswerID = 0011014,
                 HasSpecialFunction = true,
@@ -4342,8 +4325,8 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "He sighs. \"Silver... this pistol once belonged to your mother,\" he says. You stare at the pistol for a while. Dad barely ever talks about\n" +
-                "\tyour mom. You only know that she was the head of security, and that she died of some disease when you were only a couple years old. It never\n" +
+                Text = "He sighs. \"Silver... this pistol was used by your mother,\" he says. You stare at the pistol for a while. Dad barely ever talks about\n" +
+                "\tyour mom. You only know that she worked as a security pony, and that she died of some disease when you were only a couple years old. It never\n" +
                 "\treally bothered you, probably because you don't even remember how she looked like.\n",
                 ID = 0011006,
                 AnswerID = 0011010,
@@ -4351,8 +4334,16 @@ namespace FoEChoices
             InstanceList.Add(new Instance
             {
                 Text = "\"Oh,\" you say after some time. You don't really know how to feel about it.\n" +
-                "\t\"The gun was modified by the gunsmith here. I thought it was lost after her stuff was returned here. But now I found it, and I'm not sure\n" +
-                "\twhat to do with it,\" he says.",
+                "\t\"We never figured out the history of the weapon. To my knowledge, all of the Stable's weapons came here straight from the factory, so I have\n" +
+                "\tno idea where this pistol came from. It doesn't even have a serial number, so it isn't a mass produced weapon,\" dad explains. You try to think\n" +
+                "\tabout a reason how it would have gotten here, but can't come up with any.\n",
+                ID = 0011006,
+                AnswerID = 0011010,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"I thought the other workers here lost the weapon back when her stuff was returned here. But now I found it, and I'm not sure what to\n" +
+                "\tdo with it,\" he continues.",
                 ID = 0011006,
                 AnswerID = 0011010,
             });
@@ -4373,16 +4364,17 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"Oh, I found it while I was moving some stuff around, I was thinking what I should do with it so I left it there until I figure out\n" +
-                "\twhat to do with it,\" he says. You can see that he looks a bit uncomfortable looking at the pistol.",
+                Text = "\"Damn, I shouldn't leave weapons just lying around. I found it while I was moving some stuff around, I was thinking what I should do with\n" +
+                "\tit. Looks like I got distracted and left it there, eheh,\" he says while rubbing the back of his head in embarrassment.",
                 ID = 0011005,
                 AnswerID = 0011007,
             });
             InstanceList.Add(new Instance
             {
-                Text = "You take the pistol in your magic and examine it. The weapon is lot shinier than the other pistols here, and it has matte black accents\n" +
-                "\ton it. The left side of the barrel has the words \"The verdict of acquital comes for all\" engraved on it. The engraving is very roughly made.\n" +
-                "\t\"Huh, I wonder what that means,\" you say to yourself.\n",
+                Text = "You take the pistol in your magic and examine it. The weapon is mostly matte black, with a few shiny accents on the handle. The left side\n" +
+                "\tof the barrel has the words 'Always Unwavering' engraved roughly on it. Probably the most interesting detail about the weapon, however,\n" +
+                "\thas to be the light blue gem on the right side of the barrel. A few wires go from under the gem towards the handle. The slot for the gem\n" +
+                "\tisn't perfect, making it look like it's a home-made modification.\n",
                 ID = 0011005,
                 AnswerID = 0011005,
             });
