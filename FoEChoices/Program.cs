@@ -148,7 +148,7 @@ namespace FoEChoices
             int PassAnswerID = 0040000;
             GameState = 0;
 
-            bool DebugMode = true; // skip the intro and set starting point
+            bool DebugMode = false; // skip the intro and set starting point
             if (DebugMode) PassAnswerID = 0030008;
 
             // var SoundPlayer = new System.Media.SoundPlayer();
@@ -665,644 +665,13 @@ namespace FoEChoices
             InstanceList.Clear();
 
             // ------------------------------------------------------- ANSWER LIST -------------------------------------------------------
+            
             AnswersList.Add(new Answer
             {
-                Text = "Great. Even the kids shun me now.",
-                UserInput = 1,
-                ID = 0,
-                InstanceID = 0
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Hey now, no need to be scared. I won't hurt anypony.",
-                UserInput = 2,
-                ID = 1,
-                InstanceID = 0
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "[jump in front of her] BOO!",
-                UserInput = 3,
-                ID = 2,
-                InstanceID = 0
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Yeah, you should be avoiding Astral, she's setting a bad example for you and other kids. But not me.",
-                UserInput = 1,
-                ID = 3,
-                InstanceID = 1,
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Oh please, your mom is overprotective. Don't let her tell you how to live your life.",
-                UserInput = 2,
-                ID = 4,
-                InstanceID = 1,
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "I can see why.",
-                UserInput = 3,
-                ID = 5,
-                InstanceID = 1,
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Stupid kids.",
-                UserInput = 1,
-                ID = 6,
-                InstanceID = 2
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Sorry, didn't mean to scare you THAT badly!",
-                UserInput = 2,
-                ID = 6,
-                InstanceID = 2
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Of course not. Things just got a little out of hoof yesterday.",
-                UserInput = 1,
-                ID = 1,
-                InstanceID = 3,
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "We'll see.",
-                UserInput = 2,
-                ID = 7,
-                InstanceID = 3
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "No. Well, maybe Astral if she keeps being that annoying, but nopony else.",
-                UserInput = 3,
-                ID = 8,
-                InstanceID = 3
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "*sigh* I know, but still.",
-                UserInput = 1,
-                ID = 9,
-                InstanceID = 4
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Well, you shouldn't.",
-                UserInput = 2,
-                ID = 9,
-                InstanceID = 4
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "It means that your mom won't let you do what you want.",
-                UserInput = 1,
-                ID = 10,
-                InstanceID = 5
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "It means that your mom doesn't want you to get hurt.",
-                UserInput = 2,
-                ID = 10,
-                InstanceID = 5,
-                HasSpecialFunction = true,
-                SpecialFunction = new List<int>(new int[] { 2 }),
-                QuestID = 0
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Uh, nevermind.",
-                UserInput = 3,
-                ID = 10,
-                InstanceID = 5
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Oh, nevermind.",
-                UserInput = 1,
-                ID = 10,
-                InstanceID = 6
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Your mom just wants you to be safe, which is understandable.",
-                UserInput = 2,
-                ID = 10,
-                InstanceID = 6,
-                HasSpecialFunction = true,
-                SpecialFunction = new List<int>(new int[] { 2 }),
-                QuestID = 0
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "That's just how moms are.",
-                UserInput = 3,
-                ID = 10,
-                InstanceID = 6
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Yeah, whatever.",
-                UserInput = 1,
-                ID = 6,
-                InstanceID = 8
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Yeah, it was.",
-                UserInput = 1,
-                ID = 10,
-                InstanceID = 9
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "No, really, if she doesn't stop being a prick, there will be consequences.",
-                UserInput = 2,
-                ID = 11,
-                InstanceID = 9
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "I'll leave that up to you to decide.",
-                UserInput = 3,
-                ID = 11,
-                InstanceID = 9
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Later.",
-                UserInput = 1,
-                ID = 6,
-                InstanceID = 10
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Morning.",
-                UserInput = 1,
-                ID = 12,
-                InstanceID = 7
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "[say nothing, start eating your breakfast]",
-                UserInput = 2,
-                ID = 13,
-                InstanceID = 7
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Something bothering you? You look a bit stressed.",
-                UserInput = 1,
-                ID = 14,
-                InstanceID = 11
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Don't tell me you too are scared of me because of yesterday.",
-                UserInput = 2,
-                ID = 15,
-                InstanceID = 11
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "You know, a \"Good morning\" would have been a nice thing to say.",
-                UserInput = 1,
-                ID = 16,
-                InstanceID = 12
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Something bothering you?",
-                UserInput = 2,
-                ID = 14,
-                InstanceID = 12
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "You know I'm bad with social skills, so if you could just tell me what's bothering you, that would be nice.",
-                UserInput = 3,
-                ID = 14,
-                InstanceID = 12
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Whatcha thinking about?",
-                UserInput = 1,
-                ID = 17,
-                InstanceID = 15
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "[give him a warm smile] Thinking is not for you.",
-                UserInput = 2,
-                ID = 40,
-                InstanceID = 15
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Care to tell me? You're usually not this gloomy.",
-                UserInput = 3,
-                ID = 17,
-                InstanceID = 15
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "[return the smile] Thanks, Ardent. So, what's on your mind then?",
-                UserInput = 1,
-                ID = 17,
-                InstanceID = 14
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Oh you, stop being so sweet. Well, if it's not that, then what is it?",
-                UserInput = 2,
-                ID = 17,
-                InstanceID = 14
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "So what? It happens every year, and I'm pretty sure none of our friends or relatives are gonna get thrown out.",
-                UserInput = 1,
-                ID = 18,
-                InstanceID = 13
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "You should be glad, I think Astral is going to get kicked out next.",
-                UserInput = 2,
-                ID = 19,
-                InstanceID = 13,
-                HasSpecialFunction = true,
-                SpecialFunction = new List<int>(new int[] { 2 }),
-                QuestID = 3
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Wait, it's time for that again? Time sure does fly by.",
-                UserInput = 3,
-                ID = 20,
-                InstanceID = 13
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Oh. Well, it's gonna have to happen, there's nothing we can do about that.",
-                UserInput = 4,
-                ID = 21,
-                InstanceID = 13
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Well, no-",
-                UserInput = 1,
-                ID = 22,
-                InstanceID = 16
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Hmm. Now that you mention it, the whole Stable is getting along just fine.",
-                UserInput = 2,
-                ID = 22,
-                InstanceID = 16
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "That's next year's problem, you shouldn't be stressing about that.",
-                UserInput = 3,
-                ID = 23,
-                InstanceID = 16
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "I... Hadn't thought about that.",
-                UserInput = 1,
-                ID = 22,
-                InstanceID = 17
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "You mean there's no more annoying ponies here? There's always somepony who annoys others.",
-                UserInput = 2,
-                ID = 24,
-                InstanceID = 17
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Geez, calm down. I was just joking.",
-                UserInput = 1,
-                ID = 25,
-                InstanceID = 18
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Uh, sorry. So, why are you stressed about that? It happens every year, and you're usually not that worried about it.",
-                UserInput = 2,
-                ID = 25,
-                InstanceID = 18
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "No, I haven't. Why you ask?",
-                UserInput = 1,
-                ID = 26,
-                InstanceID = 19
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "No, I like to live one year at a time.",
-                UserInput = 2,
-                ID = 26,
-                InstanceID = 19
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "I hope not.",
-                UserInput = 1,
-                ID = 27,
-                InstanceID = 20
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Don't know. Nor do I care, really.",
-                UserInput = 2,
-                ID = 28,
-                InstanceID = 20
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Why? It will happen every year, we can't change that.",
-                UserInput = 1,
-                ID = 29,
-                InstanceID = 21
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Look, I couldn't care less for the voting. This year's OR the next.",
-                UserInput = 2,
-                ID = 28,
-                InstanceID = 21
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "No, not really.",
-                UserInput = 1,
-                ID = 30,
-                InstanceID = 22
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "If they are annoying and are aware of it, no.",
-                UserInput = 2,
-                ID = 31,
-                InstanceID = 22
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Well, when you put it that way... It kinda is.",
-                UserInput = 3,
-                ID = 32,
-                InstanceID = 22
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Oh, are you kidding me? I would be glad to get out of this Celestia-forsaken hole.",
-                UserInput = 4,
-                ID = 33,
-                InstanceID = 22
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Oh, are you kidding me? I would be glad to get to explore the outside world!",
-                UserInput = 5,
-                ID = 34,
-                InstanceID = 22
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "What?! Are you crazy?",
-                UserInput = 1,
-                ID = 35,
-                InstanceID = 23
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "I have a better idea. Let's NOT do anything that's dangerous for the entire Stable.",
-                UserInput = 2,
-                ID = 36,
-                InstanceID = 23
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Might as well overthrow the Overmare and tell Stable-Tec to go fuck themselves while we're at it.",
-                UserInput = 3,
-                ID = 37,
-                InstanceID = 23
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Hmm. That might not be a bad idea.",
-                UserInput = 4,
-                ID = 38,
-                InstanceID = 23
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "I... *sigh* I don't know. Sorry, I guess I'm just a little tired.",
-                UserInput = 1,
-                ID = 32,
-                InstanceID = 24
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "None of your business.",
-                UserInput = 2,
-                ID = 46,
-                InstanceID = 24
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "No, not other ponies... I just... don't care about the vote. It happens only once a year, and nothing bad has\n" +
-                "ever happened because of the vote.",
-                UserInput = 1,
-                ID = 44,
-                InstanceID = 25
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "You think I'm the indifferent one here? What about the Overmare? Why do you think she hasn't made any objections\n" +
-                "against the vote? Seems like as long as she can't be voted out, everything's just fine.",
-                UserInput = 2,
-                ID = 45,
-                InstanceID = 25
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Well now you know.",
-                UserInput = 3,
-                ID = 46,
-                InstanceID = 25
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Don't get me wrong, of course I would be happy to get rid of the vote.",
-                UserInput = 1,
-                ID = 47,
-                InstanceID = 26
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "The less there are annoying ponies, the better the Stable will be, right?",
-                UserInput = 2,
-                ID = 30,
-                InstanceID = 26
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Hm, fair points.",
-                UserInput = 1,
-                ID = 27,
-                InstanceID = 27
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Surely there must be at least some life outside? I doubt the megaspells were able to wipe out literally everything.",
-                UserInput = 2,
-                ID = 50,
-                InstanceID = 27
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "I don't care. If you think I'm going to go against the Overmare, you're out of your mind.",
-                UserInput = 1,
-                ID = 46,
-                InstanceID = 28
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Hm, I guess you're right. Tell you what, if you can get more ponies in, and come up with a decent plan, I'll join you.\n" +
-                "\tBut right now I want to eat, let's talk about this some other time.",
-                UserInput = 2,
-                ID = 49,
-                InstanceID = 28,
-                HasSpecialFunction = true,
-                SpecialFunction = new List<int>(new int[] { 2 }),
-                QuestID = 6
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Count me in. But right now I want to eat, let's talk about this more some other time.",
-                UserInput = 1,
-                ID = 49,
-                InstanceID = 29,
-                HasSpecialFunction = true,
-                SpecialFunction = new List<int>(new int[] { 2 }),
-                QuestID = 6
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Sounds good in theory, but what if the rebellion fails? The consequences might be really bad.",
-                UserInput = 2,
-                ID = 41,
-                InstanceID = 29,
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Yeah, I do. But we need to plan this well, I don't want this to turn out like the previous one.",
-                UserInput = 1,
-                ID = 54,
-                InstanceID = 30,
-                HasSpecialFunction = true,
-                SpecialFunction = new List<int>(new int[] { 2 }),
-                QuestID = 6
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "I said *might*. You know this is extremely dangerous for ourselves, AND the Stable, right?",
-                UserInput = 2,
-                ID = 41,
-                InstanceID = 30
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "But right now I want to eat, can't plan anything with an empty stomach.",
-                UserInput = 1,
-                ID = 49,
-                InstanceID = 37,
-                HasSpecialFunction = true,
-                SpecialFunction = new List<int>(new int[] { 2 }),
-                QuestID = 6
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Actually, no. If you think I'm going to go against the Overmare, you're wrong.",
-                UserInput = 1,
-                ID = 46,
-                InstanceID = 32,
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "I'll join. But let's talk about it more some other time, I want to eat now.",
-                UserInput = 2,
-                ID = 49,
-                InstanceID = 32,
-                HasSpecialFunction = true,
-                SpecialFunction = new List<int>(new int[] { 2 }),
-                QuestID = 6
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Actually, no. If you think I'm going to go against the Overmare, you're wrong.",
-                UserInput = 1,
-                ID = 46,
-                InstanceID = 33,
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Alright, I'm with you. But this needs to be planned well. Let's talk about it more later, okay?",
-                UserInput = 2,
-                ID = 49,
-                InstanceID = 33,
-                HasSpecialFunction = true,
-                SpecialFunction = new List<int>(new int[] { 2 }),
-                QuestID = 6
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Yeah, I guess you're right. Sorry, I never really thinked about the voting since it has never affected me.",
-                UserInput = 1,
-                ID = 43,
-                InstanceID = 34,
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Whatever.",
-                UserInput = 2,
-                ID = 46,
-                InstanceID = 34,
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Or maybe she just wants to make us miserable.",
-                UserInput = 1,
-                ID = 23,
-                InstanceID = 35,
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Hm, might be.",
-                UserInput = 2,
-                ID = 32,
-                InstanceID = 35,
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "[Go to the laundry]",
+                Text = "[Go to the laundry station]",
                 UserInput = 1,
                 ID = 0010000,
-                InstanceID = 36,
+                InstanceID = 0040004,
                 HasSpecialFunction = true,
                 SpecialFunction = new List<int>(new int[] { 2 }),
                 QuestID = 4,
@@ -1312,21 +681,21 @@ namespace FoEChoices
                 Text = "[Go visit your dad]",
                 UserInput = 2,
                 ID = 0011000,
-                InstanceID = 36,
+                InstanceID = 0040004,
             });
             AnswersList.Add(new Answer
             {
                 Text = "[Go back to your room]",
                 UserInput = 3,
                 ID = 0012000,
-                InstanceID = 36,
+                InstanceID = 0040004,
                 HasSpecialFunction = true,
                 SpecialFunction = new List<int>(new int[] { 2 }),
                 QuestID = 9
             });
             AnswersList.Add(new Answer
             {
-                Text = "[Wave back] Hey Stitch. I have some laundry here.",
+                Text = "Hey Stitch. I have some laundry here.",
                 UserInput = 1,
                 ID = 0010001,
                 InstanceID = 0010000,
@@ -2021,10 +1390,270 @@ namespace FoEChoices
                 ID = 0030041,
                 InstanceID = 0030008,
             });
+            AnswersList.Add(new Answer
+            {
+                Text = "Just the usual. Resetting passwords, and the like.",
+                UserInput = 1,
+                ID = 0040001,
+                InstanceID = 0040000,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "No. It gets quite boring sometimes with so little to do.",
+                UserInput = 2,
+                ID = 0040002,
+                InstanceID = 0040000,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "If I need to reset one more password, I'm taking rest of the week off.",
+                UserInput = 3,
+                ID = 0040003,
+                InstanceID = 0040000,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "So what would I need to do if I join?",
+                UserInput = 1,
+                ID = 0040005,
+                InstanceID = 0040002,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "Is there going to be violence involved in the revolt?",
+                UserInput = 2,
+                ID = 0040006,
+                InstanceID = 0040002,
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "Alright, I'll join.",
+                UserInput = 1,
+                ID = 0040008,
+                InstanceID = 0040003,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 2 }),
+                QuestID = 6
+            });
+            AnswersList.Add(new Answer
+            {
+                Text = "No, I won't join.",
+                UserInput = 2,
+                ID = 0040009,
+                InstanceID = 0040003,
+            });
 
             // ------------------------------------------------------- INSTANCE LIST -------------------------------------------------------
 
 
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Wha- What do you mean no?\" he asks, clearly not expecting that for an answer.\n",
+                ID = 0040004,
+                AnswerID = 0040009,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"No, I won't join because it's just too risky. And in the case the revolt fails, I don't want to be on the receiving end of the Overmare's\n" +
+                "\twrath,\" you answer. Ardent looks appalled by your comment.\n",
+                ID = 0040004,
+                AnswerID = 0040009,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"But we need as many ponies on our side as possible! It won't fail, just trust us on that!\" he begs you.\n",
+                ID = 0040004,
+                AnswerID = 0040009,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Just leave it, I won't join,\" you say, leaving no room for an argument. Ardent looks at you in disbelief for a moment, before huffing\n" +
+                "\tand continuing to eat his breakfast. An uncomfortable silence settles in.\n",
+                ID = 0040004,
+                AnswerID = 0040009,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "Ardent finishes his breakfast before you, and leaves the table without saying a word. You sigh, hoping you made the right decision in\n" +
+                "\tsitting this one out.\n",
+                ID = 0040004,
+                AnswerID = 0040009,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"I knew you would. Thanks,\" he says with a warm smile. You smile back at him, hoping you made the right decision.\n",
+                ID = 0040004,
+                AnswerID = 0040008,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "You decide to change the subject.\n" +
+                "\t\"I swear, these sandwiches get worse every morning,\" you say to him, levitating the dry piece of food in front of you. He chuckles.\n",
+                ID = 0040004,
+                AnswerID = 0040008,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"They're still better than the so called salad they sometimes serve here. Like chewing on rubber,\" he says in response. Now it's your\n" +
+                "\tturn to snicker at Ardent. He's not wrong, that's for sure.\n",
+                ID = 0040004,
+                AnswerID = 0040008,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "You continue chatting about some lighter things. Ardent finishes his breakfast before you, and leaves to work in the maintenance office.\n" +
+                "\tOnce you finish eating, you glance at the clock on your PipBuck. You have about an hour before you need to be at work.\n",
+                ID = 0040004,
+                AnswerID = 0040008,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "Usually you go back to your room to spend the hour or so after breakfast, but now would be a good time to take the dirty clothes you have\n" +
+                "\tlying around in your room the laundry station. You could also visit your dad at the Stable's armory. It's been some time since you've seen him.",
+                ID = 0040004,
+                AnswerID = 0040008,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"You know how dangerous this is? What if something goes wrong, and we fail? What if the peaceful rebellion turns into a full-blown riot?\n" +
+                "\tI don't even wanna know what the Overmare would do,\" you say, still not sure whether or not it is a good idea to join the revolt.\n",
+                ID = 0040003,
+                AnswerID = 0040007,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"It'll be fine, don't worry! We'll come up with a plan on how to execute the revolt without violence, but still forcefully. And besides,\n" +
+                "\tis there anypony you actually want to get voted out?\" he asks.\n",
+                ID = 0040003,
+                AnswerID = 0040007,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Well, there's Astral of course. She seems to have something against me, so I wouldn't mind her getting voted out,\" you respond to him.\n" +
+                "\tArdent facehoofs at that.\n",
+                ID = 0040003,
+                AnswerID = 0040007,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"It was a rhetorical question. And that's not really a nice thing to say, wouldn't you agree?\" he asks. You shrug in response.\n",
+                ID = 0040003,
+                AnswerID = 0040007,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"So anyway, are you gonna join the rebellion?\" he then asks, and looks at you expectantly.",
+                ID = 0040003,
+                AnswerID = 0040007,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Pretty much nothing. We just need to let the Overmare know the ponies here don't want to keep doing the vote. Once the right time comes,\n" +
+                "\tof course,\" he explains.\n",
+                ID = 0040003,
+                AnswerID = 0040005,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0040007
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"We'll keep the violence to a minimum, of course. With any luck, it won't be needed at all,\" he explains.\n",
+                ID = 0040003,
+                AnswerID = 0040006,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0040007
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "You both then eat in silence for a moment. The sandwiches are quite dry and taste bland. That's nothing new, unfortunately.\n" +
+                "\tArdent then speaks up, in a somewhat hushed tone.\n" +
+                "\t\"So, you know that the Pariah Vote is getting close, yeah?\" he says. You raise an eyebrow at him.\n",
+                ID = 0040002,
+                AnswerID = 0040004,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "The Pariah Vote is an event that happens once per year. The whole Stable gathers together and everypony gets to vote for the pony they think\n" +
+                "\tis the most dangerous for the wellbeing of the Stable. The pony who gets the most votes will then be kicked out of the Stable. You never put much\n" +
+                "\tthought into this, as you have always just voted for the pony who you thought was the most annoying at the time. You have also been lucky enough\n" +
+                "\tto not lose any close relatives because of the vote.\n",
+                ID = 0040002,
+                AnswerID = 0040004,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Yeah, I noticed there were some propaganda already put up on the walls. Why?\" you answer.\n",
+                ID = 0040002,
+                AnswerID = 0040004,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"You can keep a secret, right?\" he asks, to which you nod in response. \"Well, me and a couple others have been planning revolt to get\n" +
+                "\trid of the vote,\" he whispers. You almost choke on the sandwich you were chewing on.\n",
+                ID = 0040002,
+                AnswerID = 0040004,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"You serious? You know what happened in the last one, right?\" you ask him, not expecting such a sudden revelation.\n",
+                ID = 0040002,
+                AnswerID = 0040004,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"I'm well aware. But to my knowledge, it wasn't really an organized thing. And it was well over thirty years ago, so the security measures\n" +
+                "\tfor the voting have since gone down,\" he explains calmly.\n",
+                ID = 0040002,
+                AnswerID = 0040004,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"So why are you telling me this?\" you ask him, although you can already guess what it most likely is about.\n",
+                ID = 0040002,
+                AnswerID = 0040004,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"I'm asking you to join us. We'll be gathering as many ponies for the rebellion while keeping it a secret from the Overmare,\" he says.",
+                ID = 0040002,
+                AnswerID = 0040004,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"I see,\" he simply says in response.\n",
+                ID = 0040001,
+                AnswerID = 0040001,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0040004
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Yeah, I can imagine that. It's pretty much the same down at the maintenance, not much to do these past few weeks,\" he says.\n",
+                ID = 0040001,
+                AnswerID = 0040002,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0040004
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "He smiles at your comment.\n" +
+                "\t\"Who's gonna be resetting the passwords then?\" he asks lightheartedly.\n",
+                ID = 0040001,
+                AnswerID = 0040003,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Don't know, don't care,\" you say back to him with a small smile.\n",
+                ID = 0040001,
+                AnswerID = 0040003,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0040004
+            });
             InstanceList.Add(new Instance
             {
                 Text = "\n" +
@@ -2059,21 +1688,44 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "A couple of ponies greet you as they walk by you. Not feeling too social right now, you just give them a half-nod.\n",
+                Text = "A couple of ponies greet you as they walk by, but you only give them a half-nod in response.\n",
                 ID = 0040000,
                 AnswerID = 0040000,
             });
             InstanceList.Add(new Instance
             {
-                Text = "Finally getting to the cafeteria, you notice the long line of ponies waiting to get their breakfast. You sigh, frustrated about the lenght\n" +
-                "\tof the line. Feeling hungry however, you decide to join the line.\n",
+                Text = "Finally getting to the cafeteria, you notice the long line of ponies waiting to get their breakfast. You sigh, and think about skipping breakfast\n" +
+                "\ttoday. Feeling hungry however, you decide to join the line.\n",
                 ID = 0040000,
                 AnswerID = 0040000,
             });
             InstanceList.Add(new Instance
             {
-                Text = "When you finally get your turn, you're disappointed to see today's selection is just water and a sandwich. You pick a glass of water and one of the\n" +
-                "\tready-made sandwiches with your magic, and start walking towards your usual spot in the cafeteria.",
+                Text = "When you finally get your turn, you're disappointed to see today's selection is just water and a sandwich. You pick up a glass of water and two of\n" +
+                "\tthe ready-made sandwiches with your magic, and start walking towards your usual spot behind one of the corners in the cafeteria. It's a nice, secluded\n" +
+                "\tplace, where nopony else usually goes to sit.\n",
+                ID = 0040000,
+                AnswerID = 0040000,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "Rounding the corner, you notice your friend Ardent Flash sitting at your table. He has a turqoise coat, white mane, and light blue eyes. You sit\n" +
+                "\tdown on the seat opposite of him.\n" +
+                "\t\"Morning,\" he says.\n",
+                ID = 0040000,
+                AnswerID = 0040000,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Morning,\" you reply, and start eating your sandwich. You've never been the most chattiest pony, only ever saying what's necessary.\n",
+                ID = 0040000,
+                AnswerID = 0040000,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Anything interesting going on at work?\" he asks. You are the Stable's network specialist, admin, and software developer. Quite a lot of\n" +
+                "\tresponsibility for one pony, but it doesn't bother you because you enjoy your job. And currently there isn't anypony else interested or skilled enough\n" +
+                "\tto do those jobs, so all of it falls on your shoulders.",
                 ID = 0040000,
                 AnswerID = 0040000,
             });
@@ -4633,438 +4285,6 @@ namespace FoEChoices
                 "\thoof to you. She's nice, but a bit too outgoing for your taste.",
                 ID = 0010000,
                 AnswerID = 0010000,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"Sure thing,\" says the stallion. You and Ardent chat for a while about some lighter things. Ardent finishes eating before you,\n" +
-                "\tand leaves to work in the maintenance office. Once you finish, you notice that you still have about an hour before your work starts.\n" +
-                "\tYou are the Stable's network specialist and software engineer. Your job is to make sure the Stable's network is running fine,\n" +
-                "\tand to fix any software related problems with terminals. A lot of work for one pony, since barely anypony is interested about\n" +
-                "\tthat kind of stuff in the Stable. But that doesn't bother you, because you enjoy your job.\n",
-                ID = 36,
-                AnswerID = 49,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"Hmm, now would be a good time to go do the laundry. Or maybe I should I go visit my dad and see how he's doing at the armory,\"\n" +
-                "\tyou ponder to yourself.",
-                ID = 36,
-                AnswerID = 49,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"You really seem to have something against the Overmare. Which might be good. Listen, I've been thinking about a rebellion.\n" +
-                "\tI thought you might want to join, so we could get rid of the vote,\" says the stallion in a low voice.",
-                ID = 23,
-                AnswerID = 53,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"I was a bit worried about what you might think. Glad you think the same way I do,\" says the stallion in a relieved tone.\n",
-                ID = 36,
-                AnswerID = 39,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"Of course. But it needs to be planned well. And we need more ponies to join it. I don't even want to think about what happens if\n" +
-                "\tthe rebellion fails,\" you say, remembering some stories about past rebellions.\n",
-                ID = 36,
-                AnswerID = 39,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"Don't worry, I've got this. I know ponies who are willing to join. But hey, let's talk about it more some other time, I want to\n" +
-                "\teat right now,\" reassures the stallion, taking a bite of his sandwich.\n",
-                ID = 36,
-                AnswerID = 39,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "You and Ardent chat for a while about some lighter things. Ardent finishes eating before you, and leaves to work in the maintenance\n" +
-                "\toffice. Once you finish, you notice that you still have about an hour before your work starts. You are the Stable's network specialist\n" +
-                "\tand software engineer. Your job is to make sure the Stable's network is running fine, and to fix any software related problems with\n" +
-                "\tterminals. A lot of work for one pony, since barely anypony is interested about that kind of stuff in the Stable. But that doesn't bother\n" +
-                "\tyou, because you enjoy your job.\n",
-                ID = 36,
-                AnswerID = 39,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"Hmm, now would be a good time to go do the laundry. Or maybe I should I go visit my dad and see how he's doing at the armory,\"\n" +
-                "\tyou ponder to yourself.",
-                ID = 36,
-                AnswerID = 39,
-            });
-            /*InstanceList.Add(new Instance
-            {
-                Text = "\"How else are we going to put an end to this? This is the only way, and you know it.\" says the stallion.",
-                ID = 38,
-                AnswerID = 51,
-            });*/
-            InstanceList.Add(new Instance
-            {
-                Text = "\"That's besides the point. Where I *was* going with this, is that I think we should attempt a new rebellion against the vote,\n" +
-                "\tsays the stallion in a low voice.",
-                ID = 23,
-                AnswerID = 50,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"Well in that case you might wanna hear about what I've been planning. I think we should attempt a new rebellion. Would you be willing\n" +
-                "\tto join it?\" asks the stallion in a low voice.",
-                ID = 23,
-                AnswerID = 47,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "He looks at you for a while in disbelief, huffs, and continues to eat his breakfast.\n",
-                ID = 36,
-                AnswerID = 46,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "Neither of you say a word to each other. Ardent finishes breakfast before you, and leaves to work in the maintenance office. \n " +
-                "\tOnce you finish, you notice that you still have about an hour before your work starts. You are the Stable's network specialist\n" +
-                "\tand software engineer. Your job is to make sure the Stable's network is running fine, and to fix any software related problems with\n" +
-                "\tterminals. A lot of work for one pony, since barely anypony is interested about that kind of stuff in the Stable. But that doesn't bother\n" +
-                "\tyou, because you enjoy your job.\n",
-                ID = 36,
-                AnswerID = 46,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"Hmm, now would be a good time to go do the laundry. Or maybe I should I go visit my dad and see how he's doing at the armory,\"\n" +
-                "\tyou ponder to yourself.",
-                ID = 36,
-                AnswerID = 46,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"Maybe because she's afraid of what Stable-Tec might do?\" says the stallion.",
-                ID = 35,
-                AnswerID = 45,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"Nothing bad? Are you crazy? Ponies have lost loved ones because of it, and it has caused countless fights and other shitstorms!\"\n" +
-                "\tsays the stallion, getting slightly frustrated.",
-                ID = 34,
-                AnswerID = 44,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"Trust me, this something that needs to be done.\" says the stallion in a reassuring voice.",
-                ID = 33,
-                AnswerID = 42,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"Yes, I'm aware of that. But I'm ready to take the risk, if it means we can stop the voting,\" says the stallion.",
-                ID = 32,
-                AnswerID = 41,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"Of course. We need to convince others to join us, and make sure the Overmare doesn't hear about this,\" says the stallion.",
-                ID = 37,
-                AnswerID = 54,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"I- wait, really? You think so?\" asks the stallion, a bit surprised.",
-                ID = 30,
-                AnswerID = 38,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"Well, that might be what's gonna happen if the Overmare doesn't comply.\" says the stallion.\n",
-                ID = 29,
-                AnswerID = 37,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"Are you actually thinking about a rebellion? You know that's a really risky move, right?\" you ask, not sure\n" +
-                "\tif Ardent is being serious.\n",
-                ID = 29,
-                AnswerID = 37,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"Yeah, I think it's about time we do something about this. I've been planning this for some time now, \n" +
-                "\tand if it means we - and everypony else - have a chance to live without the fear of getting cast out of the Stable...\n" +
-                "\tI'm ready to take take the risk,\" says the stallion.",
-                ID = 29,
-                AnswerID = 37,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"This is the only way we can get rid of the vote, and you know it,\" he says in a firm voice.",
-                ID = 28,
-                AnswerID = 36,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"What, should we just wait and see what happens when everypony realizes they don't want to kick anypony out? Things are gonna\n" +
-                "\tget a lot messier then,\" says the stallion.",
-                ID = 28,
-                AnswerID = 35,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"I'm... just gonna assume that was a joke. Anyway, my point was, I think we should attempt a new rebellion,\"\n" +
-                "\tsays the stallion with a low voice.",
-                ID = 23,
-                AnswerID = 34,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"Ugh, sometimes I just don't understand you... Sure, the voting sucks and these hallways are pretty small, but at least we have\n" +
-                "\tfood, water and a place to sleep. Who knows what lies on the other side of the Stable's door. For all we know, we might be the last\n" +
-                "\tof our species!\" says the stallion with a hint of anger in his voice.",
-                ID = 27,
-                AnswerID = 33,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"That's what I thought. Anyway, my point was, because I think there's a fair number of ponies now who don't want the vote,\n" +
-                "\twe should attempt a new rebellion,\" says the stallion in a low voice.",
-                ID = 23,
-                AnswerID = 32,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"Hm. I was hoping you'd be against the voting a bit more,\" says the stallion with a hint of disappointment in his voice.",
-                ID = 26,
-                AnswerID = 31,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"Wow. I didn't know you cared so little for others,\" says the stallion in a disappointed voice.",
-                ID = 25,
-                AnswerID = 30,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"Because I think it's time we attempted a new rebellion,\" says the stallion in a low voice.",
-                ID = 23,
-                AnswerID = 29,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"You what?! Since when have you been that inconsiderate towards other ponies?\" says the stallion with a surprised voice.",
-                ID = 24,
-                AnswerID = 28,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"So, I was thinking... Maybe it's time for a new rebellion against the voting,\" whispers the stallion.",
-                ID = 23,
-                AnswerID = 27,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"Who do you think is getting kicked out next year? Is there anypony else than Astral you think is dangerous or annoying?\"\n" +
-                "\tasks the stallion.",
-                ID = 17,
-                AnswerID = 26,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "He sighs. \"I just find this whole voting useless. Who do you think is going to get kicked next year? Is there anypony else than\n" +
-                "\tAstral you think is dangerous or annoying?\" asks the stallion.",
-                ID = 17,
-                AnswerID = 25,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"Don't you think it's a bit harsh to kick somepony out of here just because others think they're annoying? Who knows what\n" +
-                "\tlies on the other side of the Stable's door,\" says the stallion.",
-                ID = 22,
-                AnswerID = 24,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"No, I think that's what everypony should be thinking right now,\" says the stallion in a firm voice.",
-                ID = 21,
-                AnswerID = 23,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"Exactly. That's what I'm worried about. Will we start kicking random ponies out?\" says the stallion.",
-                ID = 20,
-                AnswerID = 22,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"Maybe not this year. Listen, have you thought about what will happen in next year's voting?\" asks the stallion.",
-                ID = 19,
-                AnswerID = 21,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"YES! How can you not remember that?!\" yells the stallion in an uneasy voice. A few other ponies glance at your direction.",
-                ID = 18,
-                AnswerID = 20,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"And after that? What will happen in next year's voting?\" asks the stallion in a pressing voice.",
-                ID = 17,
-                AnswerID = 19,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"That's just it. All the ponies from that rebellion from 12 years ago have been kicked out already. What will happen in next \n" +
-                "\tyear's voting? Is there anypony else than Astral who you think is annoying or dangerous?\" asks the stallion in a pressing voice.",
-                ID = 16,
-                AnswerID = 18,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"Heh, I guess not. But jokes aside... I've been thinking about The Pariah Vote,\" Ardent says.\n",
-                ID = 13,
-                AnswerID = 40,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "The Pariah Vote. It's an event that happens once per year. The whole Stable gathers together and everypony gets to vote for the \n" +
-                "\tpony who they think is the most dangerous for the wellbeing of the Stable. The pony who gets the most votes will then be kicked out \n" +
-                "\tof the Stable. You never put much thought into this, as you have always just voted for the pony who you thought was the most annoying \n" +
-                "\tat the time. You have also been lucky enough to not lose any close relatives because of the vote.",
-                ID = 13,
-                AnswerID = 40,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"Well, it's just that The Pariah Vote is just around the corner,\" says the stallion.\n",
-                ID = 13,
-                AnswerID = 17,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "The Pariah Vote. It's an event that happens once per year. The whole Stable gathers together and everypony gets to vote for the \n" +
-                "\tpony who they think is the most dangerous for the wellbeing of the Stable. The pony who gets the most votes will then be kicked out \n" +
-                "\tof the Stable. You never put much thought into this, as you have always just voted for the pony who you thought was the most annoying \n" +
-                "\tat the time. You have also been lucky enough to not lose any close relatives because of the vote.",
-                ID = 13,
-                AnswerID = 17,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"Hm? Oh sorry, I was just lost in my thoughts,\" says the stallion.",
-                ID = 15,
-                AnswerID = 16,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"What? Oh, don't worry. We've been friends for our whole lives, I know you are a kind pony,\" says the stallion with a warm smile.",
-                ID = 14,
-                AnswerID = 15,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"Oh, sorry. It's just that the voting for the next Pariah is just around the corner,\" says the stallion.\n",
-                ID = 13,
-                AnswerID = 14,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "The Pariah Vote. It's an event that happens once per year. The whole Stable gathers together and everypony gets to vote for the \n" +
-                "\tpony who they think is the most dangerous for the wellbeing of the Stable. The pony who gets the most votes will then be kicked out \n" +
-                "\tof the Stable. You never put much thought into this, as you have always just voted for the pony who you thought was the most annoying \n" +
-                "\tat the time. You have also been lucky enough to not lose any close relatives because of the vote.",
-                ID = 13,
-                AnswerID = 14,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "She relaxes a bit. \"Oh, okay. But mom said that I should avoid you and Astral,\" says the filly.",
-                ID = 1,
-                AnswerID = 1,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "She jumps in the air, let's out a high pitched scream and runs away.",
-                ID = 2,
-                AnswerID = 2,
-                HasSpecialFunction = true,
-                RepPoints = -1,
-                SpecialFunction = new List<int>(new int[] { 5 }),
-                Faction = "Stable 54"
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"Um... You're not going to hurt me, are you? Or anypony else?\" asks the filly cautiously.",
-                ID = 3,
-                AnswerID = 0,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"Aw, but I like Astral!\" says the filly.",
-                ID = 4,
-                AnswerID = 3,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"Overproct... What does that mean?\" asks the filly.",
-                ID = 5,
-                AnswerID = 4,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"What do you mean?\" asks the filly.",
-                ID = 6,
-                AnswerID = 5,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "You make your way to the cafeteria. Once you get there, you spot your friend's, Ardent's, light gray coat and bright red mane \n" +
-                "\tfrom the crowd. You take a sandwich and some water from the counter, and go sit next to Ardent. You notice that he has \n" +
-                "\ta worried expression on his face.",
-                ID = 7,
-                AnswerID = 6,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"Oh, um, okay... Well, I've gotta go now, so...\" stammers the filly.",
-                ID = 8,
-                AnswerID = 7,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"Haha, good joke... It was a joke, right?\" asks the filly warily.",
-                ID = 9,
-                AnswerID = 8,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"Hmm. Well, I'm gonna go. Seeya!\" says the filly.",
-                ID = 10,
-                AnswerID = 9,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"Oh, okay. Well, I've gotta go. Seeya!\" says the filly.",
-                ID = 10,
-                AnswerID = 10,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"Oh, umm... Well, I've gotta go now. Uh, seeya!\" says the filly.",
-                ID = 10,
-                AnswerID = 11,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "\"Good morning.\" answers the stallion.",
-                ID = 11,
-                AnswerID = 12,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "You both eat for a while without saying anything.",
-                ID = 12,
-                AnswerID = 13,
             });
 
         }
