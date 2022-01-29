@@ -115,7 +115,7 @@ namespace FoEChoices
             QuestList.Add(new Quest() { Description = "Have a constructive conversation with Light Harmony", QuestID = 0, Completed = false });
             QuestList.Add(new Quest() { Description = "Reset Cross Stitch's terminal's password without losing your cool", QuestID = 1, Completed = false });
             QuestList.Add(new Quest() { Description = "Inspect the pistol in the Stable's armory", QuestID = 2, Completed = false });
-            QuestList.Add(new Quest() { Description = "Mention Astral in your first conversation with Ardent", QuestID = 3, Completed = false });
+            QuestList.Add(new Quest() { Description = "unused", QuestID = 3, Completed = false });
             QuestList.Add(new Quest() { Description = "Choose Cross Stitch's path", QuestID = 4, Completed = false });
             QuestList.Add(new Quest() { Description = "Annoy the Overmare during your first conversation", QuestID = 5, Completed = false });
             QuestList.Add(new Quest() { Description = "Agree to join the rebellion", QuestID = 6, Completed = false });
@@ -149,7 +149,7 @@ namespace FoEChoices
             GameState = 0;
 
             bool DebugMode = false; // skip the intro and set starting point
-            if (DebugMode) PassAnswerID = 0030008;
+            if (DebugMode) PassAnswerID = 0030015;
 
             // var SoundPlayer = new System.Media.SoundPlayer();
             // SoundPlayer.SoundLocation = Environment.CurrentDirectory + "\\file-name.wav";
@@ -204,8 +204,6 @@ namespace FoEChoices
 
             }
 
-            if (GameState == 2) { DemoFinished(); }
-
             Console.WriteLine("\tWhoops, something went wrong with the GameState... press any key to exit the game.");
             Console.ReadKey();
             System.Environment.Exit(1);
@@ -213,6 +211,8 @@ namespace FoEChoices
         }
 
         public static dynamic GetAnswers(int PassInstanceID, int WeaponID) {
+
+            if (GameState == 2) { DemoFinished(); }
 
             int PassedInstance = PassInstanceID;
 
@@ -499,13 +499,15 @@ namespace FoEChoices
             Console.WriteLine("\tThank you for playing this demo of Fallout Equestria: Choices!\n" +
                 "\tFeel free to play the game again and choose different options to see how it affects the story,\n" +
                 "\tand to uncover hints to piece together the reason why Silver got kicked from the Stable.\n" +
-                "\tFeedback is very much appreciated.\n" +
-                "\t\n" +
-                "\tThanks to Kkat for creating the original Fallout: Equestria, and giving us huge sandbox world to create our own stories in.\n" +
-                "\t\n" +
-                "\tPress any key to exit the game.");
+                "\tFeedback is very much appreciated.\n");
+            while (Console.ReadKey(true).Key != ConsoleKey.Enter) { }
+            Console.WriteLine("\tThanks to Kkat for creating the original Fallout: Equestria, and giving us huge sandbox world to create our own stories in.\n");
+            while (Console.ReadKey(true).Key != ConsoleKey.Enter) { }
+            Console.WriteLine("\tPress any key exit the game.");
+
             Console.ReadKey();
             System.Environment.Exit(1);
+            
 
         }
 
@@ -695,21 +697,7 @@ namespace FoEChoices
             });
             AnswersList.Add(new Answer
             {
-                Text = "Hey Stitch. I have some laundry here.",
-                UserInput = 1,
-                ID = 0010001,
-                InstanceID = 0010000,
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Yeah hi. Here's some laundry for you.",
-                UserInput = 2,
-                ID = 0010001,
-                InstanceID = 0010000,
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Again? This is the third time this week.",
+                Text = "Again? This is the second time this week.",
                 UserInput = 1,
                 ID = 0010002,
                 InstanceID = 0010001,
@@ -778,55 +766,20 @@ namespace FoEChoices
             });
             AnswersList.Add(new Answer
             {
-                Text = "Yes please, the coffee they serve at the cafeteria tastes like the coffee grounds have been used a bit too many times.",
-                UserInput = 1,
-                ID = 0011003,
-                InstanceID = 0011001,
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "No thanks, I think I'll be going now. Just wanted to stop by here.",
-                UserInput = 2,
-                ID = 0011004,
-                InstanceID = 0011001,
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "[Leave the pistol alone and don't mention about it to dad]",
+                Text = "[Leave the pistol alone]",
                 UserInput = 1,
                 ID = 0011006,
                 InstanceID = 0011002,
             });
             AnswersList.Add(new Answer
             {
-                Text = "[Inspect the pistol and show it to dad]",
+                Text = "[Inspect the pistol]",
                 UserInput = 2,
                 ID = 0011005,
                 InstanceID = 0011002,
                 HasSpecialFunction = true,
                 SpecialFunction = new List<int>(new int[] { 2 }),
                 QuestID = 2,
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Do you know why it looks so different compared to the other pistols here?",
-                UserInput = 1,
-                ID = 0011010,
-                InstanceID = 0011005,
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Shouldn't it just be stored with the other weapons?",
-                UserInput = 2,
-                ID = 0011010,
-                InstanceID = 0011005,
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "This pistol looks like it has a story behind it.",
-                UserInput = 3,
-                ID = 0011010,
-                InstanceID = 0011005,
             });
             AnswersList.Add(new Answer
             {
@@ -879,91 +832,42 @@ namespace FoEChoices
             });
             AnswersList.Add(new Answer
             {
-                Text = "Good, good. And you?",
-                UserInput = 2,
-                ID = 0012004,
-                InstanceID = 0012000,
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Go away, I'm busy.",
-                UserInput = 3,
-                ID = 0012001,
-                InstanceID = 0012000,
-            });
-            AnswersList.Add(new Answer
-            {
                 Text = "I was fine until you showed up.",
-                UserInput = 4,
+                UserInput = 2,
                 ID = 0012005,
                 InstanceID = 0012000,
             });
             AnswersList.Add(new Answer
             {
-                Text = "What do you mean?",
+                Text = "Do you actually need something, or are you just trying to waste my time?",
                 UserInput = 1,
-                ID = 0012006,
-                InstanceID = 0012003,
+                ID = 0012002,
+                InstanceID = 0012002,
             });
             AnswersList.Add(new Answer
             {
-                Text = "Good, I was really getting sick of you.",
+                Text = "Can you fuck off already? I have places to be.",
                 UserInput = 2,
-                ID = 0012007,
-                InstanceID = 0012003,
+                ID = 0012003,
+                InstanceID = 0012002,
             });
             AnswersList.Add(new Answer
             {
-                Text = "Fuck off.",
-                UserInput = 3,
-                ID = 0012011,
-                InstanceID = 0012003,
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "True. Good thing I have a dad to hang out with.",
-                UserInput = 1,
-                ID = 0012008,
-                InstanceID = 0012005,
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "How about you stop threatening me and my dad, and fuck off before I call the security?",
-                UserInput = 2,
-                ID = 0012009,
-                InstanceID = 0012005,
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Too bad ponies don't have anything against me.",
-                UserInput = 1,
-                ID = 0012010,
-                InstanceID = 0012008,
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Oh, I don't have to worry about that. You on the other hoof...",
-                UserInput = 2,
-                ID = 0012010,
-                InstanceID = 0012008,
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "[go lie down in your bed]",
+                Text = "[Go lie down in your bed]",
                 UserInput = 1,
                 ID = 0012013,
                 InstanceID = 0012007,
             });
             AnswersList.Add(new Answer
             {
-                Text = "[go to the terminal]",
+                Text = "[Go to the terminal]",
                 UserInput = 2,
                 ID = 0012014,
                 InstanceID = 0012007,
             });
             AnswersList.Add(new Answer
             {
-                Text = "[inspect the contents of the shelf]",
+                Text = "[Inspect the contents of the shelf]",
                 UserInput = 3,
                 ID = 0012015,
                 InstanceID = 0012007,
@@ -1036,20 +940,6 @@ namespace FoEChoices
             });
             AnswersList.Add(new Answer
             {
-                Text = "Hey Scan. What're you doing in here?",
-                UserInput = 1,
-                ID = 0020015,
-                InstanceID = 0020008,
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Oh, hey there. Miss being at work so much you had to come here on a holiday?",
-                UserInput = 2,
-                ID = 0020015,
-                InstanceID = 0020008,
-            });
-            AnswersList.Add(new Answer
-            {
                 Text = "I, uhh, no. Just came here before you. Yup. Also, wanted to try a new manestyle.",
                 UserInput = 1,
                 ID = 0020016,
@@ -1064,20 +954,6 @@ namespace FoEChoices
             });
             AnswersList.Add(new Answer
             {
-                Text = "Knock knock!",
-                UserInput = 1,
-                ID = 0020019,
-                InstanceID = 0020010,
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "Uh, hello?",
-                UserInput = 2,
-                ID = 0020019,
-                InstanceID = 0020010,
-            });
-            AnswersList.Add(new Answer
-            {
                 Text = "Yes, I did as you instructed and sent the mails at midday.",
                 UserInput = 1,
                 ID = 0020020,
@@ -1089,27 +965,6 @@ namespace FoEChoices
                 UserInput = 2,
                 ID = 0020021,
                 InstanceID = 0020011,
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "[vote for Astral]",
-                UserInput = 1,
-                ID = 0020026,
-                InstanceID = 0020012,
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "[vote Astral]",
-                UserInput = 2,
-                ID = 0020026,
-                InstanceID = 0020012,
-            });
-            AnswersList.Add(new Answer
-            {
-                Text = "[vote Astral out]",
-                UserInput = 3,
-                ID = 0020026,
-                InstanceID = 0020012,
             });
             AnswersList.Add(new Answer
             {
@@ -1378,7 +1233,7 @@ namespace FoEChoices
             });
             AnswersList.Add(new Answer
             {
-                Text = "[Bluff] Stop waving that thing around, we both know you don't have what it takes to shoot one of your own!",
+                Text = "Stop waving that thing around, we both know you don't have what it takes to shoot one of your own!",
                 UserInput = 2,
                 ID = 0030040,
                 InstanceID = 0030008,
@@ -1481,6 +1336,16 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
+                Text = "After a minute, you finish your breakfast. You then glance at the clock on your PipBuck. You still have about half an hour before you need\n" +
+                "\tto be at work.\n",
+                ID = 0040004,
+                AnswerID = 0040009,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0040010
+            });
+            InstanceList.Add(new Instance
+            {
                 Text = "\"I knew you would. Thanks,\" he says with a warm smile. You smile back at him, hoping you made the right decision.\n",
                 ID = 0040004,
                 AnswerID = 0040008,
@@ -1502,16 +1367,19 @@ namespace FoEChoices
             InstanceList.Add(new Instance
             {
                 Text = "You continue chatting about some lighter things. Ardent finishes his breakfast before you, and leaves to work in the maintenance office.\n" +
-                "\tOnce you finish eating, you glance at the clock on your PipBuck. You have about an hour before you need to be at work.\n",
+                "\tOnce you finish eating, you glance at the clock on your PipBuck. You have about half an hour before you need to be at work.\n",
                 ID = 0040004,
                 AnswerID = 0040008,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0040010
             });
             InstanceList.Add(new Instance
             {
-                Text = "Usually you go back to your room to spend the hour or so after breakfast, but now would be a good time to take the dirty clothes you have\n" +
-                "\tlying around in your room the laundry station. You could also visit your dad at the Stable's armory. It's been some time since you've seen him.",
+                Text = "Usually you go back to your room to spend the time after breakfast, but now would be a good time to take the dirty clothes you have lying\n" +
+                "\taround in your room the laundry station. You could also visit your dad at the Stable's armory. It's been some time since you've seen him.",
                 ID = 0040004,
-                AnswerID = 0040008,
+                AnswerID = 0040010,
             });
             InstanceList.Add(new Instance
             {
@@ -1569,7 +1437,7 @@ namespace FoEChoices
             {
                 Text = "You both then eat in silence for a moment. The sandwiches are quite dry and taste bland. That's nothing new, unfortunately.\n" +
                 "\tArdent then speaks up, in a somewhat hushed tone.\n" +
-                "\t\"So, you know that the Pariah Vote is getting close, yeah?\" he says. You raise an eyebrow at him.\n",
+                "\t\"So, you know the Pariah Vote is getting close, yeah?\" he says. You raise an eyebrow at him.\n",
                 ID = 0040002,
                 AnswerID = 0040004,
             });
@@ -1960,9 +1828,12 @@ namespace FoEChoices
             {
                 Text = "\"Nah, I was just passing through. But I do have to admit, it is kinda funny seeing you being dragged away,\" she says. She glances at the security\n" +
                 "\tponies behind you, and gives you a smirk. \"I see you're running short on time, so I'll leave you be. Goodbye~\" she says, and flicks her tail at you\n" +
-                "\tas she turns to leave. You glare at her for a moment before continuing on your way.",
+                "\tas she turns to leave. You glare at her for a moment before continuing on your way.\n",
                 ID = 0030008,
                 AnswerID = 0030036,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0030038
             });
             InstanceList.Add(new Instance
             {
@@ -2082,15 +1953,25 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"Alright, that's enough. We need to get going,\" comes the voice of the older stallion from the door. The younger pony stops his strikes.\n" +
-                "\t\"Get up,\" he says to you. Hurting all over, you slowly get up. You almost collapse again when you try to put weight on your left forehoof.\n",
+                Text = "\"Alright, that's enough. We need to get going,\" comes the voice of the older stallion from the door. The younger pony stops his strikes.\n",
                 ID = 0030008,
                 AnswerID = 0030033,
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"Oww... What was that for?\" you ask the stallion.\n" +
-                "\t\"You know it already. Maybe start showing some respect to the ponies around you, huh?\" he spats at you. You almost go for an insult, but\n" +
+                Text = "\"Get up,\" he says to you. Hurting all over, you slowly get up. You almost collapse again when you try to put weight on your left forehoof.\n",
+                ID = 0030008,
+                AnswerID = 0030033,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Oww... What was that for?\" you ask the stallion.\n",
+                ID = 0030008,
+                AnswerID = 0030033,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"You know it already. Maybe start showing some respect to the ponies around you, huh?\" he spats at you. You almost go for an insult, but\n" +
                 "\tdecide against it. The three of you then start walking towards the top level of the Stable. You try to put as little weight on your left\n" +
                 "\tforehoof as you walk. This day just keeps getting shittier.\n",
                 ID = 0030008,
@@ -2133,23 +2014,38 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"I could ask you the same,\" you respond to her.\n" +
-                "\t\"Something urgent came up, had to take care of it. Aren't you supposed to be, uh, leaving?\" she asks. You open your mouth to respond, but\n" +
+                Text = "\"I could ask you the same,\" you respond to her.\n",
+                ID = 0030008,
+                AnswerID = 0030031,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Something urgent came up, had to take care of it. Aren't you supposed to be, uh, leaving?\" she asks. You open your mouth to respond, but\n" +
                 "\tnotice that Scanline seems to have... a black eye?\n",
                 ID = 0030008,
                 AnswerID = 0030031,
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"I was just gonna check if the votes I got are legit. Are you okay? What happened to your eye?\" you ask her.\n" +
-                "\t\"Oh, I tripped yesterday, don't worry,\" she says. You're not sure if you believe her, but let it be for now.\n",
+                Text = "\"I was just gonna check if the votes I got are legit. Are you okay? What happened to your eye?\" you ask her.\n",
                 ID = 0030008,
                 AnswerID = 0030031,
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"Well, be sure to hurry. I was on my way to the top level to, you know... say goodbye,\" she says after a few seconds of silence.\n" +
-                "\t\"I'll be quick,\" you say to her, and continue walking to the IT-department.\n",
+                Text = "\"Oh, I tripped yesterday, don't worry,\" she says. You're not sure if you believe her, but let it be for now.\n",
+                ID = 0030008,
+                AnswerID = 0030031,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Well, be sure to hurry. I was on my way to the top level to, you know... say goodbye,\" she says after a few seconds of silence.\n",
+                ID = 0030008,
+                AnswerID = 0030031,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"I'll be quick,\" you say to her, and continue walking to the IT-department.\n",
                 ID = 0030008,
                 AnswerID = 0030031,
             });
@@ -2184,8 +2080,13 @@ namespace FoEChoices
             InstanceList.Add(new Instance
             {
                 Text = "\"I can't help but think how the Overmare acted during the announcement. She didn't seem the least bit surprised that you got\n" +
-                "\tthe most votes. Isn't that kinda suspicious to you too?\" he asks you.\n" +
-                "\t\"That's true. Or maybe she just doesn't care about anypony else than herself,\" you respond. Although, the Overmare would have an easy\n" +
+                "\tthe most votes. Isn't that kinda suspicious to you too?\" he asks you.\n",
+                ID = 0030007,
+                AnswerID = 0030029,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"That's true. Or maybe she just doesn't care about anypony else than herself,\" you respond. Although, the Overmare would have an easy\n" +
                 "\ttime rigging the votes because of the program. A realization then hits you.\n",
                 ID = 0030007,
                 AnswerID = 0030029,
@@ -2193,49 +2094,77 @@ namespace FoEChoices
             InstanceList.Add(new Instance
             {
                 Text = "\"I could go check the logs from the voting program to see if the votes are legit! Goddesses, why didn't I think of it sooner...\"\n" +
-                "\tyou say, disappointed in yourself. The lack of sleep recently really has taken a toll on you.\n" +
-                "\t\"You're gonna have to hurry if you want to do that, we need to be at the Stable's door soon,\" dad says.",
+                "\tyou say, disappointed in yourself. The lack of sleep recently really has taken a toll on you.\n",
                 ID = 0030007,
                 AnswerID = 0030029,
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"Oh, before I forget... Here, I think you should have this,\" dad says, and pulls out something from his saddlebags. Is that...\n" +
-                "\t\"A gun?\" you ask, trying to keep your voice down.\n" +
-                "\t\"It's the pistol you found last week. You should keep it for now, just in case things get ugly during the rebellion,\" he says. You can\n" +
+                Text = "\"You're gonna have to hurry if you want to do that, we need to be at the Stable's door soon,\" dad says.",
+                ID = 0030007,
+                AnswerID = 0030029,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Oh, before I forget... Here, I think you should have this,\" dad says, and pulls out something from his saddlebags. Is that...\n",
+                ID = 0030007,
+                AnswerID = 0030030,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"A gun?\" you ask, trying to keep your voice down.\n",
+                ID = 0030007,
+                AnswerID = 0030030,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"It's the pistol you found last week. You should keep it for now, just in case things get ugly during the rebellion,\" he says. You can\n" +
                 "\tbarely believe what you're hearing. You've never even handled a gun before.\n",
                 ID = 0030007,
                 AnswerID = 0030030,
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"B-but I don't even know how to use it!\" you say.\n" +
-                "\t\"Oh, it's easy. Remove the safety, load it, point at the target, and pull the trigger. Nothing more to it. And they did teach how to use\n" +
+                Text = "\"B-but I don't even know how to use it!\" you say.\n",
+                ID = 0030007,
+                AnswerID = 0030030,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Oh, it's easy. Remove the safety, load it, point at the target, and pull the trigger. Nothing more to it. And they did teach how to use\n" +
                 "\ta gun in classes when you were younger, correct?\" dad says like it's no big deal.\n",
                 ID = 0030007,
                 AnswerID = 0030030,
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"Yeah, but it was only in theory. We didn't actually get to use them,\" you say.\n" +
-                "\t\"And theory has always been your strength,\" dad says encouragingly. Seemingly having no room for an argument, you decide to take the pistol,\n" +
+                Text = "\"Yeah, but it was only in theory. We didn't actually get to use them,\" you say.\n",
+                ID = 0030007,
+                AnswerID = 0030030,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"And theory has always been your strength,\" dad says encouragingly. Seemingly having no room for an argument, you decide to take the pistol,\n" +
                 "\tand put it in your saddlebags. Here's hoping you won't have to use it.\n",
                 ID = 0030007,
                 AnswerID = 0030030,
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"What happened to the whole 'not allowed to give guns to anypony but the security' thing?\" you ask dad playfully.\n" +
-                "\t\"Well as it turns out, this pistol wasn't actually even listed in our system, which is quite weird. But it means I'm not technically doing\n" +
-                "\tanything wrong by giving it to you, since there's no documentation of it,\" dad explains. Not documented?\n",
+                Text = "\"What happened to the whole 'not allowed to give guns to anypony but the security' thing?\" you ask dad playfully.\n",
                 ID = 0030007,
                 AnswerID = 0030030,
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"Really? You'd think the Stable would keep a good record of all firearms,\" you say.\n" +
-                "\t\"Yeah. And what's even weirder is that it doesn't seem to have a serial number on it,\" dad says. Either it's worn off, of it's a custom made,\n" +
-                "\tyou think to yourself.\n",
+                Text = "\"Well, as it turns out I didn't even find the gun in the Stable's database, so technically I'm not doing anything wrong by giving\n" +
+                "\tit to you,\" he says with a grin.\n",
+                ID = 0030007,
+                AnswerID = 0030030,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Really? You'd think the Stable would keep a good record of all firearms,\" you say.\n",
                 ID = 0030007,
                 AnswerID = 0030030,
                 HasSpecialFunction = true,
@@ -2257,6 +2186,12 @@ namespace FoEChoices
                 "\t\"I don't know. I just wish she would leave me alone,\" you answer.\n",
                 ID = 0030007,
                 AnswerID = 0030027,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"I don't know. I just wish she would leave me alone,\" you answer.\n",
+                ID = 0030007,
+                AnswerID = 0030027,
                 HasSpecialFunction = true,
                 SpecialFunction = new List<int>(new int[] { 10 }),
                 RedirectInstance = 0030026
@@ -2275,8 +2210,13 @@ namespace FoEChoices
             {
                 Text = "\"So, I guess the next thing to do is to make sure Silver doesn't get thrown out. We've already planned everything with the others who\n" +
                 "\tjoined us in the rebellion, so we shouldn't have any problems with that,\" Ardent explains. \"You just make sure not to leave the Stable, alright?\"\n" +
-                "\the adds, poking you in the chest playfully.\n" +
-                "\t\"I'll try to remember that,\" you answer.\n",
+                "\the adds, poking you in the chest playfully.\n",
+                ID = 0030007,
+                AnswerID = 0030028,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"I'll try to remember that,\" you answer.\n",
                 ID = 0030007,
                 AnswerID = 0030028,
                 HasSpecialFunction = true,
@@ -2286,8 +2226,13 @@ namespace FoEChoices
             InstanceList.Add(new Instance
             {
                 Text = "\"But seriously, what happened? There's no way you actually had the most votes. Are you sure the program you made works as it's\n" +
-                "\tsupposed to?\" Ardent asks. You act shocked by the question.\n" +
-                "\t\"Are you suggesting I'm bad at my job?\" you ask in a playful manner. Now it's Ardent's turn to roll his eyes.\n",
+                "\tsupposed to?\" Ardent asks. You act shocked by the question.\n",
+                ID = 0030007,
+                AnswerID = 0030025,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Are you suggesting I'm bad at my job?\" you ask in a playful manner. Now it's Ardent's turn to roll his eyes.\n",
                 ID = 0030007,
                 AnswerID = 0030025,
                 HasSpecialFunction = true,
@@ -2296,8 +2241,13 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"And it looks like you will be part of the rebellion too, whether you wanted to or not,\" Ardent says to you, half-joking.\n" +
-                "\t\"I guess so,\" you reply. You really didn't want to get involved in it, but it seems like fate had other ideas.\n",
+                Text = "\"And it looks like you will be part of the rebellion too, whether you wanted to or not,\" Ardent says to you, half-joking.\n",
+                ID = 0030007,
+                AnswerID = 0030024,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"I guess so,\" you reply. You really didn't want to get involved in it, but it seems like fate had other ideas.\n",
                 ID = 0030007,
                 AnswerID = 0030024,
                 HasSpecialFunction = true,
@@ -2306,8 +2256,13 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"Silver!\" dad exclaims, and leaps in for a hug. \"Well, that was an unexpected turn of events,\" he continues after he lets you go.\n" +
-                "\t\"Not really,\" you almost say aloud, but stop at the last second. Wait, what? You shake your head to clear your thoughts.\n" +
+                Text = "\"Silver!\" dad exclaims, and leaps in for a hug. \"Well, that was an unexpected turn of events,\" he continues after he lets you go.\n",
+                ID = 0030007,
+                AnswerID = 0030020,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Not really,\" you almost say aloud, but stop at the last second. Wait, what? You shake your head to clear your thoughts.\n" +
                 "\t\"Yeah,\" you reply simply.\n",
                 ID = 0030007,
                 AnswerID = 0030020,
@@ -2317,8 +2272,19 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"Going for a new look, huh? Where'd you get that jumpsuit?\" dad asks after getting a closer look at you.\n" +
-                "\t\"Oh, Cross Stitch gave it to me. Said it would keep me warm,\" you answer. He seems impressed about the outfit.\n",
+                Text = "\"Going for a new look, huh? Where'd you get that jumpsuit?\" dad asks after getting a closer look at you.\n",
+                ID = 0030007,
+                AnswerID = 0030022,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Oh, Cross Stitch gave it to me. Said it would keep me warm,\" you answer.\n",
+                ID = 0030007,
+                AnswerID = 0030022,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"It seems really well made. I'm impressed,\" he says in response.\n",
                 ID = 0030007,
                 AnswerID = 0030022,
                 HasSpecialFunction = true,
@@ -2328,9 +2294,14 @@ namespace FoEChoices
             InstanceList.Add(new Instance
             {
                 Text = "\"Alright, what the fuck is going on? How did you manage get the most votes? I don't think most ponies here even know you exist!\" Ardent says\n" +
-                "\tafter closing the door behind him. You raise an eyebrow at him.\n" +
-                "\t\"Oh, I uh- meant that in a good way, heh,\" he then says, somewhat embarrassed. You roll your eyes at that.\n" +
-                "\t\"Your guess is as good as mine,\" you respond.\n",
+                "\tafter closing the door behind him. You raise an eyebrow at him. \"Oh, I uh- meant that in a good way, heh,\" he then says, somewhat embarrassed.\n" +
+                "\tYou roll your eyes at that.\n",
+                ID = 0030007,
+                AnswerID = 0030021,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Your guess is as good as mine,\" you respond.\n",
                 ID = 0030007,
                 AnswerID = 0030021,
                 HasSpecialFunction = true,
@@ -2339,9 +2310,19 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"It's a good thing we decided to do the rebellion this year,\" dad says, lowering his voice.\n" +
-                "\t\"Oh, Ardent recruited you to the rebellion too?\" you ask him.\n" +
-                "\t\"He asked me to join some time ago, actually,\" dad replies. You nod in acknowledgement.\n",
+                Text = "\"It's a good thing we decided to do the rebellion this year,\" dad says, lowering his voice.\n",
+                ID = 0030007,
+                AnswerID = 0030023,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Oh, Ardent recruited you to the rebellion too?\" you ask him.\n",
+                ID = 0030007,
+                AnswerID = 0030023,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"He asked me to join some time ago, actually,\" dad replies. You nod in acknowledgement.\n",
                 ID = 0030007,
                 AnswerID = 0030023,
                 HasSpecialFunction = true,
@@ -2388,8 +2369,13 @@ namespace FoEChoices
             {
                 Text = "You start thinking what you're going to pack up. You don't want to take too much stuff to haul around the Stable, but not too little to be\n" +
                 "\tsuspicious. Wait, how much stuff are you allowed to even take with you? You decide to ask the security ponies.\n" +
-                "\t\"Hey, is there a limit to how much stuff I can take with me?\" you ask.\n" +
-                "\t\"We don't have a strict limit to it, but try not to take half the Stable with you,\" the older stallion says. You give a small \"hmm\" in response.\n",
+                "\t\"Hey, is there a limit to how much stuff I can take with me?\" you ask.\n",
+                ID = 0030005,
+                AnswerID = 0030010,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"We don't have a strict limit to it, but try not to take half the Stable with you,\" the older stallion says. You give a small \"hmm\" in response.\n",
                 ID = 0030005,
                 AnswerID = 0030010,
             });
@@ -2408,9 +2394,9 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "After getting up from your bed, you take a moment to look at yourself on the mirror. A mare with a silver coat and a dark gray and red mane looks\n" +
-                "\tback at you with tired, pink eyes. There is a picture of a shiny shift key is on the mare's flank. Overall a really boring and average pony, you think\n" +
-                "\tto yourself.\n",
+                Text = "After getting up from your bed, you take a moment to look at yourself on the mirror. A mare with a silver coat and a long, dark gray and red mane\n" +
+                "\tlooks back at you with tired, pink eyes. There is a picture of a shiny shift key is on the mare's flank. Overall a really boring and average pony, you\n" +
+                "\tthink to yourself.\n",
                 ID = 0030006,
                 AnswerID = 0030017,
                 HasSpecialFunction = true,
@@ -2430,8 +2416,13 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"I wouldn't act so bitchy if I were in your spot,\" the younger stallion says.\n" +
-                "\t\"Uh-huh. Well, could you please leave me alone for a moment?\" you ask in a mocking tone. The two look at each other for a moment. The older pony then\n" +
+                Text = "\"I wouldn't act so bitchy if I were in your spot,\" the younger stallion says.\n",
+                ID = 0030006,
+                AnswerID = 0030016,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Uh-huh. Well, could you please leave me alone for a moment?\" you ask in a mocking tone. The two look at each other for a moment. The older pony then\n" +
                 "\trolls his eyes with a sigh, and backs out of the room. The other one leaves too, and closes the door behind him. You sigh in relief, already getting\n" +
                 "\ttired of being watched by those two.\n",
                 ID = 0030006,
@@ -2445,16 +2436,26 @@ namespace FoEChoices
             InstanceList.Add(new Instance
             {
                 Text = "\"I just wanted to say that I really appreciated the work you did for the Stable. I know it must have been annoying having to come help me so often,\"\n" +
-                "\tshe says. She's not wrong, you think to yourself, but decide not to say it aloud.\n" +
-                "\t\"So I wanted to give you something in return,\" she says, and pulls out a neatly folded Stable Suit from her saddlebags. \"It's a maintenance jumpsuit\n" +
+                "\tshe says. She's not wrong, you think to yourself, but decide not to say it aloud.\n",
+                ID = 0030005,
+                AnswerID = 0030014,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"So I wanted to give you something in return,\" she says, and pulls out a neatly folded Stable Suit from her saddlebags. \"It's a maintenance jumpsuit\n" +
                 "\tthat I modified a little in my spare time,\" she says.\n",
                 ID = 0030005,
                 AnswerID = 0030014,
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"Oh wow. You didn't have to,\" you reply.\n" +
-                "\t\"Oh don't give me any of that. I just hope it at least keeps you warm when you leave. I don't know if it's cold outside of the Stable, so better safe\n" +
+                Text = "\"Oh wow. You didn't have to,\" you reply.\n",
+                ID = 0030005,
+                AnswerID = 0030014,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Oh don't give me any of that. I just hope it at least keeps you warm when you leave. I don't know if it's cold outside of the Stable, so better safe\n" +
                 "\tthan sorry, right?\" she says, and holds the jumpsuit out for you. You pick it up with your magic. It's surprisingly heavy, and on closer inspection it\n" +
                 "\tseems to have been reinforced with leather in some places.\n",
                 ID = 0030005,
@@ -2462,8 +2463,13 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"Thanks. It means a lot to me,\" you say to her. She gives a small smile.\n" +
-                "\t\"No problem. I won't hold you up any longer, so uh... goodbye,\" she says. You say your goodbyes, and continue walking towards your room.\n",
+                Text = "\"Thanks. It means a lot to me,\" you say to her. She gives a small smile.\n",
+                ID = 0030005,
+                AnswerID = 0030014,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"No problem. I guess I shouldn't hold you up any longer, so uh... goodbye,\" she says. You say your goodbyes, and continue walking towards your room.\n",
                 ID = 0030005,
                 AnswerID = 0030014,
             });
@@ -2514,56 +2520,101 @@ namespace FoEChoices
             {
                 Text = "She looks at you for a few more moments before continuing.\n" +
                 "\t\"Well, should we get started? Don't wanna keep you here for too long, I imagine you have other things to take care of. Sit down, please,\" she says.\n" +
-                "\tYou do just that. She then connects your PipBuck to her terminal via a cord, and starts typing something. You sit in silence for a minute.\n" +
-                "\t\"Stable-Tec has instructed us to unlock all of the spells of the PipBuck once we leave the Stable, so that's what I've been doing to all of the\n" +
-                "\tPariahs too. This might feel a little weird,\" she finally says. You raise an eyebrow at that. What might feel w-\n",
+                "\tYou do just that. She then connects your PipBuck to her terminal via a cord, and starts typing something. You sit in silence for a minute.\n",
                 ID = 0030003,
                 AnswerID = 0030009,
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"Woah!\" you exclaim, as colors start to move in your vision. You blink several times, and bring a hoof to rub at your eyes.\n" +
-                "\t\"That's your Eyes Forward Sparkle, or E.F.S. for short. It's like a compass in your vision. It's also able to identify any nearby living creatures,\"\n" +
+                Text = "\"Stable-Tec has instructed us to unlock all of the spells of the PipBuck once we leave the Stable, so that's what I've been doing to all of the\n" +
+                "\tPariahs too. This might feel a little weird,\" she finally says. What might feel w-\n",
+                ID = 0030003,
+                AnswerID = 0030009,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Woah!\" you exclaim, as colors start to move in your vision. You blink several times, and bring a hoof to rub at your eyes.\n",
+                ID = 0030003,
+                AnswerID = 0030009,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"That's your Eyes Forward Sparkle, or E.F.S. for short. It's like a compass in your vision. It's also able to identify any nearby living creatures,\"\n" +
                 "\tshe explains. Once the colors stop shifting, you open your eyes. And sure enough, you can see a compass-like bar at the bottom of your vision.\n" +
-                "\tThere's a yellow dot in the middle of the bar, indicating the direction where Chip is.\n" +
-                "\t\"Huh, pretty neat. I didn't know these had more functionality than just the basics,\" you say while looking at your PipBuck.\n",
+                "\tThere's a yellow dot in the middle of the bar, indicating the direction where Chip is.\n",
                 ID = 0030003,
                 AnswerID = 0030009,
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"That's not even the best part. Try tensing up your body,\" she encourages. You do as instructed, and... time seems to come to a halt. You\n" +
-                "\tcan't seem to move, or even blink. You almost start to panic, but then hear a mare's voice in your head.\n",
+                Text = "\"Huh, pretty neat. I didn't know these had more functionality than just the basics,\" you say while looking at your PipBuck.\n",
+                ID = 0030003,
+                AnswerID = 0030009,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"That's not even the best part. Try tensing up your body,\" she encourages. You raise an eyebrow at her, but do as instructed, and... time seems\n" +
+                "\tto come to a halt. You can't seem to move, or even blink. You almost start to panic, but then hear a mare's voice in your head.\n",
                 ID = 0030003,
                 AnswerID = 0030009,
             });
             InstanceList.Add(new Instance
             {
                 Text = "\"Welcome to Stable-Tec Arcane Targeting Spell! This handy little spell is designed to help you survive in the post-apocalyptic Equestria, by\n" +
-                "\thelping you combat any hostiles you may encounter in your endeavour to rebuild Equestria to it's former glory!\" the voice declares. \"Everything's\n" +
-                "\tcontrolled by your mind, so just think about choosing your target, the number of attacks you want to do, and then just activate it! The rest will\n" +
-                "\tbe handled by the spell. Warning! Stable-Tec is not responsible for any injuries the spell may inflict on you or your loved ones if used\n" +
-                "\tincorrectly. Have a great day!\" the voice finishes. Time starts to resume, and you inhale sharply.\n",
+                "\thelping you combat any hostiles you may encounter in your endeavour to rebuild Equestria to it's former glory!\" the voice declares.\n",
+                ID = 0030003,
+                AnswerID = 0030009,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Everything's controlled by your mind, so just think about choosing your target, the number of attacks you want to do, and then just activate it!\n" +
+                "\tThe rest will be handled by the spell. Warning! Stable-Tec is not responsible for any injuries the spell may inflict on you or your loved ones if\n" +
+                "\tused incorrectly. Have a great day!\" the voice finishes. Time starts to resume, and you inhale sharply.\n",
                 ID = 0030003,
                 AnswerID = 0030009,
             });
             InstanceList.Add(new Instance
             {
                 Text = "\"It's great, isn't it? The spell doesn't actually stop time, it just accelerates your senses to the point where it feels like the world comes\n" +
-                "\tto a stop,\" Chip says.\n" +
-                "\t\"Gonna take some getting used to, that's for sure,\" you answer. She presses a few more keys on the terminal, and then disconnects the cord from\n" +
-                "\tyour PipBuck.\n" +
-                "\t\"And that's that. You can go now,\" she says.\n" +
-                "\t\"Thanks, Chip. And uh, goodbye, I guess,\" you say. She nods in response. You hope it isn't actually a goodbye. You then leave the service\n" +
+                "\tto a stop. S.A.T.S is probably my favorite spell in a PipBuck,\" Chip says.\n",
+                ID = 0030003,
+                AnswerID = 0030009,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Gonna take some getting used to, that's for sure,\" you answer. She presses a few more keys on the terminal, and then disconnects the cord from\n" +
+                "\tyour PipBuck.\n",
+                ID = 0030003,
+                AnswerID = 0030009,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"And that's that. You can go now,\" she says.\n",
+                ID = 0030003,
+                AnswerID = 0030009,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Thanks, Chip. And uh, goodbye, I guess,\" you say. She nods in response. You hope it isn't actually a goodbye. You then leave the service\n" +
                 "\tstation, the security ponies following close behind.\n",
                 ID = 0030003,
                 AnswerID = 0030009,
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"Where to next?\" you ask the two.\n" +
-                "\t\"Up to you. I'd spend the time wisely if I were you,\" one of them says.\n" +
-                "\t\"I guess I'll go pack my stuff,\" you say, and start walking towards the elevator. The security ponies follow. It's already starting to annoy you.\n",
+                Text = "\"Where to next?\" you ask the two.\n",
+                ID = 0030003,
+                AnswerID = 0030009,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Up to you. I'd spend the time wisely if I were you,\" one of them says.\n",
+                ID = 0030003,
+                AnswerID = 0030009,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"I guess I'll go pack my stuff,\" you say, and start walking towards the elevator. The security ponies follow. It's already starting to annoy you.\n",
                 ID = 0030003,
                 AnswerID = 0030009,
             });
@@ -2589,18 +2640,43 @@ namespace FoEChoices
             {
                 Text = "You arrive at the service station. The door slides open with a hydraulic hiss, revealing a small workshop with various tools on the wall,\n" +
                 "\tPipBucks on a shelf in one corner, and a terminal on a small table in the middle of the room. The Stable's PipBuck technician, named Chip Set,\n" +
-                "\tis sitting at the terminal. She has a green coat with a darker green mane. She then notices you.\n" +
-                "\t\"Silver?\" she asks, clearly surprised to see you.\n" +
-                "\t\"Hey Chip,\" you answer simply. She stares at you for a moment.\n" +
-                "\t\"Sorry, I just... wasn't expecting to see you here,\" she finally says with a sad smile.",
+                "\tis sitting at the terminal. She has a green coat with a darker green mane. She then notices you.\n",
                 ID = 0030002,
                 AnswerID = 0030007,
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"You have no idea how many times I've heard that same line,\" says the pony in front of you with a small chuckle.\n" +
-                "\t\"B-but I need to talk to the Overmare, I'm sure that-\"\n" +
-                "\t\"Shut up and keep walking. You can go annoy the Overmare after we've been to the PipBuck service station,\" the pony behind you says. You sigh,\n" +
+                Text = "\"Silver?\" she asks, clearly surprised to see you.\n",
+                ID = 0030002,
+                AnswerID = 0030007,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Hey Chip,\" you answer simply. She stares at you for a moment.\n",
+                ID = 0030002,
+                AnswerID = 0030007,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Sorry, I just... wasn't expecting to see you here,\" she finally says with a sad smile.",
+                ID = 0030002,
+                AnswerID = 0030007,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"You have no idea how many times I've heard that same line,\" says the pony in front of you with a small chuckle.\n",
+                ID = 0030002,
+                AnswerID = 0030006,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"B-but I need to talk to the Overmare, I'm sure that-\"\n",
+                ID = 0030002,
+                AnswerID = 0030006,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Shut up and keep walking. You can go annoy the Overmare after we've been to the PipBuck service station,\" the pony behind you says. You sigh,\n" +
                 "\tand keep going.\n",
                 ID = 0030002,
                 AnswerID = 0030006,
@@ -2612,9 +2688,20 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"To the PipBuck service station,\" the pony in front of you says.\n" +
-                "\t\"Wait, am I getting my PipBuck removed?!\" you ask. At this point, you can't even imagine being without the little device. It's just way too useful.\n" +
-                "\t\"No, they'll just disconnect it from the Stable's network and wipe any sensitive information it may have in its memory,\" the pony behind you\n" +
+                Text = "\"To the PipBuck service station,\" the pony in front of you says.\n",
+                ID = 0030002,
+                AnswerID = 0030005,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Wait, am I getting my PipBuck removed?!\" you ask. At this point, you can't even imagine being without the little device. It's just way\n" +
+                "\ttoo useful.\n",
+                ID = 0030002,
+                AnswerID = 0030005,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"No, they'll just disconnect it from the Stable's network and wipe any sensitive information it may have in its memory,\" the pony behind you\n" +
                 "\texplains. Well that's a relief. But then you remember the situation you're in, and all feeling of relief is instantly replaced with dread.\n",
                 ID = 0030002,
                 AnswerID = 0030005,
@@ -2626,10 +2713,25 @@ namespace FoEChoices
             {
                 Text = "You start munching on your hayburger. Pretty good, you think to yourself. Seems like the workers at the cafeteria wanted to make today's menu\n" +
                 "\tmore special than usual.\n" +
-                "\t\"Can't wait to see what's for dinner. It's not everyday the cafeteria puts this much effort into the food,\" you say after swallowing. Ardent nods.\n" +
-                "\t\"Yeah. I hope it's carrot soup, we haven't had that for quite some time,\" he says. You roll your eyes at that.\n" +
-                "\t\"We had that last week,\" you say.\n" +
-                "\t\"I know,\" he says with a grin. You give a little chuckle.\n",
+                "\t\"Can't wait to see what's for dinner. It's not everyday the cafeteria puts this much effort into the food,\" you say after swallowing. Ardent nods.\n",
+                ID = 0030001,
+                AnswerID = 0030004,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Yeah. I hope it's carrot soup, we haven't had that for quite some time,\" he says. You roll your eyes at that.\n",
+                ID = 0030001,
+                AnswerID = 0030004,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"We had that last week,\" you say.\n",
+                ID = 0030001,
+                AnswerID = 0030004,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"I know,\" he says with a grin. You give a small chuckle at that.\n",
                 ID = 0030001,
                 AnswerID = 0030004,
             });
@@ -2646,12 +2748,23 @@ namespace FoEChoices
             InstanceList.Add(new Instance
             {
                 Text = "The security ponies then spread out evenly in front of the platform, as the Overmare prepares for her speech.\n" +
-                "\t\"Good day, residents of Stable 54,\" the Overmare starts speaking to the microphone. The ponies in the cafeteria fall silent. \"Welcome to the\n" +
-                "\tannouncement of this year's Pariah. Now, those of you who know the history of our Stable know that this year marks the 120th anniversary of the vote,\"\n" +
-                "\tthe Overmare continues. Now that the Overmare mentioned the anniversary, you remember Ardent talking about it some time back.\n" +
-                "\t\"A great tradition started by my family to keep our Stable a safe place for ponykind to survive, by weeding out those who could harm our\n" +
-                "\tway of life, and by extension, the chances of our survival as a species,\" the Overmare says. You roll your eyes. The Overmare makes it sound way too\n" +
-                "\tdramatic.\n",
+                "\t\"Good day, residents of Stable 54,\" the Overmare starts speaking to the microphone. The ponies in the cafeteria fall silent.\n",
+                ID = 0030001,
+                AnswerID = 0030004,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Welcome to the announcement of this year's Pariah. Now, those of you who know the history of our Stable know that this year marks the 120th\n" +
+                "\tanniversary of the vote,\" the Overmare continues. Now that the Overmare mentioned the anniversary, you remember Ardent talking about it some time\n" +
+                "\tback.\n",
+                ID = 0030001,
+                AnswerID = 0030004,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"A great tradition started by my family to keep our Stable a safe place for ponykind to survive, by weeding out those who could harm our\n" +
+                "\tway of life, and by extension, the chances of our survival as a species,\" the Overmare says. You roll your eyes. The Overmare makes it sound way\n" +
+                "\ttoo dramatic.\n",
                 ID = 0030001,
                 AnswerID = 0030004,
             });
@@ -2659,8 +2772,13 @@ namespace FoEChoices
             {
                 Text = "\"So, for this anniversary I wanted to improve the voting system to be as quick and non-disruptive as possible. After some planning, I came to\n" +
                 "\tthe conclusion that it would be easiest to hold the voting via our terminals. And from now on, all future votes will be held the same way,\"\n" +
-                "\tthe Overmare explains.\n" +
-                "\t\"Gee, not even a thanks for the quick work?\" you mumble under your breath as you start eating your piece of cake. You don't even remember\n" +
+                "\tthe Overmare explains.\n",
+                ID = 0030001,
+                AnswerID = 0030004,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Gee, not even a thanks for the quick work?\" you mumble under your breath as you start eating your piece of cake. You don't even remember\n" +
                 "\twhen was the last time the Stable had cake. But when there is cake, it just seems to taste better and better each time.\n",
                 ID = 0030001,
                 AnswerID = 0030004,
@@ -2684,11 +2802,21 @@ namespace FoEChoices
             InstanceList.Add(new Instance
             {
                 Text = "You feel your heart skip a beat. You glance at Ardent, who seems just as appalled as you.\n" +
-                "\t\"Wh-what...\" you try to utter out. A few ponies look at your way, while most others seem either releaved or confused.\n" +
-                "\t\"Please gather your belongings, and prepare to leave. You have 30 minutes,\" the Overmare orders. You see two of the security ponies start walking\n" +
-                "\ttowards you. You can feel your heart racing in your chest, as you try to comprehend the situation. Then Ardent pulls your hoof towards him, getting\n" +
-                "\tyour attention.\n" +
-                "\t\"Do as they say, pack your stuff as if you're going to leave. We're not gonna let you go, trust me,\" he quickly whispers to you. You nod in response.\n",
+                "\t\"Wh-what...\" you try to utter out. A few ponies look at your way, while most others seem either releaved or confused.\n",
+                ID = 0030001,
+                AnswerID = 0030004,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Please gather your belongings, and prepare to leave. You have 30 minutes,\" the Overmare orders. You see two of the security ponies start walking\n" +
+                "\ttowards you. You can feel your heart racing in your chest, as you try to comprehend the situation. Then Ardent nudges your hoof, getting your\n" +
+                "\tattention.\n",
+                ID = 0030001,
+                AnswerID = 0030004,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Do as they say, pack your stuff as if you're going to leave. We're not gonna let you go, trust me,\" he quickly whispers to you. You nod in response.\n",
                 ID = 0030001,
                 AnswerID = 0030004,
             });
@@ -2702,8 +2830,13 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"I know you refuse to sit anywhere else but here,\" he says with a grin.\n" +
-                "\t\"Hey, it's the best place in the cafeteria,\" you say with a smile of your own.\n",
+                Text = "\"I know you refuse to sit anywhere else but here,\" he says with a grin.\n",
+                ID = 0030001,
+                AnswerID = 0030002,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Hey, it's the best place in the cafeteria,\" you say with a smile of your own.\n",
                 ID = 0030001,
                 AnswerID = 0030002,
                 HasSpecialFunction = true,
@@ -2712,8 +2845,13 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"Let me guess, you were so absorbed in something you were doing at your terminal that you didn't notice the time?\" he asks with a knowing smile.\n" +
-                "\t\"What, me? Never,\" you say, trying to sound innocent.\n",
+                Text = "\"Let me guess, you were so absorbed in something you were doing at your terminal that you didn't notice the time?\" he asks with a knowing smile.\n",
+                ID = 0030001,
+                AnswerID = 0030003,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"What, me? Never,\" you say, trying to sound innocent.\n",
                 ID = 0030001,
                 AnswerID = 0030003,
                 HasSpecialFunction = true,
@@ -2744,9 +2882,19 @@ namespace FoEChoices
             {
                 Text = "You go to the counter, pick up a glass of apple juice, a hayburger and... cake! The cafeteria is really putting the effort in. You then start\n" +
                 "\tlooking for a free seat. You go check behind the corner if your usual spot is taken, and see Ardent sitting there with a free seat opposite of him.\n" +
-                "\t\"Hey Silver,\" he says as you sit down.\n" +
-                "\t\"Hey. Kinda crowded in here, huh?\" you say.\n" +
-                "\t\"Yeah. That's why I came here a bit early, to get our usual spot,\" he says.",
+                "\t\"Hey Silver,\" he says as you sit down.\n",
+                ID = 0030000,
+                AnswerID = 0020058,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Hey. Kinda crowded in here, huh?\" you say.\n",
+                ID = 0030000,
+                AnswerID = 0020058,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Yeah. That's why I came here a bit early, to get our usual spot,\" he says.",
                 ID = 0030000,
                 AnswerID = 0020058,
             });
@@ -2754,20 +2902,50 @@ namespace FoEChoices
             {
                 Text = "You go to the counter, pick up a glass of apple juice, a hayburger and... cake! The cafeteria is really putting the effort in. You then start looking\n" +
                 "\tfor Ardent in the crowd. You go check behind the corner if your usual spot is taken, and see Ardent sitting there with a free seat opposite of him.\n" +
-                "\t\"Hey Silver,\" he says as you sit down.\n" +
-                "\t\"Hey. Kinda crowded in here, huh?\" you say.\n" +
-                "\t\"Yeah. That's why I came here a bit early, to get our usual spot,\" he says.",
-                ID = 0030002,
+                "\t\"Hey Silver,\" he says as you sit down.\n",
+                ID = 0030000,
                 AnswerID = 0020059,
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"Wait, I can't leave the orchard, I need to stay here!\" she says. You look at her quizzically.\n" +
-                "\t\"You can use the orchard's terminal, right?\" you ask her.\n" +
-                "\t\"But don't I need to be on my machine to vote?\" she asks dumbfounded. You facehoof.\n" +
-                "\t\"You can login to your account on any of the terminals in the Stable.\" you explain to her. It's infuriating to explain basic things about tech to some\n" +
-                "\tponies. She looks puzzled a moment.\n" +
-                "\t\"Huh, alright then,\" she says. You sigh in response, and start walking towards the orchard's small office.\n",
+                Text = "\"Hey. Kinda crowded in here, huh?\" you say.\n",
+                ID = 0030000,
+                AnswerID = 0020059,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Yeah. That's why I came here a bit early, to get our usual spot,\" he says.",
+                ID = 0030000,
+                AnswerID = 0020059,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Wait, I can't leave the orchard, I need to stay here!\" she says. You look at her quizzically.\n",
+                ID = 0020026,
+                AnswerID = 0020055,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"You can use the orchard's terminal, right?\" you ask her.\n",
+                ID = 0020026,
+                AnswerID = 0020055,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"But don't I need to be on my machine to vote?\" she asks dumbfounded. You facehoof.\n",
+                ID = 0020026,
+                AnswerID = 0020055,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"You can login to your account on any of the terminals in the Stable.\" you explain to her. It's infuriating to explain basic things about tech to some\n" +
+                "\tponies. She looks puzzled a moment.\n",
+                ID = 0020026,
+                AnswerID = 0020055,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Huh, alright then,\" she says. You sigh in response, and start walking towards the orchard's small office.\n",
                 ID = 0020026,
                 AnswerID = 0020055,
             });
@@ -2783,20 +2961,45 @@ namespace FoEChoices
             InstanceList.Add(new Instance
             {
                 Text = "\"Alright, your code is A113. You can copy that like this,\" you say as you copy the code to the clipboard and go to the link, \"and paste it like this,\"\n" +
-                "\tyou finish as you paste the code to the program. You then press enter and... an error pops up on the screen. \"This code has already been used.\"\n" +
-                "\tYou raise an eyebrow at that.\n" +
-                "\t\"You've already voted. You can't vote twice.\" you say to Autumn.\n" +
-                "\t\"But it said the same thing when I first tried it,\" she says. You somehow doubt that.\n",
+                "\tyou finish as you paste the code to the program. You then press enter and... an error pops up on the screen. 'This code has already been used.'\n" +
+                "\tYou raise an eyebrow at that.\n",
                 ID = 0020026,
                 AnswerID = 0020055,
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"Is that so? Well, I guess I can go check that for you from the database,\" you say.\n" +
-                "\t\"That would be great, thanks! Here, let me give you those apples,\" she says as she goes to a nearby basket filled with apples. She takes a small\n" +
-                "\tplastic bag from a nearby table, and puts four apples in to the bag.\n" +
-                "\t\"Here you go,\" she says as she hands the bag over to you. You lift it with your magic.\n" +
-                "\t\"Thanks. I'll swing by when I know what the problem is,\" you say to her, and turn to leave.\n",
+                Text = "\"You've already voted. You can't vote twice.\" you say to Autumn.\n",
+                ID = 0020026,
+                AnswerID = 0020055,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"But it said the same thing when I first tried it,\" she says. You somehow doubt that.\n",
+                ID = 0020026,
+                AnswerID = 0020055,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Is that so? Well, I guess I can go check that for you from the database,\" you say.\n",
+                ID = 0020026,
+                AnswerID = 0020055,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"That would be great, thanks! Here, let me give you those apples,\" she says as she goes to a nearby basket filled with apples. She takes a small\n" +
+                "\tplastic bag from a nearby table, and puts four apples in to the bag.\n",
+                ID = 0020026,
+                AnswerID = 0020055,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Here you go,\" she says as she hoofs the bag over to you. You lift it with your magic.\n",
+                ID = 0020026,
+                AnswerID = 0020055,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Thanks. I'll swing by when I know what the problem is,\" you say to her, and turn to leave.\n",
                 ID = 0020026,
                 AnswerID = 0020055,
             });
@@ -2832,20 +3035,45 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"So, what brings you here?\" she asks.\n" +
-                "\t\"I thought I'd come check if you have any apples to spare? You know, because of the holiday,\" you say hopefully. She scrunches her muzzle in\n" +
-                "\tthought for a moment.\n" +
-                "\t\"Well... There wasn't enough spare to go for the entire Stable. Only the workers here at the orchard got some. But I could give you some of my\n" +
+                Text = "\"So, what brings you here?\" she asks.\n",
+                ID = 0020025,
+                AnswerID = 0020054,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"I thought I'd come check if you have any apples to spare? You know, because of the holiday,\" you say hopefully. She scrunches her muzzle in\n" +
+                "\tthought for a moment.\n",
+                ID = 0020025,
+                AnswerID = 0020054,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Well... There wasn't enough spare to go for the entire Stable. Only the workers here at the orchard got some. But I could give you some of my\n" +
                 "\town, if you help me with something,\" she says.\n",
                 ID = 0020025,
                 AnswerID = 0020054,
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"Uh, sure. What do you need help with?\" you ask, hoping that it isn't any physical work.\n" +
-                "\t\"You made the new voting system, right? I'm having some troubles with it,\" she says.\n" +
-                "\t\"Oh, what kind of trouble?\" you ask curiously.\n" +
-                "\t\"It keeps saying something about my number, and I'm not sure what to do about it,\" she explains. You can already guess that most likely she's just\n" +
+                Text = "\"Uh, sure. What do you need help with?\" you ask, hoping that it isn't any physical work.\n",
+                ID = 0020025,
+                AnswerID = 0020054,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"You made the new voting system, right? I'm having some troubles with it,\" she says.\n",
+                ID = 0020025,
+                AnswerID = 0020054,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Oh, what kind of trouble?\" you ask curiously.\n",
+                ID = 0020025,
+                AnswerID = 0020054,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"It keeps saying something about my number, and I'm not sure what to do about it,\" she explains. You can already guess that most likely she's just\n" +
                 "\tentering her code incorrectly, which makes you feel a bit frustrated.",
                 ID = 0020025,
                 AnswerID = 0020054,
@@ -2853,10 +3081,20 @@ namespace FoEChoices
             InstanceList.Add(new Instance
             {
                 Text = "She scrunches her face for a moment.\n" +
-                "\t\"I'm sorry dear, but all of the apples we've harvested have gone straight to the storage,\" she says.\n" +
-                "\t\"Really? Damn, getting only one in the cafeteria really just makes you want more,\" you say, disappointed.\n" +
-                "\t\"Yes, but you know how it is. Need to keep the food stock up, we only give them out if we have any excess,\" she explains.\n" +
-                "\t\"Oh well. Guess I'll go then,\" you say and turn to leave.\n",
+                "\t\"I'm sorry dear, but all of the apples we've harvested have gone straight to the storage,\" she says.\n",
+                ID = 0020024,
+                AnswerID = 0020053,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Really? Damn, getting only one in the cafeteria really just makes you want more,\" you say, disappointed.\n" +
+                "\t\"Yes, but you know how it is. Need to keep the food stock up, we only give them out if we have any excess,\" she explains.\n",
+                ID = 0020024,
+                AnswerID = 0020053,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Oh well. Guess I'll go then,\" you say and turn to leave.\n",
                 ID = 0020024,
                 AnswerID = 0020053,
             });
@@ -2864,7 +3102,13 @@ namespace FoEChoices
             {
                 Text = "\"Alright, feel free to visit again sometime!\" Autumn says as you leave the orchard. Well that was a wasted effort, you think to yourself. Feeling a\n" +
                 "\tlittle disappointed, you decide to go get a bottle of Sparkle-Cola from the bar. You take the elevator back to the second level, and make your way to the\n" +
-                "\tbar. This isn't a place you like to be, since there's always so many ponies around. But this is the only place in the Stable where they have\n" +
+                "\tbar.\n",
+                ID = 0020024,
+                AnswerID = 0020053,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "This isn't a place you like to be, since there's always so many ponies around. But this is the only place in the Stable where they have\n" +
                 "\tSparkle-Cola, so you're forced to come here when you run out of them. And it looks like this place is even more packed than usual. Some ponies start\n" +
                 "\tdrinking quite early, it seems.\n",
                 ID = 0020024,
@@ -2872,17 +3116,37 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"Hey there gorgeous,\" says the bartender over the counter. He has a red coat and a slightly darker red mane. His a cutiemark is a drinking glass.\n" +
-                "\t\"Hello, Cherry. Give me six Sparkle-Colas, please,\" you say to the stallion.\n" +
-                "\t\"What, no alcohol even on a holiday?\" he teases.\n" +
-                "\t\"You know I don't drink,\" you say to him, not in the mood for a chat.\n",
+                Text = "\"Hey there gorgeous,\" says the bartender over the counter. He has a red coat and a slightly darker red mane. His a cutiemark is a drinking glass.\n",
                 ID = 0020024,
                 AnswerID = 0020053,
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"How about this, you come over to my place this evening, and we'll taste some of the better drinks I have stashed away?\" he asks, clearly hopeful.\n" +
-                "\t\"Look, I'm flattered. But I really don't feel like going on a date, especially today. Besides, surely you can get a better marefriend than me?\" you ask\n" +
+                Text = "\"Hello, Cherry. Give me six Sparkle-Colas, please,\" you say to the stallion.\n",
+                ID = 0020024,
+                AnswerID = 0020053,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"What, no alcohol even on a holiday?\" he teases.\n",
+                ID = 0020024,
+                AnswerID = 0020053,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"You know I don't drink,\" you say to him, not in the mood for a chat.\n",
+                ID = 0020024,
+                AnswerID = 0020053,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"How about this, you come over to my place this evening, and we'll taste some of the better drinks I have stashed away?\" he asks, clearly hopeful.\n",
+                ID = 0020024,
+                AnswerID = 0020053,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Look, I'm flattered. But I really don't feel like going on a date, especially today. Besides, surely you can get a better marefriend than me?\" you ask\n" +
                 "\thim. You're not sure if he likes you, or if he just flirts with every mare that comes to the bar.\n",
                 ID = 0020024,
                 AnswerID = 0020053,
@@ -2890,9 +3154,20 @@ namespace FoEChoices
             InstanceList.Add(new Instance
             {
                 Text = "\"Ah, don't sell yourself short. Some other time then, huh? Here's the colas,\" he says, and gives you the bottles. You thank him, and head to your\n" +
-                "\troom. \"Should've taken my saddlebags,\" you mumble to yourself as you carry the bottles in your magic. As you walk, you notice that the hallways are\n" +
-                "\tgetting even more crowded. You almost lose the grip on your bottles when a group of ponies accidentally bumps into you.\n" +
-                "\t\"Watch where you're going!\" one of the ponies says to you. You don't pay them any mind and just continue walking, not wanting any more social\n" +
+                "\troom.\n",
+                ID = 0020024,
+                AnswerID = 0020053,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Should've taken my saddlebags,\" you mumble to yourself as you carry the bottles in your magic. As you walk, you notice that the hallways are\n" +
+                "\tgetting even more crowded. You almost lose the grip on your bottles when a group of ponies accidentally bumps into you.\n",
+                ID = 0020024,
+                AnswerID = 0020053,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Watch where you're going!\" one of the ponies says to you. You don't pay them any mind and just continue walking, not wanting any more social\n" +
                 "\tinteraction.\n",
                 ID = 0020024,
                 AnswerID = 0020053,
@@ -2910,8 +3185,13 @@ namespace FoEChoices
             InstanceList.Add(new Instance
             {
                 Text = "\"Well, I do try to stay in shape. Exercise is good for your health, you know. And speaking of health, have you remembered to get up from your machine\n" +
-                "\tevery once in a while? It's not good for you to sit around so much,\" she says as she takes your right forehoof in her magical grip and examines it.\n" +
-                "\t\"Yes, Autumn, I have,\" you sigh and pull back your hoof.\n",
+                "\tevery once in a while? It's not good for you to sit around so much,\" she says as she pulls your right forehoof and examines it.\n",
+                ID = 0020023,
+                AnswerID = 0020052,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Yes, Autumn, I have,\" you sigh and pull back your hoof.\n",
                 ID = 0020023,
                 AnswerID = 0020052,
                 HasSpecialFunction = true,
@@ -2940,11 +3220,26 @@ namespace FoEChoices
             {
                 Text = "As you step inside the orchard, you immediately feel the air get a bit warmer. The room is about as big as the cafeteria, with several rows of\n" +
                 "\tapple trees lined up on long garden plots. There are also specialized lights that simulate sunlight over each tree, giving a yellow-ish tint to the\n" +
-                "\twhole room.\n" +
-                "\t\"Well hello there, Silver!\" comes the voice of Autumn Morning from between the rows of trees. She's one of the ponies who work at the orchard. She's\n" +
-                "\ta bit older, only a couple years until she retires if you remember correctly.\n" +
-                "\t\"Hey Autumn,\" you say as she walks over to you and gives you a bone-crushing hug.\n" +
-                "\t\"My my, you've grown since the last time I saw you,\" she says as she lets you go.",
+                "\twhole room.\n",
+                ID = 0020022,
+                AnswerID = 0020050,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Well hello there, Silver!\" comes the voice of Autumn Morning from between the rows of trees. She's one of the ponies who work at the orchard.\n" +
+                "\tShe's a bit older, only a couple years until she retires if you remember correctly.\n",
+                ID = 0020022,
+                AnswerID = 0020050,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Hey Autumn,\" you say as she walks over to you and gives you a bone-crushing hug.\n",
+                ID = 0020022,
+                AnswerID = 0020050,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"My my, you've grown since the last time I saw you,\" she says as she lets you go.",
                 ID = 0020022,
                 AnswerID = 0020050,
             });
@@ -2989,28 +3284,64 @@ namespace FoEChoices
             InstanceList.Add(new Instance
             {
                 Text = "\"If you say so. I just don't want anyone to get hurt. Or worse... Who knows how much force the security will try to use,\" you wonder. You\n" +
-                "\tdistantly remember somepony getting shot after they refused to leave the Stable after getting voted out when you were young.\n" +
-                "\t\"As long as we don't get violent, the security will do the same. I have a few friends in security that agreed to join the rebellion. I asked them\n" +
-                "\tabout how much the security has been authorised to use force in situations like this,\" he says, almost as if he was expecting you to ask that.\n",
+                "\tdistantly remember somepony getting shot after they refused to leave the Stable after getting voted out when you were young.\n",
+                ID = 0020020,
+                AnswerID = 0020045,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"As long as we don't get violent, the security will won't get violent. I have a few friends in security that agreed to join the rebellion.\n" +
+                "\tI asked them about how much the security has been authorised to use force in situations like this,\" he says, almost as if he was expecting you\n" +
+                "\tto ask that.\n",
                 ID = 0020020,
                 AnswerID = 0020045,
             });
             InstanceList.Add(new Instance
             {
                 Text = "\"That's good. At least some peace of mind,\" you say, feeling a little relief. Maybe the rebellion will go smoothly, and you're just worrying\n" +
-                "\ttoo much. Ardent sure seems to have things under control. Just like he always has. He's the type to always keep his cool in stressful situations.\n" +
-                "\t\"Anyways, I think I'll leave you be. I have some stuff to do in the maintenance wing,\" he says as he stands up from the bed.\n" +
-                "\t\"But don't you have a day off today?\" you ask.\n",
+                "\ttoo much. Ardent sure seems to have things under control. Just like he always has. He's the type to always keep his cool in stressful situations.\n",
                 ID = 0020020,
                 AnswerID = 0020045,
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"I was supposed to have one, yeah. But something came up this morning. The Stable doesn't care that it's my day off, heh,\" he says jokingly.\n" +
-                "\t\"Looks like I'm not the only one who has to work overtime,\" you observe.\n" +
-                "\t\"I guess not. Hey, should we meet up for lunch today? We could listen the Overmare's speech together,\" he asks, stopping at your door.\n" +
-                "\t\"Sure, I don't really have anyone else to hang out with,\" you answer.\n" +
-                "\t\"Alright, see you then,\" he says, and leaves.\n",
+                Text = "\"Anyways, I think I'll leave you be. I have some stuff to do in the maintenance wing,\" he says as he stands up from the bed.\n",
+                ID = 0020020,
+                AnswerID = 0020045,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"But don't you have a day off today?\" you ask.\n",
+                ID = 0020020,
+                AnswerID = 0020045,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"I was supposed to have one, yeah. But something came up this morning. The Stable doesn't care that it's my day off, heh,\" he says jokingly.\n",
+                ID = 0020020,
+                AnswerID = 0020045,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Looks like I'm not the only one who has to work overtime,\" you observe.\n",
+                ID = 0020020,
+                AnswerID = 0020045,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"I guess not. Hey, should we meet up for lunch today? We could listen the Overmare's speech together,\" he asks, stopping at your door.\n",
+                ID = 0020020,
+                AnswerID = 0020045,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Sure, I don't really have anyone else to hang out with,\" you answer.\n",
+                ID = 0020020,
+                AnswerID = 0020045,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Alright, see you then,\" he says, and leaves.\n",
                 ID = 0020020,
                 AnswerID = 0020045,
             });
@@ -3018,8 +3349,9 @@ namespace FoEChoices
             {
                 Text = "You watch the door close. You then turn on your terminal, almost instictively. You've gotten so used to the hum and soft glow of terminals that it\n" +
                 "\tfeels weird to be in your room with your terminal off. You then check your mail, somewhat surprised to see there's no messages other than two\n" +
-                "\tautomated ones from the message board you created a few years back. One of the messages is a weekly log of data you use to detect any outages in the\n" +
-                "\tsystem among other things, and the other one is a report on the automated time-outs of users. Nothing interesting in either of those.\n",
+                "\tautomated ones from the message board one of your predecessors created. You've taken the liberty to improve it in some places. One of the messages\n" +
+                "\tis a weekly log of data you use to detect any outages in the system among other things, and the other one is a report on the automated time-outs of\n" +
+                "\tusers. Nothing interesting in either of those.\n",
                 ID = 0020020,
                 AnswerID = 0020045,
             });
@@ -3027,7 +3359,7 @@ namespace FoEChoices
             {
                 Text = "You decide to take a look to see if there's any interesting new threads on the board. It's quite rare, but every once in a while you can find an\n" +
                 "\tinteresting thread. You open the message board, only to see a bunch of threads about the vote. Gossip, propaganda, and other boring stuff. As you\n" +
-                "\tscroll down however, you notice a thread with a topic called \"new voting program sucks\". You open the thread made by a user called \"shadow1x\",\n" +
+                "\tscroll down however, you notice a thread with a topic called 'new voting program sucks'. You open the thread made by a user called 'shadow1x',\n" +
                 "\tand start reading it.\n",
                 ID = 0020020,
                 AnswerID = 0020045,
@@ -3036,7 +3368,7 @@ namespace FoEChoices
             {
                 Text = "\"anypony else hate the new voting system? i kept trying to enter my code when the machine asked for it, but it always refused it. there\n" +
                 "\twasnt anything wrong with the old system, so why try to fix something that isnt broken?\". Seriously? Messages like this are extremely infuriating for\n" +
-                "\tyou. Very vague descriptions of problems, not appreciating the effort that went in to the project, and the whole \"old is better\" mentality of ponies.\n" +
+                "\tyou. Very vague descriptions of problems, not appreciating the effort that went in to the project, and the whole 'old is better' mentality of ponies.\n" +
                 "\tYou feel the need to respond to the message, so you start typing.",
                 ID = 0020020,
                 AnswerID = 0020045,
@@ -3044,9 +3376,19 @@ namespace FoEChoices
             InstanceList.Add(new Instance
             {
                 Text = "\"Yeah. Depending on how the Overmare'll react to the riot, we may have to overthrow her and pick a new leader for the Stable,\" he says. You can\n" +
-                "\thear it in his voice that he clearly wants it to happen.\n" +
-                "\t\"That would likely prove to be difficult,\" you say, thinking about how the Stable would react to being without an Overmare, even for a short time.\n" +
-                "\t\"Difficult, yes, but we would manage,\" he says, sounding confident.\n",
+                "\thear it in his voice that he clearly wants it to happen.\n",
+                ID = 0020020,
+                AnswerID = 0020044,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"That would likely prove to be difficult,\" you say, thinking about how the Stable would react to being without an Overmare, even for a short time.\n",
+                ID = 0020020,
+                AnswerID = 0020044,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Difficult, yes, but we would manage,\" he says, sounding confident.\n",
                 ID = 0020020,
                 AnswerID = 0020044,
                 HasSpecialFunction = true,
@@ -3056,9 +3398,19 @@ namespace FoEChoices
             InstanceList.Add(new Instance
             {
                 Text = "\"I was hoping you'd try to be a bit more supportive. I know it seems like a bad idea, but do we really have any choice if we want to end this\n" +
-                "\tinsanity?\" he says disappointingly.\n" +
-                "\t\"I guess we don't. But it still is dangerous, and I'm really worried about what happens if...\" you trail off.\n" +
-                "\t\"That won't happen, I promise,\" he says comfortingly.\n",
+                "\tinsanity?\" he says disappointingly.\n",
+                ID = 0020020,
+                AnswerID = 0020043,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"I guess we don't. But it still is dangerous, and I'm really worried about what happens if...\" you trail off.\n",
+                ID = 0020020,
+                AnswerID = 0020043,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"That won't happen, I promise,\" he says comfortingly.\n",
                 ID = 0020020,
                 AnswerID = 0020043,
                 HasSpecialFunction = true,
@@ -3068,9 +3420,19 @@ namespace FoEChoices
             InstanceList.Add(new Instance
             {
                 Text = "\"Pretty much, yeah. We'll have to see how the Overmare'll react. In the worst case, we'll have to overthrow her and pick a new leader for the\n" +
-                "\tStable,\" he says matter-of-factly. You have a hard time trying to wrap your head around this whole thing. It's not everyday you face events this big.\n" +
-                "\t\"How well would that even work out? I imagine there would be some unrest among everyone when there's no Overmare,\" you ponder out loud.\n" +
-                "\t\"Hey, don't worry so much. Me and a couple others have things already planned out,\" he says comfortingly.\n",
+                "\tStable,\" he says matter-of-factly. You have a hard time trying to wrap your head around this whole thing. It's not everyday you face events this big.\n",
+                ID = 0020020,
+                AnswerID = 0020042,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"How well would that even work out? I imagine there would be some unrest among everyone when there's no Overmare,\" you ponder out loud.\n",
+                ID = 0020020,
+                AnswerID = 0020042,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Hey, don't worry so much. It'll all work out, I promise,\" he says comfortingly.\n",
                 ID = 0020020,
                 AnswerID = 0020042,
                 HasSpecialFunction = true,
@@ -3091,9 +3453,8 @@ namespace FoEChoices
             InstanceList.Add(new Instance
             {
                 Text = "After you've finished your breakfast, Ardent leaves to do some last minute preparations for the rebellion. You can't help but be worried about how\n" +
-                "\tit will go. After a minute, you shove those thoughts aside. You then look at the applecore on your plate. \"Maybe the orchard has some spare apples.\n" +
-                "\tMight as well visit the place while I wait for the vote to end,\" you think to yourself. You start heading to the orchard, which is located at the\n" +
-                "\tfifth level of the Stable.\n",
+                "\tit will go. After a minute, you shove those thoughts aside. You then look at the applecore on your plate. Maybe the orchard has some spare apples.\n" +
+                "\tMight as well visit the place while you wait for the vote to end. You start heading to the orchard, which is located at the fifth level of the Stable.\n",
                 ID = 0020019,
                 AnswerID = 0020040,
                 HasSpecialFunction = true,
@@ -3113,34 +3474,54 @@ namespace FoEChoices
             {
                 Text = "Once you get to your room, you sit down at your terminal. Ardent sits down on your bed and seems to look at all the Sparkle-Cola merch on\n" +
                 "\tyour shelf for a while.\n" +
-                "\t\"I don't think I've said it before, but I really like your collection,\" he says while looking at the bottles. You smile proudly.\n" +
-                "\t\"Thanks, I take pride in it. It was quite difficult to get a hold of some of those things,\" you explain to him, feeling good that somepony took\n" +
-                "\tnotice to your collection.\n",
+                "\t\"I don't think I've said it before, but I really like your collection,\" he says while looking at the bottles. You smile proudly.\n",
+                ID = 0020019,
+                AnswerID = 0020041,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Thanks, I take pride in it. It was quite difficult to get a hold of some of those things,\" you explain to him, feeling good that somepony\n" +
+                "\ttook notice to your collection.\n",
                 ID = 0020019,
                 AnswerID = 0020041,
             });
             InstanceList.Add(new Instance
             {
                 Text = "\"So. The plan is pretty simple. Once the time comes to throw The Pariah outside, we prevent them from going out, and demand the Overmare\n" +
-                "\tto stop the vote and let The Pariah stay with us,\" he says.",
+                "\tto stop the vote and let the Pariah stay with us,\" he says.",
                 ID = 0020019,
                 AnswerID = 0020041,
             });
             InstanceList.Add(new Instance
             {
                 Text = "He looks shocked by your statement.\n" +
-                "\t\"Really? That's... quite alarming, to put it lightly. Have you told anypony else?\" he asks you.\n" +
-                "\t\"No. Well, Scanline was there when she said it. But what does it matter? I doubt anything good is gonna come if I try to tell about it,\"\n" +
-                "\tyou reason to him. He seems to think about it for a while.\n" +
-                "\t\"I guess you're right,\" he admits in defeat, clearly wanting something to accuse the Overmare of.\n",
+                "\t\"Really? That's... quite alarming, to put it lightly. Have you told anypony else?\" he asks you.\n",
+                ID = 0020019,
+                AnswerID = 0020038,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"No. Well, Scanline was there when she said it. But what does it matter? I doubt anything good is gonna come if I try to tell about it,\"\n" +
+                "\tyou reason to him. He seems to think about it for a while.\n",
+                ID = 0020019,
+                AnswerID = 0020038,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"I guess you're right,\" he admits in defeat, clearly wanting something to accuse the Overmare of.\n",
                 ID = 0020019,
                 AnswerID = 0020038,
             });
             InstanceList.Add(new Instance
             {
                 Text = "Wanting to change the subject, you pick up your apple from the table with your magic.\n" +
-                "\t\"Apples, huh? I guess Carrot Leaf wanted to treat us today,\" he says. You take a bite of the apple in your magic. It's a tad sour, but still good.\n" +
-                "\t\"Yup. I wonder if she's planned something special for lunch and dinner, too,\" you say to him.\n",
+                "\t\"Apples, huh? I guess Carrot Leaf wanted to treat us today,\" he says. You take a bite of the apple in your magic. It's a tad sour, but still good.\n",
+                ID = 0020019,
+                AnswerID = 0020038,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Yup. I wonder if she's planned something special for lunch and dinner, too,\" you say to him.\n",
                 ID = 0020019,
                 AnswerID = 0020038,
                 HasSpecialFunction = true,
@@ -3150,8 +3531,13 @@ namespace FoEChoices
             InstanceList.Add(new Instance
             {
                 Text = "He looks at you for a second, and sighs.\n" +
-                "\t\"You're right. Sorry, I'm just frustrated about the vote,\" he says apologetically.\n" +
-                "\t\"It's fine. But can we talk about something else now? I'm getting tired of the vote,\" you say to him.\n",
+                "\t\"You're right. Sorry, I'm just frustrated about the vote,\" he says apologetically.\n",
+                ID = 0020019,
+                AnswerID = 0020037,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"It's fine. But can we talk about something else now? I'm getting tired of the vote,\" you say to him.\n",
                 ID = 0020019,
                 AnswerID = 0020037,
                 HasSpecialFunction = true,
@@ -3172,8 +3558,13 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"Ah, I see,\" he says, and bites down on his bread. \"Wait, you created the new voting system, right?\" he continues after a few seconds.\n" +
-                "\t\"Well yeah, I don't really know anypony else with enough knowledge of programming to do it,\" you answer.\n",
+                Text = "\"Ah, I see,\" he says, and bites down on his bread. \"Wait, you created the new voting system, right?\" he continues after a few seconds.\n",
+                ID = 0020017,
+                AnswerID = 0020034,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Well yeah, I don't really know anypony else with enough knowledge of programming to do it,\" you answer.\n",
                 ID = 0020017,
                 AnswerID = 0020034,
                 HasSpecialFunction = true,
@@ -3184,8 +3575,13 @@ namespace FoEChoices
             {
                 Text = "Ardent smiles at you, and changes the subject.\n" +
                 "\t\"Apples, huh? I guess Carrot Leaf wanted to treat us today,\" he says and gestures to the apples on the table. You take a hold of your apple with\n" +
-                "\tyour magic and take a bite. It's a tad sour, but still good.\n" +
-                "\t\"Yup. I wonder if she's planned something special for lunch and dinner, too,\" you say to him.\n",
+                "\tyour magic and take a bite. It's a tad sour, but still good.\n",
+                ID = 0020016,
+                AnswerID = 0020032,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Yup. I wonder if she's planned something special for lunch and dinner, too,\" you say to him.\n",
                 ID = 0020016,
                 AnswerID = 0020032,
                 HasSpecialFunction = true,
@@ -3194,9 +3590,19 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"No, not really. I've been planning the rebellion pretty much non-stop for the past week,\" he says, and yawns.\n" +
-                "\t\"Trust me, I know how that feels like,\" you say to him, knowing full well how he must feel like.\n" +
-                "\t\"Listen, I didn't mean to come off as hostile when I asked you about the rebellion. I know it's a dangerous thing, and I should've just accepted\n" +
+                Text = "\"No, not really. I've been planning the rebellion pretty much non-stop for the past week,\" he says, and yawns.\n",
+                ID = 0020015,
+                AnswerID = 0020031,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Trust me, I know how that feels like,\" you say to him.\n",
+                ID = 0020015,
+                AnswerID = 0020031,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Listen, I didn't mean to come off as hostile when I asked you about the rebellion. I know it's a dangerous thing, and I should've just accepted\n" +
                 "\tyour response when you said you didn't want to join in. And I'm sorry for that,\" he apologizes to you.",
                 ID = 0020015,
                 AnswerID = 0020031,
@@ -3264,8 +3670,13 @@ namespace FoEChoices
             {
                 Text = "\"Good mornin', my lil' ponies!\" you hear as you wake up. You look around to see where the voice came from, and glance at your PipBuck.\n" +
                 "\tLooks like the radio was on for the whole night. \"Today's the day! This year's Pariah will be chosen today after lunch. Make sure y'all are\n" +
-                "\tat the cafeteria by then!\" says Dust. You turn off the radio, and yawn deeply. You look at the time, and notice that you slept about 18 hours.\n" +
-                "\t\"Huh, I guess I was a bit tired.\" you mumble to yourself. After laying on the bed for a few more minutes you get up, brush your mane and tail,\n" +
+                "\tat the cafeteria by then!\" says Dust. You turn off the radio, and yawn deeply. You look at the time, and notice that you slept about 18 hours.\n",
+                ID = 0020013,
+                AnswerID = 0020026,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Huh, I guess I was a bit tired.\" you mumble to yourself. After laying on the bed for a few more minutes you get up, brush your mane and tail,\n" +
                 "\tand head to the cafeteria to get some breakfast. You're feeling quite hungry.\n",
                 ID = 0020013,
                 AnswerID = 0020026,
@@ -3273,11 +3684,10 @@ namespace FoEChoices
             InstanceList.Add(new Instance
             {
                 Text = "As you come around the corner to the cafeteria, you see tons of decorations that have been hung up on the walls and the ceiling, in\n" +
-                "\taddition to a few banners saying \"Happy judgement day!\". You never really understood why the Stable makes this day such a big thing that they\n" +
+                "\taddition to a few banners saying 'Happy judgement day!'. You never really understood why the Stable makes this day such a big thing that they\n" +
                 "\thave to put decorations up for it. You go to the counter to get some water and bread, like you usually do. To your pleasant surprise, in addition\n" +
                 "\tto the usual selection of bread and water, there are apples! The Stable's orchard is relatively small, meaning apples are quite the rare treat.\n" +
-                "\tYou pick one up along with the bread and water, and go sit at your usual spot. It's a nice, quiet place in a corner, where nopony else usually\n" +
-                "\tgoes to sit.\n",
+                "\tYou pick one up along with the bread and water, and go sit at your usual spot.\n",
                 ID = 0020013,
                 AnswerID = 0020026,
             });
@@ -3294,20 +3704,36 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
+                Text = "\"I can show you how to access the database to see the votes,\" you suggest to her.\n",
+                ID = 0020012,
+                AnswerID = 0020022,
+            });
+            InstanceList.Add(new Instance
+            {
                 Text = "\"Please do,\" she says and motions for you to come to her terminal. You access the database and tell her that the database can only be\n" +
                 "\taccessed from the IT-department and from here. You then show her where she can see the total vote count, votes for individual ponies, as\n" +
-                "\twell as a few other tidbits she might want to know.\n" +
-                "\t\"Alright, that should cover all you need to know about the program. If something comes up, just send me an intramail,\" you say to her.\n" +
-                "\tYou then start to leave to go monitor the program for some more time.\n" +
-                "\t\"Don't forget to vote!\" the Overmare calls back from the table. You smile and give a little nod to her, and leave. Huh, Crystal was in a\n" +
+                "\twell as a few other tidbits she might want to know.\n",
+                ID = 0020012,
+                AnswerID = 0020022,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Alright, that should cover all you need to know about the program. If something comes up, just send me an intramail,\" you say to her.\n" +
+                "\tYou then turn to leave.\n",
+                ID = 0020012,
+                AnswerID = 0020022,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Don't forget to vote!\" the Overmare calls back from the table. You smile and give a little nod to her, and leave. Huh, Crystal was in a\n" +
                 "\tbetter mood than you'd first imagined. You guess the program really facilitates her job.\n",
                 ID = 0020012,
                 AnswerID = 0020022,
             });
             InstanceList.Add(new Instance
             {
-                Text = "You head back to the IT-department to monitor the voting for a little bit more. After that, you plan on taking it easy for the rest of\n" +
-                "\tthe day. Holidays are way too rare, you think to yourself.\n",
+                Text = "You head back to the IT-department to monitor the voting for a while longer. After that, you plan on taking it easy for the rest of the day\n" +
+                "\tHolidays are way too rare.\n",
                 ID = 0020012,
                 AnswerID = 0020022,
             });
@@ -3355,14 +3781,16 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "You turn on your terminal to drop off your vote and to distract yourself from the rebellion. \"Hmm, who to vote...\" you think to yourself.",
+                Text = "You turn on your terminal to drop off your vote and to distract yourself from the rebellion. \"Hmm, who to vote...\" you think to yourself.\n",
                 ID = 0020012,
                 AnswerID = 0020025,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0020026
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"I knew you would get it done in time,\" she says with a small reassuring smile.\n" +
-                "\t\"I can show you how to access the database to see the votes.\" you say to her.\n",
+                Text = "\"I knew you would get it done in time,\" she says with a small reassuring smile.\n",
                 ID = 0020012,
                 AnswerID = 0020021,
                 HasSpecialFunction = true,
@@ -3371,8 +3799,7 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"Good, good,\" she says, looking pleased.\n" +
-                "\t\"I can show you how to access the database to see the votes.\" you suggest to her.\n",
+                Text = "\"Good, good,\" she says, looking pleased.\n",
                 ID = 0020012,
                 AnswerID = 0020020,
                 HasSpecialFunction = true,
@@ -3381,8 +3808,14 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
+                Text = "\"Can I come in?\" you call out from the doorway.\n",
+                ID = 0020011,
+                AnswerID = 0020019,
+            });
+            InstanceList.Add(new Instance
+            {
                 Text = "She turns towards you.\n" +
-                "\t\"Ah, Silver. Come in,\" she says and motions for you to sit on the chair on the other side of the big, half circle table. \"I assume the\n" +
+                "\t\"Ah, Silver. Come on in,\" she says and motions for you to sit on the chair on the other side of the big, half circle table. \"I assume the\n" +
                 "\tvoting program is up and running?\" she asks you.",
                 ID = 0020011,
                 AnswerID = 0020019,
@@ -3400,8 +3833,13 @@ namespace FoEChoices
             InstanceList.Add(new Instance
             {
                 Text = "\"See? I told you it would work out fine,\" Scan says and pats you on the back. \"Anyway, I'm gonna go enjoy my day off. Seeya!\" she says\n" +
-                "\tand waves goodbye.\n" +
-                "\t\"Alright, later,\" you say and wave back. You refresh the database a few more times to make sure it's working, and decide to go tell the\n" +
+                "\tand waves goodbye.\n",
+                ID = 0020010,
+                AnswerID = 0020018,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Alright, later,\" you say and wave back. You refresh the database a few more times to make sure it's working. You then decide to go tell the\n" +
                 "\tOvermare the program is working fine and to show her how to access the database.\n",
                 ID = 0020010,
                 AnswerID = 0020018,
@@ -3420,14 +3858,16 @@ namespace FoEChoices
                 Text = "You take the stairs to the upper level of the cafeteria, where the common area is. There's a few pool tables, a bar, couches, and some other\n" +
                 "\tstuff to pass the time. You rarely visit this place. You walk past the common area, towards the Overmare's office. You mentally prepare for the\n" +
                 "\tdiscussion with the Overmare. She's usually pretty irritable during the voting. The door to the office is open, and you can see the Overmare\n" +
-                "\tsitting in her chair, looking out of the round window to the cafeteria.",
+                "\tsitting in her chair, looking out of the round window to the cafeteria.\n",
                 ID = 0020010,
                 AnswerID = 0020018,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0020019
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"Oh, alright,\" she says. You look at each other for a few seconds with straight faces. You both then burst out laughing. You ruffle your\n" +
-                "\tmane to straighten it out a bit.\n",
+                Text = "\"Of course,\" she says, trying to hold back laughter. You ruffle your mane to straighten it out a bit.\n",
                 ID = 0020010,
                 AnswerID = 0020016,
                 HasSpecialFunction = true,
@@ -3445,10 +3885,20 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"Just wanted to see how you're doing with the project,\" she answers.\n" +
-                "\t\"Well I finished it yesterday night and it seems to work just fine. I'll send the messages in a few minutes. Then we'll see if it works for\n" +
-                "\treal,\" you say to her. She looks at you for a while with a small smile.\n" +
-                "\t\"Have you been here for the whole night? Judging by those dark bags under your eyes and that mane of yours, that's the case,\" she asks you.",
+                Text = "\"Just wanted to see how you're doing with the project,\" she answers.\n",
+                ID = 0020009,
+                AnswerID = 0020015,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Well I finished it yesterday night and it seems to work just fine. I'll send the messages in a few minutes. Then we'll see if it works for\n" +
+                "\treal,\" you say to her. She looks at you for a while with a small smile.\n",
+                ID = 0020009,
+                AnswerID = 0020015,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Have you been here for the whole night? Judging by those dark bags under your eyes and that mane of yours, that's the case,\" she asks you.",
                 ID = 0020009,
                 AnswerID = 0020015,
             });
@@ -3471,7 +3921,7 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "You wake up on the floor. \"Nnnhhg, fucking headache...\" you groan. You get up and take a look at your surroundings. You're at the\n" +
+                Text = "You wake up on a couch. \"Nnnhhg, fucking headache...\" you groan. You get up and take a look at your surroundings. You're at the\n" +
                 "\tIT-department. Your heart skips a beat. \"Fuck, shit, what's the time!?\" you say to yourself and take a look at your PipBuck. 11:23.\n" +
                 "\tOkay, half an hour left until the vote. You sit down at your terminal and check what you were doing last night. Yesterday's kinda fuzzy,\n" +
                 "\tyou can't seem to recall much what you did. Looks like you finished setting up the mailing script. That means you've done it? You\n" +
@@ -3493,16 +3943,30 @@ namespace FoEChoices
             {
                 Text = "You hear the door open to the office. Scanline steps in.\n" +
                 "\t\"Hey Silver,\" she says. You're surprised to see her here today, because the two days during the voting are holidays for most of the\n" +
-                "\tStable's residents.",
+                "\tStable's residents.\n",
                 ID = 0020008,
                 AnswerID = 0020014,
             });
             InstanceList.Add(new Instance
             {
+                Text = "\"Oh, hey there. Miss being at work so much you had to come here on a holiday?\" you ask her playfully.\n",
+                ID = 0020008,
+                AnswerID = 0020014,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0020015
+            });
+            InstanceList.Add(new Instance
+            {
                 Text = "You look at Scanline. She still looks a bit nervous.\n" +
                 "\t\"Well then. A week to write a program for the most important event of the year,\" you say to her, already feeling exhausted just by thinking\n" +
-                "\tabout the project.\n" +
-                "\t\"I'm sure you'll manage. I can help you a bit, although my programming skills are not quite on par with yours,\" she says comfortingly.\n",
+                "\tabout the project.\n",
+                ID = 0020008,
+                AnswerID = 0020010,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"I'm sure you'll manage. I can help you a bit, although my programming skills are not quite on par with yours,\" she says comfortingly.\n",
                 ID = 0020008,
                 AnswerID = 0020010,
                 HasSpecialFunction = true,
@@ -3512,8 +3976,13 @@ namespace FoEChoices
             InstanceList.Add(new Instance
             {
                 Text = "You look at Scanline. She seems very disturbed by your conversation with the Overmare.\n" +
-                "\t\"I uh, knew the Overmare wasn't the nicest pony around, but that was straight up threatening,\" she says after a moment.\n" +
-                "\t\"Yeah, no kidding,\" you answer, the Overmare's threat still lingering in your mind.\n",
+                "\t\"I uh, knew the Overmare wasn't the nicest pony around, but that was just straight up threatening,\" she says after a moment.\n",
+                ID = 0020008,
+                AnswerID = 0020011,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Yeah, no kidding,\" you answer, the Overmare's threat still lingering in your mind.\n",
                 ID = 0020008,
                 AnswerID = 0020011,
                 HasSpecialFunction = true,
@@ -3596,22 +4065,33 @@ namespace FoEChoices
             InstanceList.Add(new Instance
             {
                 Text = "Before you get to the door, a unicorn with a beige coat and hazel brown mane steps into the office.\n" +
-                "\t\"Good morning,\" says the Overmare.\n" +
-                "\t\"Oh! Good morning, Crystal Sand. What brings you here?\" you say to her. It's not everyday the Overmare visits the lower level of the\n" +
+                "\t\"Good morning,\" says the Overmare.\n",
+                ID = 0020004,
+                AnswerID = 0020004,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Oh! Good morning, Crystal Sand. What brings you here?\" you say to her. It's not everyday the Overmare visits the lower level of the\n" +
                 "\tStable.\n",
                 ID = 0020004,
                 AnswerID = 0020004,
             });
             InstanceList.Add(new Instance
             {
-                Text = "She looks around the room for a bit before saying anything. \"Is this an office or a scrapyard?\" she says and looks at you quizzically.",
+                Text = "She looks around the room for a bit before saying anything.\n" +
+                "\t\"Is this an office or a scrapyard?\" she says and looks at you quizzically.",
                 ID = 0020004,
                 AnswerID = 0020004,
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"Yeah, I think I figured out what's wrong with this motherboard while I was at the shower yesterday.\" she says.\n" +
-                "\t\"Yeah, that's the best place to do debugging too.\" you answer with a chuckle. You then go sit at your terminal and log on to it.\n" +
+                Text = "\"Yeah, I think I figured out what's wrong with this motherboard while I was at the shower yesterday.\" she says.\n",
+                ID = 0020001,
+                AnswerID = 0020000,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"That's the best place to do debugging too.\" you answer with a chuckle. You then go sit at your terminal and log on to it.\n" +
                 "\tYou first go over the normal routine, checking the Stable's server status. After that you check the intramail.\n",
                 ID = 0020001,
                 AnswerID = 0020000,
@@ -3632,9 +4112,14 @@ namespace FoEChoices
             InstanceList.Add(new Instance
             {
                 Text = "There's one new message, it's from the general depot. You open the message. It says that the laundry's terminal has been locked\n" +
-                "\tbecause to Cross Stitch forgot the password to it. Seriously, it's the third time this week. You can't help but facehoof hard.\n" +
-                "\t\"Let me guess, another forgotten password?\" says Scanline with a smile.\n" +
-                "\t\"Yup,\" you answer with a sigh. You lock the terminal and start walking towards the door.\n",
+                "\tbecause to Cross Stitch forgot the password to it. Seriously, it's the second time this week. You can't help but facehoof hard.\n" +
+                "\t\"Let me guess, another forgotten password?\" says Scanline with a smile.\n",
+                ID = 0020003,
+                AnswerID = 0020001,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Yup,\" you answer with a sigh. You lock the terminal and start walking towards the door.\n",
                 ID = 0020003,
                 AnswerID = 0020001,
                 HasSpecialFunction = true,
@@ -3704,10 +4189,10 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "The door to the IT-department slides open with a hydraulic hiss. The office isn't that big. A couple of terminals are sitting on\n" +
-                "\ttables, a small fridge is on the right side of the room, and a glass door is on the left side of the room, leading to the server room.\n" +
-                "\tAn earth pony with a red coat and orange mane is sitting at a table, tinkering with a circuit board. Fitting, as her cutie mark is a\n" +
-                "\tcircuit pattern with screwdriver next to it.\n",
+                Text = "The door to the IT-department slides open with a hydraulic hiss. The office is moderately sized. There is a couple of terminals\n" +
+                "\tsitting on two tables on the right, a small couch on the left side of the room, and a glass door on the far left corner of the room,\n" +
+                "\tleading to the server room. An earth pony with a red coat and orange mane is sitting at one of the tables, tinkering with a circuit\n" +
+                "\tboard. Fitting, as her cutie mark is a circuit pattern with a screwdriver next to it.\n",
                 ID = 0020000,
                 AnswerID = 0012017,
             });
@@ -3715,7 +4200,7 @@ namespace FoEChoices
             {
                 Text = "\"Morning Silver,\" says Scanline. She's also working at the IT. Her job leans more towards the hardware side of terminals. You\n" +
                 "\tlike her, as she's a lot like you. Doesn't talk too much, and prefers to be alone. That's not to say you two don't like talking to\n" +
-                "\teach other. She's one of the few ponies you can discuss tech stuff with.",
+                "\teach other. She's one of the few ponies you can sometimes get a good conversation going on with.",
                 ID = 0020000,
                 AnswerID = 0012017,
             });
@@ -3725,13 +4210,7 @@ namespace FoEChoices
                 "\tthink to yourself. You open the door to your room and step inside. The room is designed for three ponies, like most other rooms in\n" +
                 "\tthe living quarters. There's three beds on the left side of the room. Your personal terminal is on the far right corner of the room.\n" +
                 "\tYou're usually there when you're not working. There's a shelf on the back wall, filled with different Sparkle-Cola bottles. You've\n" +
-                "\tbeen lucky so far, as nopony else has been assigned to this room other than you. You like being alone.\n",
-                ID = 0012007,
-                AnswerID = 0012012,
-            });
-            InstanceList.Add(new Instance
-            {
-                Text = "You look at the Sparkle-Cola themed clock on the wall. There's still some time before your work starts.",
+                "\tbeen lucky so far, as nopony else has been assigned to this room other than you. You like being alone.",
                 ID = 0012007,
                 AnswerID = 0012012,
             });
@@ -3784,14 +4263,55 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"Aw, don't be so mean. I just wanted to check on you, see how you're doing,\" she says. You don't quite believe that.\n" +
-                "\t\"Oh yeah? Why's that?\" you ask, not really in the mood for this.\n" +
-                "\t\"Well, the voting's soon, I thought we should have chat before that... In case one of us will be voted out,\" she says with a hint of\n" +
-                "\tmalice in her voice. Your heart skips a beat.",
+                Text = "\"Do you actually need something, or are you just trying to waste my time?\" you ask her.\n",
+                ID = 0012009,
+                AnswerID = 0012002,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Like I said, I was just trying to make up a friendly conversation. But I guess that's a wasted effort, so I'll leave you to it.\n" +
+                "\tSee ya around,\" she says, and turns to leave. You glare back at her for a moment, before continuing on your way.\n",
+                ID = 0012009,
+                AnswerID = 0012002,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0012012
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Aw, don't be so mean. I just wanted to check on you, see how you're doing,\" she says. You don't quite believe that.\n",
                 ID = 0012008,
                 AnswerID = 0012005,
             });
             InstanceList.Add(new Instance
+            {
+                Text = "\"Oh yeah? Why's that?\" you ask, not really in the mood for this.\n",
+                ID = 0012008,
+                AnswerID = 0012005,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Well, the voting's soon, I thought we should have chat before that... In case one of us gets voted out,\" she says with a hint of malice\n" +
+                "\tin her voice. What is she up to now?\n",
+                ID = 0012008,
+                AnswerID = 0012005,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"It's a good thing ponies here don't have anything against me. Not so sure about you, though,\" you quip back at her.\n",
+                ID = 0012008,
+                AnswerID = 0012005,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"I guess we'll see, won't we?\" she says, and gives you a smug grin.\n",
+                ID = 0012002,
+                AnswerID = 0012005,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0012002
+            });
+            /*InstanceList.Add(new Instance
             {
                 Text = "\"Oh I'm not threatening you. I'm just giving some... friendly advice,\" she says with a devious smile. \"Anyway... be seeing you,\"\n" +
                 "\tshe says as she starts walking away. Oh how you want to teach her some manners someday.\n",
@@ -3825,28 +4345,44 @@ namespace FoEChoices
                 "\tshe might get kicked this time, you quickly reason to yourself.",
                 ID = 0012003,
                 AnswerID = 0012003,
+            });*/
+            InstanceList.Add(new Instance
+            {
+                Text = "\"What, can't I just come and say hi?\" she asks you with an exaggerated amount of disappointment in her voice.\n",
+                ID = 0012002,
+                AnswerID = 0012001,
             });
             InstanceList.Add(new Instance
             {
-                Text = "Wait, what? Does she think she's getting voted out? You try to think what she meant by that.",
-                ID = 0012003,
-                AnswerID = 0012002,
+                Text = "\"No,\" you simply reply.\n",
+                ID = 0012002,
+                AnswerID = 0012001,
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"What, can't I just come and say hi?\" she asks you with an exaggerated amount of disappointment in her voice.\n" +
-                "\t\"No,\" you simply reply.\n" +
-                "\t\"Well I just thought you might want to chat with me before...\" she steps closer to you. \"the vote comes. I heard there's a high chance that\n" +
-                "\tyou might finally get rid of me,\" she says with a menacing grin.\n",
+                Text = "\"Well I just thought you might want to chat with me before the vote comes. How's your dad?\" she asks.\n",
+                ID = 0012002,
+                AnswerID = 0012001,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"I don't see how that's any of your business.\" you answer to her.\n",
+                ID = 0012002,
+                AnswerID = 0012001,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"I see. You know, spending time with family and friends is important. We don't quite appreciate them enough during everyday life,\"\n" +
+                "\tshe says. What is she going on about?\n",
                 ID = 0012002,
                 AnswerID = 0012001,
                 HasSpecialFunction = true,
-                SpecialFunction = new List<int>(new int[] { 8 }),
-                QuestCheck = 3
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0012002
             });
             InstanceList.Add(new Instance
             {
-                Text = "Feeling rather lazy today, you decide to just go back to your room.\n",
+                Text = "Feeling rather lazy today, you decide to just go back to your room until work starts.\n",
                 ID = 0012000,
                 AnswerID = 0012000,
             });
@@ -3860,7 +4396,8 @@ namespace FoEChoices
             InstanceList.Add(new Instance
             {
                 Text = "\"Hey Silver,\" A familiar voice comes from behind you. You turn to see the white coat and dark yellow mane of none other than Astral Mist\n" +
-                "\therself. The Stable's very own jackass bully. Just the mere sight of her smug grin makes your blood boil.\n",
+                "\therself. Oh great, what does she want now? Ever since school she's been rather rude towards you. You've never been able to figure out what her\n" +
+                "\tproblem is with you.\n",
                 ID = 0012000,
                 AnswerID = 0012000,
             });
@@ -3872,20 +4409,20 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"Oh, in a hurry? Well, it was nice seeing you,\" he says and looks a bit disappointed.\n" +
-                "\t\"Yeah, see ya,\" you say and start walking out. Why exactly did you leave so early? You don't really know.\n",
-                ID = 0011009,
-                AnswerID = 0011004,
-                HasSpecialFunction = true,
-                SpecialFunction = new List<int>(new int[] { 10 }),
-                RedirectInstance = 0011018
+                Text = "You finish the coffee with a final sip.\n" +
+                "\t\"Leaving already?\" dad asks.\n",
+                ID = 0011008,
+                AnswerID = 0011015,
             });
             InstanceList.Add(new Instance
             {
-                Text = "You finish the coffee with a last sip.\n" +
-                "\t\"Leaving already?\" dad asks.\n" +
-                "\t\"Yeah, the network won't keep itself running,\" you say jokingly, and get up.\n" +
-                "\t\"I guess it won't. Well, it was nice seeing you,\" he says.\n",
+                Text = "\"Yeah, the network won't keep itself running,\" you say jokingly, and get up from the seat.\n",
+                ID = 0011008,
+                AnswerID = 0011015,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"I guess it won't. Well, it was nice seeing you,\" he says.\n",
                 ID = 0011008,
                 AnswerID = 0011015,
             });
@@ -3893,9 +4430,19 @@ namespace FoEChoices
             {
                 Text = "You say your goodbyes, and start to walk towards the door. As you're leaving, three ponies come in. You recognise them as the other\n" +
                 "\tworkers from the armory.\n" +
-                "\t\"Hey Spade,\" one of them says to your dad.\n" +
-                "\t\"I see you have a guest here, hope she left some coffee for the rest of us,\" says another with a smirk.\n" +
-                "\t\"There's plenty of it left, don't worry,\" says dad with a calm voice. You give a little \"Hmph!\" and leave the armory.\n",
+                "\t\"Hey Spade,\" one of them says to your dad.\n",
+                ID = 0011008,
+                AnswerID = 0011015,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"I see you have a guest here, hope she left some coffee for the rest of us,\" says another with a smirk.\n",
+                ID = 0011008,
+                AnswerID = 0011015,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"There's plenty of it left, don't worry,\" says dad with a calm voice. You give a small 'Hmph!' and leave the armory.\n",
                 ID = 0011008,
                 AnswerID = 0011015,
                 HasSpecialFunction = true,
@@ -3914,8 +4461,7 @@ namespace FoEChoices
             InstanceList.Add(new Instance
             {
                 Text = "He doesn't answer right away. He seems to think about something for a while.\n" +
-                "\t\"The same most usually feel about it. Feel bad for the one you voted, and be scared about being voted yourself,\" he says after a moment.\n" +
-                "\t\"I wouldn't worry about it too much,\" you comfort him. He doesn't say anything.",
+                "\t\"The same most usually feel about it. Feel bad for the one you voted, and be scared about being voted yourself,\" he says after a moment.\n",
                 ID = 0011003,
                 AnswerID = 0011016,
                 HasSpecialFunction = true,
@@ -3924,11 +4470,14 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
+                Text = "\"I wouldn't worry about it too much,\" you comfort him. He doesn't say anything in response.",
+                ID = 0011003,
+                AnswerID = 0011016,
+            });
+            InstanceList.Add(new Instance
+            {
                 Text = "\"A couple guys went to the general depot, there was something that they needed help with. The rest are probably still sleeping, they\n" +
-                "\ttend to come late to work since there's so little to do,\" he says.\n" +
-                "\t\"Well that's not very fair,\" you answer. If Scanline did that, you'd give her a few carefully chosen words.\n" +
-                "\t\"Oh, it doesn't really matter to me, especially on slow days like this. If they feel like they have better things to do than to be here,\n" +
-                "\tI won't stop them,\" he says. To each their own, you guess.",
+                "\ttend to come late to work since there's so little to do,\" he says.\n",
                 ID = 0011003,
                 AnswerID = 0011017,
                 HasSpecialFunction = true,
@@ -3937,22 +4486,45 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"I'm sorry, but I'm not allowed to give away firearms to anypony but the security,\" he says.\n" +
-                "\t\"Oh, right. Well, I think you should keep it on display here, or give it to somepony you trust from the security,\" you suggest.\n",
+                Text = "\"Well that's not very fair,\" you answer. If Scanline did that, you'd give her a few carefully chosen words.\n",
+                ID = 0011003,
+                AnswerID = 0011017,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Oh, it doesn't really matter to me, especially on slow days like this. If they feel like they have better things to do than to be here,\n" +
+                "\tI won't stop them,\" he says. To each their own, you guess.",
+                ID = 0011003,
+                AnswerID = 0011017,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"I'm sorry, but I'm not allowed to give away firearms to anypony but the security,\" he says.\n",
+                ID = 0011007,
+                AnswerID = 0011013,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Oh, right. Well, I think you should keep it on display here, or give it to somepony you trust from the security,\" you suggest.\n",
                 ID = 0011007,
                 AnswerID = 0011013,
             });
             InstanceList.Add(new Instance
             {
                 Text = "\"Yeah, I'll think about that. But hey, the coffee looks like it's ready,\" he says. He gets up, and gives you a cup from the cabinet. You\n" +
-                "\tpour some coffee for the both of you. You sit down, take a sip of the coffee, and relax. So good, you think to yourself.",
+                "\tpour some coffee for the both of you. You sit down, take a sip of the coffee, and relax. It's been some time since you had actually good coffee.",
                 ID = 0011003,
                 AnswerID = 0011013,
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"I would, but I'm not allowed to take firearms from the armory,\" he says.\n" +
-                "\t\"Oh. Well in that case I would just put it on display in one of the racks here. Or give it to somepony you trust from the security,\" you\n" +
+                Text = "\"I would, but I'm not allowed to take firearms from the armory,\" he says.\n",
+                ID = 0011007,
+                AnswerID = 0011012,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Oh. Well in that case I would just put it on display in one of the racks here. Or give it to somepony you trust from the security,\" you\n" +
                 "\tsuggest to him.\n",
                 ID = 0011007,
                 AnswerID = 0011012,
@@ -3977,6 +4549,12 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
+                Text = "\"It doesn't look like any of the other pistols around here,\" you observe.\n",
+                ID = 0011006,
+                AnswerID = 0011010,
+            });
+            InstanceList.Add(new Instance
+            {
                 Text = "He sighs. \"Silver... this pistol was used by your mother,\" he says. You stare at the pistol for a while. Dad barely ever talks about\n" +
                 "\tyour mom. You only know that she worked as a security pony, and that she died of some disease when you were only a couple years old. It never\n" +
                 "\treally bothered you, probably because you don't even remember how she looked like.\n",
@@ -3985,8 +4563,13 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"Oh,\" you say after some time. You don't really know how to feel about it.\n" +
-                "\t\"We never figured out the history of the weapon. To my knowledge, all of the Stable's weapons came here straight from the factory, so I have\n" +
+                Text = "\"Oh,\" you say after some time. You don't really know how to feel about it.\n",
+                ID = 0011006,
+                AnswerID = 0011010,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"We never figured out the history of the weapon. To my knowledge, all of the Stable's weapons came here straight from the factory, so I have\n" +
                 "\tno idea where this pistol came from. It doesn't even have a serial number, so it isn't a mass produced weapon,\" dad explains. You try to think\n" +
                 "\tabout a reason how it would have gotten here, but can't come up with any.\n",
                 ID = 0011006,
@@ -4017,9 +4600,12 @@ namespace FoEChoices
             InstanceList.Add(new Instance
             {
                 Text = "\"Damn, I shouldn't leave weapons just lying around. I found it while I was moving some stuff around, I was thinking what I should do with\n" +
-                "\tit. Looks like I got distracted and left it there, eheh,\" he says while rubbing the back of his head in embarrassment.",
+                "\tit. Looks like I got distracted and left it there, eheh,\" he says while rubbing the back of his head in embarrassment.\n",
                 ID = 0011005,
                 AnswerID = 0011007,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0011010
             });
             InstanceList.Add(new Instance
             {
@@ -4034,7 +4620,7 @@ namespace FoEChoices
             {
                 Text = "You decide to take the pistol and give it back to dad. You continue to look for the shelf to put the boxes in. You find it, and lift the\n" +
                 "\tboxes to the top of the shelf where there is space. You really should've trained your magic more when you were a filly, because lifting heavy\n" +
-                "\tthings really takes a toll on your magic, you think to yourself. You then start walking towards the break room, eager to get some actual coffee.\n",
+                "\tthings really takes a toll on your magic. You then start walking towards the break room, eager to get some actual coffee.\n",
                 ID = 0011005,
                 AnswerID = 0011005,
                 HasSpecialFunction = true,
@@ -4082,8 +4668,13 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"Oh, of course,\" you say.\n" +
-                "\t\"Awesome, come to the break room afterwards, I'll go put the coffee brewing,\" he says and leaves.\n",
+                Text = "\"Oh, of course,\" you say.\n",
+                ID = 0011002,
+                AnswerID = 0011003,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Awesome, come to the break room afterwards, I'll go put the coffee brewing,\" he says, and starts walking towards the break room.\n",
                 ID = 0011002,
                 AnswerID = 0011003,
             });
@@ -4098,30 +4689,58 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"It's not so bad. And to be honest, I'd be bored if I had to be sitting in front of a terminal all day,\" he says jokingly.\n" +
-                "\t\"Hey, there's a lot more to my job than sitting!\" you say defensively. Why do others think your job is so simple? There's a lot of\n" +
-                "\tresponsibility in keeping the network and terminals running, you think to yourself.\n",
+                Text = "\"It's not so bad. And to be honest, I'd be bored if I had to be sitting in front of a terminal all day,\" he says jokingly.\n",
                 ID = 0011001,
                 AnswerID = 0011002,
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"Yes, yes, I know. Just teasing,\" he says with a smile. \"Anyway, would you like some coffee before you leave?\" he asks.",
+                Text = "\"Hey, there's a lot more to my job than just sitting around!\" you say defensively. Why do others think your job is so simple? There's\n" +
+                "\ta lot of responsibility in keeping the network and terminals running, you think to yourself.\n",
                 ID = 0011001,
                 AnswerID = 0011002,
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"A bit maybe. But I do prefer this to most other jobs here. It's relaxing, and there's no hurry,\" he explains.\n" +
-                "\t\"Fair enough,\" you answer. Some ponies just like simpler jobs, it seems.\n",
+                Text = "\"Yeah, yeah, I know. Just teasing,\" he says with a smile. \"Anyway, would you like some coffee before you leave?\" he asks.\n",
+                ID = 0011001,
+                AnswerID = 0011002,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Yes please, the coffee they serve at the cafeteria tastes like the coffee grounds have been used a bit too many times,\" you answer.\n",
+                ID = 0011001,
+                AnswerID = 0011002,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0011003
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"A bit maybe. But I do prefer this to most other jobs here. It's relaxing, and there's no hurry,\" he explains.\n",
                 ID = 0011001,
                 AnswerID = 0011001,
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"Say, would you like some coffee before you go?\" he asks.",
+                Text = "\"Fair enough,\" you answer. Some ponies just like simpler jobs, it seems.\n",
                 ID = 0011001,
                 AnswerID = 0011001,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Say, would you like some coffee before you go?\" he asks.\n",
+                ID = 0011001,
+                AnswerID = 0011001,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Yes please, the coffee they serve at the cafeteria tastes like the coffee grounds have been used a bit too many times,\" you answer.\n",
+                ID = 0011001,
+                AnswerID = 0011001,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0011003
             });
             InstanceList.Add(new Instance
             {
@@ -4142,12 +4761,15 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "Your dad comes from around the corner carrying a few boxes.\n" +
-                "\t\"Silver!\" he says with a smile as he notices you.\n" +
-                "\t\"Hey dad,\" you answer, and give him a hug.\n" +
-                "\t\"What brings you here?\"\t" +
-                "\t\"Just thought I'd come and see how you're doing before I go to work,\" you answer. You don't usually see each other that often,\n" +
-                "\tso it's easy to forget to catch up on things every once in a while.\n",
+                Text = "A unicorn with a dark gray coat and light blue mane comes from around the corner, carrying a few boxes in his magic.\n" +
+                "\t\"Silver! What brings you here?\" dad says with a smile as he notices you.\n",
+                ID = 0011000,
+                AnswerID = 0011000,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Hey dad. Just thought I'd come and see how you're doing before I go to work,\" you answer. You don't usually see each other that\n" +
+                "\toften, so it's easy to forget to catch up on things every once in a while.\n",
                 ID = 0011000,
                 AnswerID = 0011000,
             });
@@ -4175,8 +4797,8 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"No problem,\" you say, wave her goodbye, and leave the laundry. You then head to the IT-department. You take the elevator\n" +
-                "\tto the lower level, where the IT-department, maintenance and PipBuck service station are located.\n",
+                Text = "\"No problem,\" you say, make your way out the laundry station. You then start heading to the IT-department. You take the elevator\n" +
+                "\tto the third level, where the IT-department, maintenance and PipBuck service station are located.\n",
                 ID = 0010007,
                 AnswerID = 0010007,
                 HasSpecialFunction = true,
@@ -4192,29 +4814,45 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"No problem,\" you say, and leave the laundry. You then head to the IT-department.",
+                Text = "No problem,\" you say, make your way out the laundry station. You then start heading to the IT-department. You take the elevator\n" +
+                "\tto the third level, where the IT-department, maintenance and PipBuck service station are located.\n",
                 ID = 0010006,
                 AnswerID = 0010006,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0012017
             });
             InstanceList.Add(new Instance
             {
                 Text = "\"B-but I need to-\" she starts saying, but you're already on your way out. You have better things to do than be resetting\n" +
-                "\tpasswords all the time, you think to yourself.",
+                "\tpasswords all the time, you think to yourself.\n",
                 ID = 0010005,
                 AnswerID = 0010005,
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"Awesome, thanks!\" she says. You go to the terminal, power it up to the boot options, select the Stable's network, and login\n" +
-                "\tas admin. You then go to the Stable's terminal list, select the laundry's terminal, and select Stitch's user.\n",
+                Text = "Looking at the time again, you still have some time before you need to be at work. You decide to start heading there early anyway,\n" +
+                "\tfiguring you can also leave work early today. You then start heading to the IT-department. You take the elevator to the third level,\n" +
+                "\twhere the IT-department, maintenance and PipBuck service station are located.\n",
+                ID = 0010005,
+                AnswerID = 0010005,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0012017
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Awesome, thanks!\" she says. You two then go to the backroom, and from there into a small office. You sit down at the terminal,\n" +
+                "\tpower it up to the boot options, select the Stable's network, and login as admin. You then go to the Stable's terminal list, select the\n" +
+                "\tlaundry's terminal, and select Stitch's user.\n",
                 ID = 0010004,
                 AnswerID = 0010004,
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"Alright, enter your new password.\" Stitch starts typing. Really. Slowly. Sweet Celestia it's infuriating. You know that the\n" +
-                "\tonly reason you can type so fast is because you spend most of your day on a terminal. Well, being a unicorn helps too. Still, you\n" +
-                "\tcan't help but find it annoying.\n",
+                Text = "\"Alright, enter your new password.\" you say to her. Stitch starts typing. Really. Slowly. Sweet Celestia it's infuriating.\n" +
+                "\tYou know that the only reason you can type so fast is because you spend most of your day on a terminal. Well, being a unicorn helps\n" +
+                "\ttoo. Still, you can't help but find it annoying.\n",
                 ID = 0010004,
                 AnswerID = 0010004,
             });
@@ -4273,18 +4911,44 @@ namespace FoEChoices
             });
             InstanceList.Add(new Instance
             {
-                Text = "You decide to go do your laundry. You go to your room to pick up your dirty clothes. \"Would be nice to get some different color\n" +
-                "\tclothes once in a while...\" you think to yourself as you eye the blue and yellow shirts. You head to the laundry room. The bland smell\n" +
-                "\tof laundry detergent hits your nose as you open the door and step inside.\n",
+                Text = "Deciding that you probably should do the laundry while it's still fresh on your mind, you get up from the seat and start walking towards your\n" +
+                "\troom to pick up the dirty clothes. More than once you've forgotten to take them to the laundry station, leaving you with no clean clothes for a day.\n",
                 ID = 0010000,
                 AnswerID = 0010000,
             });
             InstanceList.Add(new Instance
             {
-                Text = "\"Hey there Silver!\" an overly enthusiastic voice comes from the yellow earth pony over the counter. Cross Stitch waves her\n" +
-                "\thoof to you. She's nice, but a bit too outgoing for your taste.",
+                Text = "Once you get to your room, you pick up the pile of clothes from next to your bed with your magic, and stuff them into a large canvas bag.\n" +
+                "\t\"Would be nice to get some variation to the clothing selection,\" you mumble to yourself as you eye the clothes in the bag. You then leave\n" +
+                "\tthe room, and start walking towards the laundry station.\n",
                 ID = 0010000,
                 AnswerID = 0010000,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "Getting to your destination, you open the door. The bland smell of laundry detergent hits your nose. You step inside the small room.\n" +
+                "\tThe lobby of the laundry station is simple, the only notable things in the room being the counter, and a few chairs on the right side of the\n" +
+                "\troom. Behind the counter is a small corridor which leads to the backroom, where you can see two long lines of washing machines stacked on top\n" +
+                "\tof each other.\n",
+                ID = 0010000,
+                AnswerID = 0010000,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "A yellow earth pony with a bright orange mane walks to the counter from the backroom.\n" +
+                "\t\"Hey there Silver!\" an overly enthusiastic voice comes from Cross Stitch, as she waves her hoof to you. She's nice, but a bit too outgoing\n" +
+                "\tfor your taste.\n",
+                ID = 0010000,
+                AnswerID = 0010000,
+            });
+            InstanceList.Add(new Instance
+            {
+                Text = "\"Hey. I've got some laudry for you here,\" you say, and drop the bag of clothes on top of the counter.\n",
+                ID = 0010000,
+                AnswerID = 0010000,
+                HasSpecialFunction = true,
+                SpecialFunction = new List<int>(new int[] { 10 }),
+                RedirectInstance = 0010001
             });
 
         }
